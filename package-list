@@ -1,0 +1,13 @@
+com.docusign.androidsdk
+com.docusign.androidsdk.db.migration
+com.docusign.androidsdk.db.models
+com.docusign.androidsdk.delegates
+com.docusign.androidsdk.disposables
+com.docusign.androidsdk.dsmodels
+com.docusign.androidsdk.exceptions
+com.docusign.androidsdk.listeners
+com.docusign.androidsdk.livedata
+com.docusign.androidsdk.models
+com.docusign.androidsdk.test
+com.docusign.androidsdk.ui
+com.docusign.androidsdk.util
