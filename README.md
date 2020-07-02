@@ -1,4 +1,10 @@
 # DocuSign Android SDK Integration
+DocuSign Android SDK provides the following features:
+* Templates 
+* Envelope creation
+* Offline Signing of documents
+* Syncing signed documents with DocuSign
+
 ## Credentials Needed
 Before getting started, an Integrator Key and valid Service User credentials are needed. The SDK cannot be used without these.
 ### Integrator Key
