@@ -6,9 +6,9 @@ DocuSign Android SDK provides the following features:
 * Syncing signed documents with DocuSign
 
 ## Credentials Needed
-Before getting started, an Integrator Key and valid Service User credentials are needed. The SDK cannot be used without these.
-### Integrator Key
-To use any DocuSign SDK or the REST API, an Integrator Key is needed. Visit https://developers.docusign.com/ to obtain an Integrator Key if one does not already exist. Note that an Integrator Key is first provisioned on the DEMO environment, and then must be promoted to PROD when ready. 
+Before getting started, an Integration Key and valid Service User credentials are needed. The SDK cannot be used without these.
+### Integration Key
+To use any DocuSign SDK or the REST API, an Integration Key is needed. Visit https://developers.docusign.com/ to obtain an Integration Key if one does not already exist. Note that an Integration Key is first provisioned on the DEMO environment, and then must be promoted to PROD when ready. 
 ### Email & Password
 To use the DocuSign Android SDK, credentials are necessary. That user's credentials are what should be used in the Authentication section below.
 
@@ -138,7 +138,7 @@ In your application's Application class:
 ```java
 DocuSign.init(
     this, // the Application Context
-    "[YOUR INTEGRATOR KEY HERE]", // recommend not hard-coding this
+    "[YOUR INTEGRATION KEY HERE]", // recommend not hard-coding this
     DSMode.DEBUG // this controls the logging (logcat) behavior
 );
 ```
@@ -148,7 +148,7 @@ In your application's Application class:
 ```java
 DocuSign.init(
      this, // the Application Context
-     "[YOUR INTEGRATOR KEY HERE]", // Same as Client Id
+     "[YOUR INTEGRATION KEY HERE]", // Same as Client Id
      "[YOUR CLIENT SECRET KEY]",
      "[YOUR REDIRECT_URI]",
      DSMode.Debug  
