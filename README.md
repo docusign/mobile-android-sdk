@@ -600,3 +600,13 @@ try {
 }
 ```
 
+Support
+===========
+
+* Reach out via developer community on Stack Overflow, search the [DocuSignAPI](http://stackoverflow.com/questions/tagged/docusignapi) tag.
+* Open an [issue](https://github.com/docusign/mobile-android-sdk/issues).
+
+License
+=======
+
+The DocuSign Mobile Android SDK is licensed under the following [License](LICENSE).
