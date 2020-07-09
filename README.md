@@ -609,4 +609,4 @@ Support
 License
 =======
 
-The DocuSign Mobile Android SDK is licensed under the following [License](LICENSE).
+The DocuSign Mobile Android SDK is licensed under the following [License](LICENSE.md).
