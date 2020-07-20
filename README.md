@@ -31,7 +31,6 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
       }
     }
     ```
-
 2. In your application's app-level build.gradle file:
     ```gradle
     android {
@@ -41,21 +40,54 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     }
     
     dependencies {
-        implementation 'com.docusign:androidsdk:1.0.0'
+        implementation 'com.docusign:androidsdk:1.0.2'
     }
     
-    configurations {
-        all*.exclude group: 'com.squareup.retrofit2', module: 'retrofit'
-        all*.exclude group: 'com.squareup.retrofit2', module: 'converter-gson'
-        all*.exclude group: 'com.docusign', module: 'androidsdk-swagger'
+    ```
+3. If using BinTray (as mentioned in the above steps) is not an option for downloading DocuSign Android SDK, then you can download SDK manually as separate library. The SDK is available at [https://github.com/docusign/mobile-android-sdk/release](https://github.com/docusign/mobile-android-sdk/release).  
+
+    In the app's build.gradle, add the following dependencies:
+    ```gradle
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.*'])
+    
+        implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
+        implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    
+        implementation 'android.arch.lifecycle:viewmodel:1.1.1'
+        implementation 'android.arch.lifecycle:extensions:1.1.1'
+    
+        implementation 'androidx.room:room-runtime:2.2.5'
+        implementation 'androidx.room:room-rxjava2:2.2.5'
+    
+        implementation 'androidx.work:work-runtime:2.3.4'
+        implementation 'androidx.work:work-rxjava2:2.3.4'
+    
+        implementation 'androidx.appcompat:appcompat:1.1.0'
+        implementation 'androidx.recyclerview:recyclerview:1.1.0'
+        implementation 'androidx.preference:preference-ktx:1.1.1'
+        implementation 'com.android.support:design:28.0.0'
+        implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+        implementation 'jp.wasabeef:richeditor-android:1.2.2'
+        implementation 'androidx.multidex:multidex:2.0.1'
+        implementation 'io.gsonfire:gson-fire:1.8.0'
+        implementation 'io.swagger:swagger-annotations:1.5.18'
+        implementation 'commons-codec:commons-codec:1.10'
+        implementation 'com.squareup.okhttp3:okhttp:3.8.0'
+        implementation 'com.squareup.okio:okio:2.2.2'
+        implementation 'com.google.code.gson:gson:2.8.5'
+        implementation 'org.slf4j:slf4j-api:1.7.22'
+        implementation 'org.threeten:threetenbp:1.3.5'
+    
+        implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+        implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+        implementation 'com.squareup.retrofit2:converter-scalars:2.4.0'
+        implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     }
     ```
-
-3. Make Application class extend MultiDexApplication (if it doesn't already)
-
-4. Sync Gradle and/or build your application
-
-5. Proguard might be required when you create release builds with Proguard enabled
+4. Make Application class extend MultiDexApplication (if it doesn't already)
+5. Sync Gradle and/or build your application
+6. Proguard might be required when you create release builds with Proguard enabled
     ```
     -keepattributes Signature, InnerClasses, EnclosingMethod
  
