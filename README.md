@@ -44,7 +44,7 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     }
     
     ```
-3. If using BinTray (as mentioned in the above steps) is not an option for downloading DocuSign Android SDK, then you can download SDK manually as separate library. The SDK is available at [https://github.com/docusign/mobile-android-sdk/release](https://github.com/docusign/mobile-android-sdk/release).  
+3. If using BinTray (as mentioned in the above steps) is not an option for downloading DocuSign Android SDK, then you can download SDK manually as separate library. The SDK is available at [release](https://github.com/docusign/mobile-android-sdk/tree/master/release).  
 
     In the app's build.gradle, add the following dependencies:
     ```gradle
