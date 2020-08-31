@@ -1,5 +1,14 @@
 # DocuSign Android SDK Changelog
 
+## [v1.0.3] - DocuSign Android SDK 08-30-2020
+
+### Fixed
+* Syncing envelope crash with different Locale
+* Editing read only tabs issue
+* Consumer Disclosure issue for JWT Token login
+* Crash when using online signing
+ 
+
 ## [v1.0.2] - DocuSign Android SDK 07-20-2020
 
 ### Fixed
