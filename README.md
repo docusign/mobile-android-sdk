@@ -40,7 +40,7 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     }
     
     dependencies {
-        implementation 'com.docusign:androidsdk:1.0.2'
+        implementation 'com.docusign:androidsdk:1.0.3'
     }
     
     ```
