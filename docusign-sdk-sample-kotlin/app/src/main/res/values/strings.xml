@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">TGK Capital Financial</string>
+    <string name="tab_overview">Overview</string>
+    <string name="tab_clients">Clients</string>
+    <string name="tab_templates">Templates</string>
+    <string name="tgkfinancial">TGK Capital Financial</string>
+    <string name="forgot_password"><u>Forgot password?</u></string>
+    <string name="sign_up"><u>Don\'t have an account? Signup</u></string>
+    <string name="terms">By continuing, you agree to the Terms of Use and Privacy Policy</string>
+    <string name="sign_in">Sign In</string>
+    <string name="logout">Log out</string>
+    <string name="create_new_improvement">Create New Agreement</string>
+    <string name="tgk_portfolios">TGK Portfolios</string>
+    <string name="upcoming_appointments">Upcoming Appointments</string>
+    <string name="signed">Signed</string>
+    <string name="unsigned">Unsigned</string>
+</resources>
