@@ -1,5 +1,24 @@
 # DocuSign Android SDK Changelog
 
+## [v1.1.0] - DocuSign Android SDK 10-09-2020
+
+### Added
+* Added Online Signing feature
+* Added useTemplateOnline() api in TemplateDelegate to use template and EnvelopeDefaults for Online Signing
+* Added useTemplateOffline() api in TemplateDelegate to use template and EnvelopeDefaults for Offline Signing 
+* Added signOnline() api in SigningDelegate to sign document Online
+* Added signOffline() api in SigningDelegate to sign document Offline
+* Added API to download the completed envelope
+
+### Removed
+* Removed useTemplate() api in TemplateDelegate
+* Removed sign() api in SigningDelegate
+
+### Fixed
+* Bug fixes and improvements
+* Removed RAM requirements
+
+
 ## [v1.0.4] - DocuSign Android SDK 09-17-2020
 
 ### Added
