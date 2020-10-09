@@ -10,4 +10,5 @@ com.docusign.androidsdk.livedata
 com.docusign.androidsdk.models
 com.docusign.androidsdk.test
 com.docusign.androidsdk.ui
+com.docusign.androidsdk.ui.listeners
 com.docusign.androidsdk.util

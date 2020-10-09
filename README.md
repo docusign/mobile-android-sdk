@@ -1,8 +1,14 @@
 # DocuSign Android SDK Integration
+DocuSign Android SDK provides the following features:
+* Templates 
+* Envelope creation
+* Offline Signing and Online Signing of documents
+* Syncing signed documents with DocuSign
+
 ## Credentials Needed
-Before getting started, an Integrator Key and valid Service User credentials are needed. The SDK cannot be used without these.
-### Integrator Key
-To use any DocuSign SDK or the REST API, an Integrator Key is needed. Visit https://developers.docusign.com/ to obtain an Integrator Key if one does not already exist. Note that an Integrator Key is first provisioned on the DEMO environment, and then must be promoted to PROD when ready. 
+Before getting started, an Integration Key and valid Service User credentials are needed. The SDK cannot be used without these.
+### Integration Key
+To use any DocuSign SDK or the REST API, an Integration Key is needed. Visit https://developers.docusign.com/ to obtain an Integration Key if one does not already exist. Note that an Integration Key is first provisioned on the DEMO environment, and then must be promoted to PROD when ready. 
 ### Email & Password
 To use the DocuSign Android SDK, credentials are necessary. That user's credentials are what should be used in the Authentication section below.
 
@@ -25,7 +31,6 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
       }
     }
     ```
-
 2. In your application's app-level build.gradle file:
     ```gradle
     android {
@@ -35,21 +40,56 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     }
     
     dependencies {
-        implementation 'com.docusign:androidsdk:1.0.0'
+        implementation 'com.docusign:androidsdk:1.1.0'
     }
     
-    configurations {
-        all*.exclude group: 'com.squareup.retrofit2', module: 'retrofit'
-        all*.exclude group: 'com.squareup.retrofit2', module: 'converter-gson'
-        all*.exclude group: 'com.docusign', module: 'androidsdk-swagger'
+    ```
+3. If using BinTray (as mentioned in the above steps) is not an option for downloading DocuSign Android SDK, then you can download SDK manually as separate library. The SDK is available at [release](https://github.com/docusign/mobile-android-sdk/tree/master/release).  
+
+    In the app's build.gradle, add the following dependencies:
+    ```gradle
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.*'])
+    
+        implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
+        implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    
+        implementation 'android.arch.lifecycle:viewmodel:1.1.1'
+        implementation 'android.arch.lifecycle:extensions:1.1.1'
+    
+        implementation 'androidx.room:room-runtime:2.2.5'
+        implementation 'androidx.room:room-rxjava2:2.2.5'
+    
+        implementation 'androidx.work:work-runtime:2.3.4'
+        implementation 'androidx.work:work-rxjava2:2.3.4'
+    
+        implementation 'androidx.appcompat:appcompat:1.1.0'
+        implementation 'androidx.recyclerview:recyclerview:1.1.0'
+        implementation 'androidx.preference:preference-ktx:1.1.1'
+        implementation 'com.android.support:design:28.0.0'
+        implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+        implementation 'jp.wasabeef:richeditor-android:1.2.2'
+        implementation 'com.edmodo:cropper:2.0.0'
+        implementation 'androidx.multidex:multidex:2.0.1'
+        implementation 'org.apache.commons:commons-lang3:3.4'
+        implementation 'io.gsonfire:gson-fire:1.8.0'
+        implementation 'io.swagger:swagger-annotations:1.5.18'
+        implementation 'commons-codec:commons-codec:1.10'
+        implementation 'com.squareup.okhttp3:okhttp:3.8.0'
+        implementation 'com.squareup.okio:okio:2.2.2'
+        implementation 'com.google.code.gson:gson:2.8.5'
+        implementation 'org.slf4j:slf4j-api:1.7.22'
+        implementation 'org.threeten:threetenbp:1.3.5'
+    
+        implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+        implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+        implementation 'com.squareup.retrofit2:converter-scalars:2.4.0'
+        implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     }
     ```
-
-3. Make Application class extend MultiDexApplication (if it doesn't already)
-
-4. Sync Gradle and/or build your application
-
-5. Proguard might be required when you create release builds with Proguard enabled
+4. Make Application class extend MultiDexApplication (if it doesn't already)
+5. Sync Gradle and/or build your application
+6. Proguard might be required when you create release builds with Proguard enabled
     ```
     -keepattributes Signature, InnerClasses, EnclosingMethod
  
@@ -132,7 +172,7 @@ In your application's Application class:
 ```java
 DocuSign.init(
     this, // the Application Context
-    "[YOUR INTEGRATOR KEY HERE]", // recommend not hard-coding this
+    "[YOUR INTEGRATION KEY HERE]", // recommend not hard-coding this
     DSMode.DEBUG // this controls the logging (logcat) behavior
 );
 ```
@@ -142,7 +182,7 @@ In your application's Application class:
 ```java
 DocuSign.init(
      this, // the Application Context
-     "[YOUR INTEGRATOR KEY HERE]", // Same as Client Id
+     "[YOUR INTEGRATION KEY HERE]", // Same as Client Id
      "[YOUR CLIENT SECRET KEY]",
      "[YOUR REDIRECT_URI]",
      DSMode.Debug  
@@ -344,27 +384,73 @@ templateDelegate.removeCachedTemplate(template, new DSRemoveTemplateListener(){
 ```
 
 ### UseTemplate
+#### UseTemplate Offline
 Use the template and completes offline signing.
 ```java
 DSTemplateDelegate templateDelegate = DocuSign.getInstance().getTemplateDelegate();
-// DSEnvelopeDefaults envelopeDefaults - This can be used to pre-fill the template values such as recipients, emails, tabs etc.
-// Refer to javadoc for more info about DSEnvelopeDefaults.
-templateDelegate.useTemplate(context, templateId, envelopeDefaults, true, new DSUseTemplateListener(){
-    @Override
-    public void onComplete(String envelopeId) {
-        // TODO: Handle when the template has been successfully signed.
-    }
-     
-    @Override
-    public void onCancel(String templateId, String envelopeId) {
-        // TODO: Handle when the signing ceremony is cancelled
-    }
-     
-    @Override
-    public void onError(DSTemplateException exception) {
-        // TODO: Handle error when there is an exception while using the template or during signing
-    }
-});
+templateDelegate.useTemplateOffline(
+                context,
+                templateId,
+                envelopeDefaults, // This can be used to pre-fill the template values such as recipients, emails, tabs etc. Refer to javadoc for more info about DSEnvelopeDefaults.
+                pdfFileUri, // PDF file to append to the beginning or end of resulting envelope
+                insertPdfAtPosition,  // Whether to insert the PDF at the beginning or end
+                new DSOfflineUseTemplateListener() {
+                    @Override
+                    public void onComplete(@NotNull String envelopeId) {
+                        // TODO: Handle when the template has been successfully signed.
+                    }
+                     
+                    @Override
+                    public void onError(@NotNull DSTemplateException exception) {
+                        // TODO: Handle error when there is an exception while using the template or during signing
+                    }
+ 
+                    @Override
+                    public void onCancel(@NotNull String templateId, String envelopeId) {
+                        // TODO: Handle when the signing ceremony is cancelled
+                    }
+                });
+```
+
+#### UseTemplate Online
+Use the template and completes online signing.
+```java
+DSTemplateDelegate templateDelegate = DocuSign.getInstance().getTemplateDelegate();
+templateDelegate.useTemplateOnline(
+        context,
+        templateId,
+        envelopeDefaults, // This can be used to pre-fill the template values such as recipients, emails, tabs etc. Refer to javadoc for more info about DSEnvelopeDefaults.
+        new DSOnlineUseTemplateListener() {
+            @Override
+            public void onComplete(@NotNull String envelopeId, boolean onlySent) {
+                // TODO: Handle when the online signing ceremony for all signers has been successful
+            }
+
+            @Override
+            public void onStart(String envelopeId) {
+                // TODO: Handle when the online signing is started
+            }
+
+            @Override
+            public void onRecipientSigningSuccess(String envelopeId, String recipientId) {
+                // TODO: Handle when the online signing success for a signer is successful
+            }
+
+            @Override
+            public void onRecipientSigningError(String envelopeId, String recipientId, DSTemplateException exception) {
+                // TODO: Handle when the error occurred during online signing for a signer
+            }
+                
+            @Override
+            public void onCancel(String envelopeId, String recipientId) {
+                // TODO: Handle when the online signing ceremony is cancelled
+            }
+
+            @Override
+            public void onError(String envelopeId, DSTemplateException exception) {
+                // TODO: Handle when the error occurred during online signing ceremony
+            }
+        });
 ```
 
 ### UpdateTemplate
@@ -502,30 +588,74 @@ try {
 ```
 
 ## Signing an Envelope
-The following example assumes you know the envelopeId you want to sign.
+### Signing offline
+Signing an envelope offline
+
 ```java
-try {
-  DSSigningDelegate signingDelegate = DocuSign.getInstance().getSigningDelegate();
-  signingDelegate.sign(context, envelopeId, true, new DSSigningListener() {
-    @Override
-    public void onSuccess(@NonNull String envelopeId) {
-       // TODO: handle successful envelope signing
-    }
+DSSigningDelegate signingDelegate = DocuSign.getInstance().getSigningDelegate();
+signingDelegate.signOffline(
+                context,
+                envelopeId,  // envelopeId of the envelope which is created locally
+                new DSOfflineSigningListener() {
+                    @Override
+                    public void onSuccess(@NotNull String envelopeId) {
+                        // TODO: Handle when envelope is successfully signed offline
+                    }
+                     
+                    @Override
+                    public void onError(@NotNull DSSigningException exception) {
+                        // TODO: Handle when error occurred during offline signing ceremony.
+                    }
  
-    @Override
-    public void onCancel(@NonNull String envelopeId) {
-        // TODO: handle when envelope signing is cancelled.
-    }
- 
-    @Override
-    public void onError(@NonNull DSSigningException exception) {
-        // TODO: handle error occured during signing ceremony. exception.getMessage() will indicate what went wrong
-    }
-});
-} catch (DocuSignNotInitializedException exception) {
-    // TODO: handle error. This means the SDK object was not properly initialized
-}
+                    @Override
+                    public void onCancel(@NotNull String envelopeId) {
+                        // TODO: Handle when offline signing ceremony is cancelled
+                    }
+                });
 ```
+
+### Signing online
+Signing an envelope online
+
+```java
+DSSigningDelegate signingDelegate = DocuSign.getInstance().getSigningDelegate();
+signingDelegate.signOnline(
+                context,
+                serverEnvelopeId,      // Envelope Id of the envelope created in DocuSign portal
+                new DSOnlineSigningListener() {
+                    @Override
+                    public void onStart(@NotNull String envelopeId) {
+                        // TODO: Handle when Online Signing started
+                    }
+ 
+                    @Override
+                    public void onSuccess(@NotNull String envelopeId) {
+                        // TODO: Handle when Online Signing ceremony is successful
+                    }
+                     
+                    @Override
+                    public void onError(String envelopeId, @NotNull DSSigningException exception) {
+                        // TODO: Handle when error occurred during Online Signing ceremony
+                    }
+ 
+                    @Override
+                    public void onCancel(@NotNull String envelopeId, @NotNull String recipientId) {
+                        // TODO: Handle when Online Signing ceremony is cancelled
+                    }
+ 
+                    @Override
+                    public void onRecipientSigningError(@NotNull String envelopeId, @NotNull String recipientId, @NotNull DSSigningException exception) {
+                        // TODO: Handle when error occurred during Online Signing ceremony for a signer
+                    }
+ 
+                    @Override
+                    public void onRecipientSigningSuccess(@NotNull String envelopeId, @NotNull String recipientId) {
+                        // TODO: Handle when Online Signing is successful for a signer
+                    }
+                });
+```
+
+
 
 ## Syncing an envelope
 The following example assumes you know the envelopeId you want to sync.
@@ -594,3 +724,13 @@ try {
 }
 ```
 
+Support
+===========
+
+* Reach out via developer community on Stack Overflow, search the [DocuSignAPI](http://stackoverflow.com/questions/tagged/docusignapi) tag.
+* Open an [issue](https://github.com/docusign/mobile-android-sdk/issues).
+
+License
+=======
+
+The DocuSign Mobile Android SDK is licensed under the following [License](LICENSE.md).
