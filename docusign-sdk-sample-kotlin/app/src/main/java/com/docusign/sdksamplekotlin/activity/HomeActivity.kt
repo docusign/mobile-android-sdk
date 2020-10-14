@@ -24,6 +24,9 @@ class HomeActivity : AppCompatActivity() {
             fragmentTransaction.add(R.id.home_container, homeFragment, HomeFragment.TAG)
             fragmentTransaction.commit()
         }
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setLogo(R.drawable.ic_launcher)
+        supportActionBar?.setDisplayUseLogoEnabled(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -54,5 +57,4 @@ class HomeActivity : AppCompatActivity() {
             }
         })
     }
-
 }

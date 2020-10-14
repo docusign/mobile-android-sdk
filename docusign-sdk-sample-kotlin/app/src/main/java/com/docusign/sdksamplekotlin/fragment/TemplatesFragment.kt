@@ -23,7 +23,8 @@ import com.docusign.sdksamplekotlin.livedata.RemoveCachedTemplateModel
 import com.docusign.sdksamplekotlin.livedata.Status
 import com.docusign.sdksamplekotlin.viewmodel.TemplatesViewModel
 
-class TemplatesFragment : Fragment(), TemplateAdapter.TemplateClickListener {
+open class TemplatesFragment : Fragment(), TemplateAdapter.TemplateClickListener {
+
     companion object {
         val TAG = TemplatesFragment::class.java.simpleName
         const val TEMPLATE_COUNT = 50
@@ -56,7 +57,7 @@ class TemplatesFragment : Fragment(), TemplateAdapter.TemplateClickListener {
         super.onActivityCreated(savedInstanceState)
 
         activity?.let {
-            recyclerView = it.findViewById<RecyclerView>(R.id.templates_recycler_view)
+            recyclerView = it.findViewById(R.id.templates_recycler_view)
             layoutManager = LinearLayoutManager(it)
             recyclerView.layoutManager = layoutManager
             recyclerView.addItemDecoration(DividerItemDecoration(it, DividerItemDecoration.VERTICAL))
@@ -85,6 +86,10 @@ class TemplatesFragment : Fragment(), TemplateAdapter.TemplateClickListener {
 
     override fun retrieveDownloadedTemplate(templateId: String, position: Int) {
         templatesViewModel.retrieveCachedTemplate(templateId, position)
+    }
+
+    override fun templateSelected(templateId: String) {
+        /* NO-OP */
     }
 
     private fun setRecyclerViewScrollListener() {

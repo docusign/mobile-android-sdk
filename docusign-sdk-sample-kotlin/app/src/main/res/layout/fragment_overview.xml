@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/appointments_recycler_view" />
 
     <TextView
-        android:id="@+id/tgk_portfolois_text_view"
+        android:id="@+id/tgk_portfolios_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -58,7 +58,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tgk_portfolois_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/tgk_portfolios_text_view"
         app:srcCompat="@drawable/graphs" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

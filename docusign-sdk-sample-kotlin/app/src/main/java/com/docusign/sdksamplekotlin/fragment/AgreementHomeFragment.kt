@@ -7,19 +7,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.docusign.sdksamplekotlin.R
-import com.docusign.sdksamplekotlin.adapter.HomePagerAdapter
+import com.docusign.sdksamplekotlin.adapter.AgreementHomePagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 
-class HomeFragment : Fragment() {
+class AgreementHomeFragment : Fragment() {
 
     companion object {
-        val TAG = HomeFragment::class.java.simpleName
+        val TAG = AgreementHomeFragment::class.java.simpleName
 
-        fun newInstance(): HomeFragment {
+        fun newInstance(): AgreementHomeFragment {
             val bundle = Bundle().apply {
             }
-            val fragment = HomeFragment()
+            val fragment = AgreementHomeFragment()
             fragment.arguments = bundle
             return fragment
         }
@@ -28,19 +28,19 @@ class HomeFragment : Fragment() {
     private lateinit var viewPager: ViewPager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_agreement_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.let {
-            val homePagerAdapter =
-                HomePagerAdapter(
+            val agreementHomePagerAdapter =
+                AgreementHomePagerAdapter(
                     it,
                     it.supportFragmentManager
                 )
             viewPager = it.findViewById(R.id.view_pager)
-            viewPager.adapter = homePagerAdapter
+            viewPager.adapter = agreementHomePagerAdapter
             val tabLayout: TabLayout = it.findViewById(R.id.tabs)
             tabLayout.setupWithViewPager(viewPager)
             tabLayout.addOnTabSelectedListener(onTabSelectedListener)

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/personal_information_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PERSONAL INFORMATION"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/name_text_view" />
+
+    <EditText
+        android:id="@+id/name_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Tom Wood"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@+id/personal_information_text_view"/>
+
+    <EditText
+        android:id="@+id/phone_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="415-555-1234"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@+id/name_text_view"/>
+
+    <EditText
+        android:id="@+id/email_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:text="tom.wood@digital.com"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@+id/phone_text_view"/>
+
+    <TextView
+        android:id="@+id/address_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADDRESS"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_text_view"/>
+
+    <EditText
+        android:id="@+id/address_line1_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:text="726 Tennessee St"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@+id/address_text_view"/>
+
+    <EditText
+        android:id="@+id/address_line2_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:text="San Francisco, CA"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@+id/address_line1_text_view" />
+
+    <EditText
+        android:id="@+id/address_line3_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:text="USA - 94107"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@+id/address_line2_text_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

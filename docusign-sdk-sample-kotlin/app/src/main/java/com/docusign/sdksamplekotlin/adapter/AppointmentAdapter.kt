@@ -8,7 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.docusign.sdksamplekotlin.R
 import com.docusign.sdksamplekotlin.model.Appointment
 
-class AppointmentAdapter(var appointments: List<Appointment>) : RecyclerView.Adapter<AppointmentAdapter.AppointmentViewHolder>() {
+class AppointmentAdapter(var appointments: List<Appointment>, var listener: AppointmentListener) : RecyclerView.Adapter<AppointmentAdapter.AppointmentViewHolder>() {
+
+    interface AppointmentListener {
+        fun onAppointmentSelected()
+    }
 
     override fun getItemCount() = appointments.size
 
@@ -17,16 +21,23 @@ class AppointmentAdapter(var appointments: List<Appointment>) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: AppointmentViewHolder, position: Int) {
-        holder.bind(appointments[position])
+        holder.bind(appointments[position], position)
     }
 
-    class AppointmentViewHolder(inflater: LayoutInflater, private val parent: ViewGroup) : RecyclerView.ViewHolder(
+    inner class AppointmentViewHolder(inflater: LayoutInflater, private val parent: ViewGroup) : RecyclerView.ViewHolder(
         inflater.inflate(R.layout.item_appointment, parent, false)) {
         private var dateTextView = itemView.findViewById<TextView>(R.id.date_text_view)
         private var clientNameTextView = itemView.findViewById<TextView>(R.id.client_name_text_view)
         private var clientStatus = itemView.findViewById<TextView>(R.id.client_status_text_view)
 
-        fun bind(appointment: Appointment) {
+        fun bind(appointment: Appointment, position: Int) {
+
+            if (position == 0) {
+                itemView.setOnClickListener {
+                    listener.onAppointmentSelected()
+                }
+            }
+
             dateTextView.text = appointment.date
             if (appointment.clientSigned) {
                 clientStatus.text = itemView.context.getString(R.string.signed)

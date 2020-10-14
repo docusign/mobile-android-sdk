@@ -4,11 +4,23 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.util.Log
 import com.docusign.androidsdk.DocuSign
+import java.io.InputStream
+import java.io.OutputStream
+import java.io.BufferedInputStream
+import java.io.BufferedOutputStream
+import java.io.File
+import java.io.IOException
+import java.io.FileOutputStream
 
 object Utils {
+
+    private val TAG = Utils::class.java.simpleName
+    private const val BUFFER_SIZE = 1024 * 2
+
     @Suppress("DEPRECATION")
-    internal fun isNetworkAvailable(): Boolean {
+    fun isNetworkAvailable(): Boolean {
         var result = false
         val connectivityManager = DocuSign.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE)
                 as ConnectivityManager
@@ -37,5 +49,41 @@ object Utils {
             }
         }
         return result
+    }
+
+    fun convertAssetToFile(context: Context, assetFileName: String, filePath: String): File? {
+        try {
+            val inputStream = context.assets.open(assetFileName)
+            val newFile = File(filePath)
+            val outputStream = FileOutputStream(newFile)
+            copy(inputStream, outputStream)
+            return newFile
+        } catch (exception: IOException) {
+                Log.e(TAG, exception.message!!)
+        }
+        return null
+    }
+
+    private fun copy(input: InputStream, output: OutputStream): Int {
+        val buffer = ByteArray(BUFFER_SIZE)
+        val inputStream = BufferedInputStream(input, BUFFER_SIZE)
+        val outputStream = BufferedOutputStream(output, BUFFER_SIZE)
+        var count = 0
+        var n = 0
+        try {
+            while (inputStream.read(buffer, 0, BUFFER_SIZE).also { n = it } != -1) {
+                outputStream.write(buffer, 0, n)
+                count += n
+            }
+            outputStream.flush()
+        } finally {
+            try {
+                inputStream.close()
+                outputStream.close()
+            } catch (exception: IOException) {
+                Log.e(TAG, exception.message!!)
+            }
+        }
+        return count
     }
 }

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tom_wood_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="@string/tom_wood"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/portfolio_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/portfolio_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:text="@string/portfolio"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tom_wood_text_view" />
+
+    <ImageView
+        android:id="@+id/client_graph_image_view"
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        android:layout_margin="20dp"
+        android:layout_marginBottom="15dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/advisor_agreement_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/portfolio_text_view"
+        app:srcCompat="@drawable/clientgraph" />
+
+    <TextView
+        android:id="@+id/advisor_agreement_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/advisor_agreement"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/client_graph_image_view" />
+
+    <TextView
+        android:id="@+id/status_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/status"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/advisor_agreement_text_view"/>
+
+    <TextView
+        android:id="@+id/unsigned_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/unsigned"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="18sp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@id/status_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/advisor_agreement_text_view"/>
+
+    <TextView
+        android:id="@+id/dated_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/dated_june_20_2018"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/status_text_view"/>
+
+    <Button
+        android:id="@+id/view_agreement_button"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="13dp"
+        android:text="@string/view_agreement"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dated_text_view" />
+</androidx.constraintlayout.widget.ConstraintLayout>

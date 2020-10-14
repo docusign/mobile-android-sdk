@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">TGK Capital Financial</string>
     <string name="tab_overview">Overview</string>
     <string name="tab_clients">Clients</string>
@@ -14,4 +14,26 @@
     <string name="upcoming_appointments">Upcoming Appointments</string>
     <string name="signed">Signed</string>
     <string name="unsigned">Unsigned</string>
+    <string name="new_agreement_title">Developer\'s Notes</string>
+    <string name="new_agreement_message">You can either compose an envelope in online or offline mode. You would need to check for
+        network connectivity and present the appropriate view controller.</string>
+    <string name="online_envelope">Online Envelope</string>
+    <string name="offline_envelope">Offline Envelope</string>
+    <string name="cancel">Cancel</string>
+    <string name="envelope_created_title">TGK Portfolios</string>
+    <string name="envelope_created_message">Envelope created successfully</string>
+    <string name="sign">Sign</string>
+    <string name="ok" tools:ignore="PrivateResource">OK</string>
+    <string name="envelope_signed_synced_message">Agreement signed and synced successfully</string>
+    <string name="tab_portfolio">Portfolio</string>
+    <string name="tab_contact">Contact</string>
+    <string name="portfolio">Portfolio</string>
+    <string name="tom_wood">Tom Wood</string>
+    <string name="advisor_agreement">Advisor Agreement</string>
+    <string name="dated_june_20_2018">Dated: June 20, 2018</string>
+    <string name="status">Status:</string>
+    <string name="view_agreement">View Agreement</string>
+    <string name="new_agreement_template_message">Would you like to proceed with the offline or online signing flow?</string>
+    <string name="envelope_signed_message">Agreement signed successfully</string>
+    <string name="settings">Settings</string>
 </resources>

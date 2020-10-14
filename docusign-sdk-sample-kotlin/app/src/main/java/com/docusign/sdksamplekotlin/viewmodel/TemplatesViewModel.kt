@@ -1,19 +1,29 @@
 package com.docusign.sdksamplekotlin.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.docusign.androidsdk.DocuSign
-import com.docusign.androidsdk.dsmodels.DSTemplate
-import com.docusign.androidsdk.dsmodels.DSTemplateDefinition
-import com.docusign.androidsdk.dsmodels.DSTemplates
 import com.docusign.androidsdk.dsmodels.DSTemplatesFilter
+import com.docusign.androidsdk.dsmodels.DSTemplates
+import com.docusign.androidsdk.dsmodels.DSTemplateDefinition
+import com.docusign.androidsdk.dsmodels.DSTemplate
+import com.docusign.androidsdk.dsmodels.DSEnvelopeDefaults
 import com.docusign.androidsdk.exceptions.DSTemplateException
 import com.docusign.androidsdk.listeners.DSTemplateListListener
 import com.docusign.androidsdk.listeners.DSTemplateListener
 import com.docusign.androidsdk.listeners.DSCacheTemplateListener
 import com.docusign.androidsdk.listeners.DSGetCachedTemplateListener
 import com.docusign.androidsdk.listeners.DSRemoveTemplateListener
-import com.docusign.sdksamplekotlin.livedata.*
+import com.docusign.androidsdk.listeners.DSOnlineUseTemplateListener
+import com.docusign.androidsdk.listeners.DSOfflineUseTemplateListener
+import com.docusign.sdksamplekotlin.livedata.GetTemplatesModel
+import com.docusign.sdksamplekotlin.livedata.CacheTemplateModel
+import com.docusign.sdksamplekotlin.livedata.RemoveCachedTemplateModel
+import com.docusign.sdksamplekotlin.livedata.RetrieveCachedTemplateModel
+import com.docusign.sdksamplekotlin.livedata.UseTemplateOnlineModel
+import com.docusign.sdksamplekotlin.livedata.UseTemplateOfflineModel
+import com.docusign.sdksamplekotlin.livedata.Status
 import com.docusign.sdksamplekotlin.utils.Utils
 
 class TemplatesViewModel : ViewModel() {
@@ -31,6 +41,14 @@ class TemplatesViewModel : ViewModel() {
 
     val retrieveCachedTemplateLiveData: MutableLiveData<RetrieveCachedTemplateModel> by lazy {
         MutableLiveData<RetrieveCachedTemplateModel>()
+    }
+
+    val useTemplateOnlineLiveData: MutableLiveData<UseTemplateOnlineModel> by lazy {
+        MutableLiveData<UseTemplateOnlineModel>()
+    }
+
+    val useTemplateOfflineLiveData: MutableLiveData<UseTemplateOfflineModel> by lazy {
+        MutableLiveData<UseTemplateOfflineModel>()
     }
 
     val templateDelegate = DocuSign.getInstance().getTemplateDelegate()
@@ -117,7 +135,7 @@ class TemplatesViewModel : ViewModel() {
                     templateDelegate.removeCachedTemplate(template, object : DSRemoveTemplateListener {
                         override fun onTemplateRemoved(isRemoved: Boolean) {
                             if (isRemoved) {
-                                val removeCachedTemplateModel = RemoveCachedTemplateModel(Status.COMPLETE, template, position,null)
+                                val removeCachedTemplateModel = RemoveCachedTemplateModel(Status.COMPLETE, template, position, null)
                                 removeCachedTemplateLiveData.value = removeCachedTemplateModel
                             } else {
                                 val exception = DSTemplateException("Template not removed")
@@ -150,6 +168,55 @@ class TemplatesViewModel : ViewModel() {
                 retrieveCachedTemplateLiveData.value = retrieveCachedTemplateModel
             }
 
+        })
+    }
+
+    fun useTemplateOnline(context: Context, templateId: String, envelopeDefaults: DSEnvelopeDefaults?) {
+        templateDelegate.useTemplateOnline(context, templateId, envelopeDefaults, object : DSOnlineUseTemplateListener {
+
+            override fun onStart(envelopeId: String) {
+                /* NO-OP */
+            }
+
+            override fun onCancel(envelopeId: String, recipientId: String) {
+                /* NO-OP */
+            }
+
+            override fun onComplete(envelopeId: String, onlySent: Boolean) {
+                val useTemplateOnlineModel = UseTemplateOnlineModel(Status.COMPLETE, envelopeId, null)
+                useTemplateOnlineLiveData.value = useTemplateOnlineModel
+            }
+
+            override fun onError(envelopeId: String?, exception: DSTemplateException) {
+                val useTemplateOnlineModel = UseTemplateOnlineModel(Status.ERROR, envelopeId, exception)
+                useTemplateOnlineLiveData.value = useTemplateOnlineModel
+            }
+
+            override fun onRecipientSigningError(envelopeId: String, recipientId: String, exception: DSTemplateException) {
+                /* NO-OP */
+            }
+
+            override fun onRecipientSigningSuccess(envelopeId: String, recipientId: String) {
+                /* NO-OP */
+            }
+        })
+    }
+
+    fun useTemplateOffline(context: Context, templateId: String, envelopeDefaults: DSEnvelopeDefaults?) {
+        templateDelegate.useTemplateOffline(context, templateId, envelopeDefaults, object : DSOfflineUseTemplateListener {
+            override fun onCancel(templateId: String, envelopeId: String?) {
+                /* NO-OP */
+            }
+
+            override fun onComplete(envelopeId: String) {
+                val useTemplateOfflineModel = UseTemplateOfflineModel(Status.COMPLETE, envelopeId, null)
+                useTemplateOfflineLiveData.value = useTemplateOfflineModel
+            }
+
+            override fun onError(exception: DSTemplateException) {
+                val useTemplateOfflineModel = UseTemplateOfflineModel(Status.ERROR, null, exception)
+                useTemplateOfflineLiveData.value = useTemplateOfflineModel
+            }
         })
     }
 }

@@ -12,6 +12,7 @@ import com.docusign.sdksamplekotlin.adapter.ClientAdapter
 import com.docusign.sdksamplekotlin.model.Client
 
 class ClientsFragment : Fragment() {
+
     companion object {
         val TAG = ClientsFragment::class.java.simpleName
 
@@ -34,8 +35,34 @@ class ClientsFragment : Fragment() {
             val clientsRecyclerView = it.findViewById<RecyclerView>(R.id.clients_recycler_view)
             clientsRecyclerView.layoutManager = LinearLayoutManager(it)
             val clients = mutableListOf<Client>()
-            clients.add(Client("1", "Tom Wood", "111-1111111", "t.w@gmail.com", "120 Geary Street, San Francisco"))
-            clients.add(Client("2", "Andrea G Kuhn", "122-1111122", "a.k@gmail.com", "120 Downing Street, New York"))
+            val defaultClientDetails = Client(
+                "FA-45231-005", "Tom Wood", "415-555-1234", "tom.wood@digital.com",
+                "726 Tennessee St", "San Francisco", "CA 9107", "$25,000"
+            )
+            clients.add(
+                Client(
+                    "FA-45231-005",
+                    "Tom Wood",
+                    "415-555-1234",
+                    "tom.wood@digital.com",
+                    "726 Tennessee St",
+                    "San Francisco",
+                    "CA 9107",
+                    "$25,000"
+                )
+            )
+            clients.add(
+                Client(
+                    "FA-45231-006",
+                    "Andrea G Kuhn",
+                    "415-555-1235",
+                    "andrea.kuhn@infotech.com",
+                    "120 Downing St",
+                    "New York",
+                    "NY 92333",
+                    "$10,000"
+                )
+            )
             clientsRecyclerView.adapter = ClientAdapter(clients)
         }
     }
