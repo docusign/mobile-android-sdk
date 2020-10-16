@@ -1,5 +1,10 @@
 # DocuSign Android SDK Changelog
 
+## [v1.1.1] - DocuSign Android SDK 10-15-2020
+
+### Fixed
+* Tab values set using prefill envelope defaults for a template are not reflected in the document during Online Signing
+
 ## [v1.1.0] - DocuSign Android SDK 10-09-2020
 
 ### Added
