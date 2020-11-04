@@ -49,6 +49,7 @@ Add the following Packages to the Xamarin application:
 - Square.Okhttp3 - 3.8.0
 - Square.OKIO
 - PDFTron.Android.RichEditor
+- PDFTron.Android.PageCropper
 - Xamarin.Android.JakeWharton.ThreeTenAbp
 ### Proguard
 Proguard might be required when you create release builds with Proguard enabled.
