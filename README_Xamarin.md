@@ -440,12 +440,14 @@ public class DeleteCachedEnvelopeListener : Java.Lang.Object, IDSDeleteCachedEnv
 ```
 
 ## Signing an Envelope
-The following example assumes you know the envelopeId you want to sign.
+
+### Offline Signing
+The following example assumes that you know the envelopeId you want to sign in offline mode.
 ```csharp
 try
 {
-    DocuSign.Instance.SigningDelegate.Sign(mainActivity,
-        envelopeId, true, new OfflineSigningListener());
+    DocuSign.Instance.SigningDelegate.SignOffline(context,
+        envelopeId, new OfflineSigningListener());
 }
 catch (DocuSignNotInitializedException exception)
 {
@@ -453,24 +455,123 @@ catch (DocuSignNotInitializedException exception)
 }
  
  
-public class OfflineSigningListener : Java.Lang.Object, IDSSigningListener
+public class OfflineSigningListener : Java.Lang.Object, IDSOfflineSigningListener
 {
-    public void onSigningSuccess(string envelopeId)
+    public void onOfflineSigningSuccess(string envelopeId)
     {
         // TODO: handle successful envelope signing
     }
  
-    public void onSigningCancel(string envelopeId)
+    public void onOfflineSigningCancel(string envelopeId)
     {
         // TODO: handle when envelope signing is cancelled.
     }
  
-    public void onSigningError(DSSigningException exception)
+    public void onOfflineSigningError(DSSigningException exception)
     {
         // TODO: handle error occurred during signing ceremony. exception.Message will indicate what went wrong
     }
 }
 ```
+
+### Online Signing
+#### Online Signing with locally cached envelope
+The following example assumes you know the envelopeId of cached envelope that you want to sign online
+```csharp
+try
+{
+    DocuSign.Instance.SigningDelegate.CreateEnvelopeAndLaunchOnlineSigning(context,
+            localEnvelopeId, new OnlineSigningListener());
+}
+catch (DocuSignNotInitializedException exception)
+{
+    // TODO: handle error. This means the SDK object was not properly initialized
+}
+ 
+ 
+public class OnlineSigningListener : Java.Lang.Object, IDSOnlineSigningListener
+{
+    public void onOnlineRecipientSigningError(string envelopeId, string recipientId, DSSigningException exception)
+    {
+        // TODO: handle signing error for a recipient
+    }
+
+    public void onOnlineRecipientSigningSuccess(string envelopeId, string recipientId)
+    {
+       // TODO: handle signing success for a recipient
+    }
+
+    public void onOnlineSigningCancel(string envelopeId, string recipientId)
+    {
+        // TODO: handle when signing is cancelled for a recipient
+    }
+
+    public void onOnlineSigningError(string envelopeId, DSSigningException exception)
+    {
+       // TODO: handle when error during signing 
+    }
+
+    public void onOnlineSigningStart(string envelopeId)
+    {
+        // TODO: handle when signing is started
+    }
+
+    public void onOnlineSigningSuccess(string envelopeId)
+    {
+        // TODO: handle when signing is completed successfully
+    }
+}
+```
+
+#### Online Signing with envelope created in DocuSign portal
+The following example assumes you know the envelopeId of envelope created in DocuSign portal that you want to sign online
+```csharp
+try
+{
+    DocuSign.Instance.SigningDelegate.signOnline(context,
+            serverEnvelopeId, new OnlineSigningListener());
+}
+catch (DocuSignNotInitializedException exception)
+{
+    // TODO: handle error. This means the SDK object was not properly initialized
+}
+ 
+ 
+public class OnlineSigningListener : Java.Lang.Object, IDSOnlineSigningListener
+{
+    public void onOnlineRecipientSigningError(string envelopeId, string recipientId, DSSigningException exception)
+    {
+        // TODO: handle signing error for a recipient
+    }
+
+    public void onOnlineRecipientSigningSuccess(string envelopeId, string recipientId)
+    {
+       // TODO: handle signing success for a recipient
+    }
+
+    public void onOnlineSigningCancel(string envelopeId, string recipientId)
+    {
+        // TODO: handle when signing is cancelled for a recipient
+    }
+
+    public void onOnlineSigningError(string envelopeId, DSSigningException exception)
+    {
+       // TODO: handle when error during signing 
+    }
+
+    public void onOnlineSigningStart(string envelopeId)
+    {
+        // TODO: handle when signing is started
+    }
+
+    public void onOnlineSigningSuccess(string envelopeId)
+    {
+        // TODO: handle when signing is completed successfully
+    }
+}
+```
+
+
 
 ## Syncing an envelope
 The following example assumes you know the envelopeId you want to sync.

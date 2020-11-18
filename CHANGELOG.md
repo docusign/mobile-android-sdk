@@ -1,5 +1,18 @@
 # DocuSign Android SDK Changelog
 
+## [v1.1.2] - DocuSign Android SDK 11-18-2020
+
+### Fixed
+* Fixed border displayed around read only tabs during signing
+* Bug fixes and Improvements
+
+### Added
+* Added api to control displaying host signing screen while using template for Online and Offline Signing
+* Added api to retrieve envelope info after syncing
+* Added Online Signing for Xamarin
+* Added displaying Private message in Online Signing
+* Added more Online Signing and Offline Signing telemetry events
+
 ## [v1.1.1] - DocuSign Android SDK 10-15-2020
 
 ### Fixed
