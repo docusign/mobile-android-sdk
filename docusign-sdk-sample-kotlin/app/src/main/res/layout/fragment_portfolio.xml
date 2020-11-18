@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tom_wood_text_view"
+        android:id="@+id/name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -31,20 +31,20 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tom_wood_text_view" />
+        app:layout_constraintTop_toBottomOf="@id/name_text_view" />
 
     <ImageView
         android:id="@+id/client_graph_image_view"
-        android:layout_width="400dp"
-        android:layout_height="200dp"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
         android:layout_margin="20dp"
         android:layout_marginBottom="15dp"
-        android:scaleType="fitCenter"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/advisor_agreement_text_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/portfolio_text_view"
-        app:srcCompat="@drawable/clientgraph" />
+        app:srcCompat="@drawable/portfolio_a" />
 
     <TextView
         android:id="@+id/advisor_agreement_text_view"

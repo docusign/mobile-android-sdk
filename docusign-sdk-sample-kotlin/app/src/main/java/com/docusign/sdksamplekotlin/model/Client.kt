@@ -1,12 +1,13 @@
 package com.docusign.sdksamplekotlin.model
 
 data class Client(
-    val id: String,
-    val name: String,
-    val phone: String,
-    val email: String,
-    val addressLine1: String,
-    val addressLine2: String,
-    val addressLine3: String,
-    val investmentAmount: String
+    var id: String,
+    var name: String,
+    var phone: String,
+    var email: String,
+    var addressLine1: String,
+    var addressLine2: String,
+    var addressLine3: String,
+    var investmentAmount: String,
+    var storePref: String
 )

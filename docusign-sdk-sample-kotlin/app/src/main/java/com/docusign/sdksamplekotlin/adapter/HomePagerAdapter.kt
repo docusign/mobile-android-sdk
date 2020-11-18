@@ -5,14 +5,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.docusign.sdksamplekotlin.R
-import com.docusign.sdksamplekotlin.fragment.ClientsFragment
 import com.docusign.sdksamplekotlin.fragment.OverviewFragment
+import com.docusign.sdksamplekotlin.fragment.PendingSyncFragment
 import com.docusign.sdksamplekotlin.fragment.TemplatesFragment
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_overview,
-    R.string.tab_clients,
-    R.string.tab_templates
+    R.string.tab_templates,
+    R.string.tab_pending_sync
 )
 
 class HomePagerAdapter(private val context: Context, fragmentManager: FragmentManager)
@@ -21,8 +21,8 @@ class HomePagerAdapter(private val context: Context, fragmentManager: FragmentMa
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> OverviewFragment.newInstance()
-            1 -> ClientsFragment.newInstance()
-            else -> TemplatesFragment.newInstance()
+            1 -> TemplatesFragment.newInstance()
+            else -> PendingSyncFragment.newInstance()
         }
     }
 

@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp">
 
     <TextView
-        android:id="@+id/template_name_text_view"
-        android:layout_width="340dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="40dp"
+        android:id="@+id/envelope_name_text_view"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:layout_margin="20dp"
         android:ellipsize="end"
-        android:maxLines="1"
         android:text=""
-        android:textColor="@android:color/black"
         android:textSize="18sp"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/envelope_sync_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/template_download_button"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <Button
-        android:id="@+id/template_download_button"
-        android:layout_width="30dp"
+        android:id="@+id/envelope_sync_button"
+        android:layout_width="70dp"
         android:layout_height="30dp"
         android:layout_margin="8dp"
-        android:background="@drawable/download"
+        android:text="@string/sync"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

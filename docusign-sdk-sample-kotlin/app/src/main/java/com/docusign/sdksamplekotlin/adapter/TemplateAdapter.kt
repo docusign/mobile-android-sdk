@@ -74,7 +74,7 @@ class TemplateAdapter(private val templateClickListener: TemplateClickListener) 
                         templateClickListener.removeDownloadedTemplate(template.templateId, position)
                         deleteTemplate = false
                     } else {
-                        templateDownloadButton.setBackgroundResource(android.R.drawable.ic_delete)
+                        templateDownloadButton.setBackgroundResource(R.drawable.ic_delete)
                         deleteTemplate = true
                     }
                 }

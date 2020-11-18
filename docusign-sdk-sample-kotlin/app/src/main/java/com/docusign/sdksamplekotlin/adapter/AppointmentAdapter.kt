@@ -11,7 +11,7 @@ import com.docusign.sdksamplekotlin.model.Appointment
 class AppointmentAdapter(var appointments: List<Appointment>, var listener: AppointmentListener) : RecyclerView.Adapter<AppointmentAdapter.AppointmentViewHolder>() {
 
     interface AppointmentListener {
-        fun onAppointmentSelected()
+        fun onAppointmentSelected(appointment: Appointment)
     }
 
     override fun getItemCount() = appointments.size
@@ -21,7 +21,7 @@ class AppointmentAdapter(var appointments: List<Appointment>, var listener: Appo
     }
 
     override fun onBindViewHolder(holder: AppointmentViewHolder, position: Int) {
-        holder.bind(appointments[position], position)
+        holder.bind(appointments[position])
     }
 
     inner class AppointmentViewHolder(inflater: LayoutInflater, private val parent: ViewGroup) : RecyclerView.ViewHolder(
@@ -30,12 +30,9 @@ class AppointmentAdapter(var appointments: List<Appointment>, var listener: Appo
         private var clientNameTextView = itemView.findViewById<TextView>(R.id.client_name_text_view)
         private var clientStatus = itemView.findViewById<TextView>(R.id.client_status_text_view)
 
-        fun bind(appointment: Appointment, position: Int) {
-
-            if (position == 0) {
-                itemView.setOnClickListener {
-                    listener.onAppointmentSelected()
-                }
+        fun bind(appointment: Appointment) {
+            itemView.setOnClickListener {
+                listener.onAppointmentSelected(appointment)
             }
 
             dateTextView.text = appointment.date
@@ -46,7 +43,7 @@ class AppointmentAdapter(var appointments: List<Appointment>, var listener: Appo
                 clientStatus.text = itemView.context.getString(R.string.unsigned)
                 clientStatus.setTextColor(ContextCompat.getColor(itemView.context, android.R.color.holo_red_dark))
             }
-            clientNameTextView.text = appointment.clientName
+            clientNameTextView.text = appointment.client.name
         }
     }
 }

@@ -175,7 +175,8 @@ class TemplatesViewModel : ViewModel() {
         templateDelegate.useTemplateOnline(context, templateId, envelopeDefaults, object : DSOnlineUseTemplateListener {
 
             override fun onStart(envelopeId: String) {
-                /* NO-OP */
+                val useTemplateOnlineModel = UseTemplateOnlineModel(Status.START, envelopeId, null)
+                useTemplateOnlineLiveData.value = useTemplateOnlineModel
             }
 
             override fun onCancel(envelopeId: String, recipientId: String) {

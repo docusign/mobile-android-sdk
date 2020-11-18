@@ -4,11 +4,8 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.docusign.androidsdk.DocuSign
-import com.docusign.androidsdk.exceptions.DSException
 import com.docusign.androidsdk.exceptions.DSSigningException
-import com.docusign.androidsdk.exceptions.DSSyncException
 import com.docusign.androidsdk.listeners.DSOfflineSigningListener
-import com.docusign.androidsdk.listeners.DSSyncAllEnvelopesListener
 import com.docusign.androidsdk.listeners.DSOnlineSigningListener
 import com.docusign.sdksamplekotlin.livedata.SignOfflineModel
 import com.docusign.sdksamplekotlin.livedata.SignOnlineModel
@@ -29,38 +26,13 @@ class SigningViewModel : ViewModel() {
     }
 
     private val signingDelegate = DocuSign.getInstance().getSigningDelegate()
-    private val envelopeDelegate = DocuSign.getInstance().getEnvelopeDelegate()
 
     fun signOffline(context: Context, envelopeId: String) {
         signingDelegate.signOffline(context, envelopeId, object : DSOfflineSigningListener {
 
             override fun onSuccess(envelopeId: String) {
-                envelopeDelegate.syncAllEnvelopes(object : DSSyncAllEnvelopesListener {
-
-                    override fun onStart() {
-                        /* NO-OP */
-                    }
-
-                    override fun onComplete(failedEnvelopeIdList: List<String>?) {
-                        val signOfflineModel = SignOfflineModel(Status.COMPLETE, null)
-                        signOfflineLiveData.value = signOfflineModel
-                    }
-
-                    override fun onEnvelopeSyncError(exception: DSSyncException, localEnvelopeId: String, syncRetryCount: Int?) {
-                         /* NO-OP */
-                    }
-
-                    override fun onEnvelopeSyncSuccess(localEnvelopeId: String, serverEnvelopeId: String?) {
-                        /* NO-OP */
-                    }
-
-                    override fun onError(exception: DSException) {
-                        val signingException = DSSigningException(exception.message)
-                        val signOfflineModel = SignOfflineModel(Status.ERROR, signingException)
-                        signOfflineLiveData.value = signOfflineModel
-                    }
-
-                }, true)
+                val signOfflineModel = SignOfflineModel(Status.COMPLETE, null)
+                signOfflineLiveData.value = signOfflineModel
             }
 
             override fun onCancel(envelopeId: String) {
@@ -78,7 +50,8 @@ class SigningViewModel : ViewModel() {
         signingDelegate.createEnvelopeAndLaunchOnlineSigning(context, envelopeId, object : DSOnlineSigningListener {
 
             override fun onStart(envelopeId: String) {
-                /* NO-OP */
+                val signOnlineModel = SignOnlineModel(Status.START, null)
+                signOnlineLiveData.value = signOnlineModel
             }
 
             override fun onSuccess(envelopeId: String) {
@@ -104,5 +77,4 @@ class SigningViewModel : ViewModel() {
             }
         })
     }
-
 }

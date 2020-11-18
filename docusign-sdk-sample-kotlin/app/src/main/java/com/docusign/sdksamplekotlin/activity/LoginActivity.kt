@@ -31,8 +31,9 @@ class LoginActivity : AppCompatActivity() {
         signInButton.setOnClickListener {
             loginToDocuSign()
         }
+        title = getString(R.string.login)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.setLogo(R.drawable.ic_launcher)
+        supportActionBar?.setLogo(R.drawable.ic_logo)
         supportActionBar?.setDisplayUseLogoEnabled(true)
     }
 

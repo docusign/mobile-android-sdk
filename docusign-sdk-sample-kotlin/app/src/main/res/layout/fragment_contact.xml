@@ -16,10 +16,10 @@
         android:layout_marginTop="40dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/name_text_view" />
+        app:layout_constraintBottom_toTopOf="@id/client_name_text_view" />
 
     <EditText
-        android:id="@+id/name_text_view"
+        android:id="@+id/client_name_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -37,7 +37,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:textColor="@android:color/black"
-        app:layout_constraintTop_toBottomOf="@+id/name_text_view"/>
+        app:layout_constraintTop_toBottomOf="@+id/client_name_text_view"/>
 
     <EditText
         android:id="@+id/email_text_view"

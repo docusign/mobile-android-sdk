@@ -10,26 +10,28 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.docusign.androidsdk.DocuSign
-import com.docusign.androidsdk.exceptions.DSException
-import com.docusign.androidsdk.exceptions.DSSyncException
-import com.docusign.androidsdk.listeners.DSSyncAllEnvelopesListener
 import com.docusign.sdksamplekotlin.R
 import com.docusign.sdksamplekotlin.livedata.Status
 import com.docusign.sdksamplekotlin.livedata.UseTemplateOfflineModel
 import com.docusign.sdksamplekotlin.livedata.UseTemplateOnlineModel
+import com.docusign.sdksamplekotlin.model.Client
 import com.docusign.sdksamplekotlin.utils.EnvelopeUtils
 import com.docusign.sdksamplekotlin.utils.SigningType
+import com.docusign.sdksamplekotlin.utils.Utils
 import com.docusign.sdksamplekotlin.viewmodel.TemplatesViewModel
 
 class AgreementTemplatesFragment : TemplatesFragment() {
 
+    private var client: Client? = null
+
     companion object {
         val TAG = AgreementTemplatesFragment::class.java.simpleName
 
-        fun newInstance(): AgreementTemplatesFragment {
+        fun newInstance(client: Client?): AgreementTemplatesFragment {
             val bundle = Bundle().apply {
             }
             val fragment = AgreementTemplatesFragment()
+            fragment.client = client
             fragment.arguments = bundle
             return fragment
         }
@@ -47,7 +49,7 @@ class AgreementTemplatesFragment : TemplatesFragment() {
         templatesViewModel.useTemplateOnlineLiveData.observe(viewLifecycleOwner, Observer<UseTemplateOnlineModel> { model ->
             when (model.status) {
                 Status.START -> {
-                    toggleProgressBar(true)
+                    toggleProgressBar(false)
                 }
 
                 Status.COMPLETE -> {
@@ -71,36 +73,14 @@ class AgreementTemplatesFragment : TemplatesFragment() {
         templatesViewModel.useTemplateOfflineLiveData.observe(viewLifecycleOwner, Observer<UseTemplateOfflineModel> { model ->
             when (model.status) {
                 Status.START -> {
-                    toggleProgressBar(true)
+                    toggleProgressBar(false)
                 }
 
                 Status.COMPLETE -> {
                     toggleProgressBar(false)
                     Log.d(TAG, "Envelope with ${model.envelopeId} is signed offline successfully")
                     activity?.let { activity ->
-                        val envelopeDelegate = DocuSign.getInstance().getEnvelopeDelegate()
-                        envelopeDelegate.syncAllEnvelopes(object : DSSyncAllEnvelopesListener {
-
-                            override fun onStart() {
-                                /* NO-OP */
-                            }
-
-                            override fun onComplete(failedEnvelopeIdList: List<String>?) {
-                                showSuccessfulSigningDialog(activity, SigningType.OFFLINE_SIGNING)
-                            }
-
-                            override fun onEnvelopeSyncError(exception: DSSyncException, localEnvelopeId: String, syncRetryCount: Int?) {
-                                /* NO-OP */
-                            }
-
-                            override fun onEnvelopeSyncSuccess(localEnvelopeId: String, serverEnvelopeId: String?) {
-                                /* NO-OP */
-                            }
-
-                            override fun onError(exception: DSException) {
-                                Toast.makeText(activity, exception.message, Toast.LENGTH_LONG).show()
-                            }
-                        }, true)
+                        showSuccessfulSigningDialog(activity, SigningType.OFFLINE_SIGNING)
                     }
                 }
 
@@ -125,39 +105,28 @@ class AgreementTemplatesFragment : TemplatesFragment() {
 
     override fun templateSelected(templateId: String) {
         activity?.let { activity ->
-            showCreateNewAgreementDialog(activity, templateId)
+            launchSigning(activity, templateId)
         }
     }
 
-    private fun showCreateNewAgreementDialog(context: Context, templateId: String) {
+    private fun launchSigning(context: Context, templateId: String) {
         val version = DocuSign.getInstance().getSDKVersion()
-        AlertDialog.Builder(context)
-            .setTitle(getString(R.string.new_agreement_title) + "($version)")
-            .setMessage(getString(R.string.new_agreement_template_message))
-            .setPositiveButton(getString(R.string.online_envelope)) { dialog: DialogInterface, id: Int ->
-                dialog.cancel()
-                // If you want to prefill template with recipient details, tab details etc, you can set EnvelopeDefaults
-                // val envelopeDefaults = EnvelopeUtils.buildEnvelopeDefaults(context)
-                // templatesViewModel.useTemplateOnline(context, templateId, envelopeDefaults)
-                templatesViewModel.useTemplateOnline(context, templateId, null)
-            }
-            .setNegativeButton(getString(R.string.offline_envelope)) { dialog: DialogInterface, id: Int ->
-                dialog.cancel()
-                // If you want to prefill template with recipient details, tab details etc, you can set EnvelopeDefaults
-                 // val envelopeDefaults = EnvelopeUtils.buildEnvelopeDefaults(context)
-                 // templatesViewModel.useTemplateOffline(context, templateId, envelopeDefaults)
-                templatesViewModel.useTemplateOffline(context, templateId, null)
-            }
-            .setNeutralButton(getString(R.string.cancel)) { dialog: DialogInterface, id: Int ->
-                dialog.cancel()
-            }
-            .setCancelable(false)
-            .create()
-            .show()
+        Log.d(TAG, "DocuSign SDK version: $version")
+
+        // If you want to prefill template with recipient details, tab details etc, you can set EnvelopeDefaults
+        val envelopeDefaults = EnvelopeUtils.buildEnvelopeDefaults(context, templateId, client?.storePref)
+        if (Utils.isNetworkAvailable()) {
+            toggleProgressBar(true)
+            templatesViewModel.useTemplateOnline(context, templateId, envelopeDefaults)
+            // templatesViewModel.useTemplateOnline(context, templateId, null)
+        } else {
+            templatesViewModel.useTemplateOffline(context, templateId, envelopeDefaults)
+            // templatesViewModel.useTemplateOffline(context, templateId, null)
+        }
     }
 
     private fun showSuccessfulSigningDialog(context: Context, signingType: SigningType) {
-        var message = getString(R.string.envelope_signed_synced_message)
+        var message = getString(R.string.envelope_signed_offline_message)
         if (signingType == SigningType.ONLINE_SIGNING) {
             message = getString(R.string.envelope_signed_message)
         }

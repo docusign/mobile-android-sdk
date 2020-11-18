@@ -18,7 +18,9 @@ import java.io.File
 
 class SDKSampleApplication : Application() {
 
-    var sampleDoc: File? = null
+    var portfolioADoc: File? = null
+    var portfolioBDoc: File? = null
+    var accreditedInvestorDoc: File? = null
 
     companion object {
         val TAG = SDKSampleApplication::class.java.simpleName
@@ -31,9 +33,15 @@ class SDKSampleApplication : Application() {
 
     private fun initialize() {
         initializeDocuSign()
-        sampleDoc = Utils.convertAssetToFile(this,
-            Constants.DOCUMENT_FILE_NAME,
-            filesDir.absolutePath + "/" + Constants.DOCUMENT_FILE_NAME)
+        portfolioADoc = Utils.convertAssetToFile(this,
+            Constants.PORTFOLIO_A_DOCUMENT_FILE_NAME,
+            filesDir.absolutePath + "/" + Constants.PORTFOLIO_A_DOCUMENT_FILE_NAME)
+        portfolioBDoc = Utils.convertAssetToFile(this,
+            Constants.PORTFOLIO_B_DOCUMENT_FILE_NAME,
+            filesDir.absolutePath + "/" + Constants.PORTFOLIO_B_DOCUMENT_FILE_NAME)
+        accreditedInvestorDoc = Utils.convertAssetToFile(this,
+            Constants.ACCREDITED_INVESTOR_VERIFICATION_FILE_NAME,
+            filesDir.absolutePath + "/" + Constants.ACCREDITED_INVESTOR_VERIFICATION_FILE_NAME)
     }
 
     fun initializeDocuSign() {
@@ -72,7 +80,7 @@ class SDKSampleApplication : Application() {
         val appearance = DSAppearance.Builder()
             .setActionBarColor(ColorDrawable(resources.getColor(R.color.colorPrimary)))
             .setStatusBarColor(ColorDrawable(resources.getColor(R.color.colorPrimaryDark)))
-            .setActionBarLogo(ResourcesCompat.getDrawable(resources, R.drawable.ic_launcher, null))
+            .setActionBarLogo(ResourcesCompat.getDrawable(resources, R.drawable.ic_logo, null))
             .setActionBarTitleTextColor(ColorDrawable(resources.getColor(android.R.color.white)))
             .setBottomToolbarButtonColor(ColorDrawable(resources.getColor(R.color.colorPrimary)))
             .setBottomToolbarButtonTextColor(ColorDrawable(resources.getColor(android.R.color.white)))
