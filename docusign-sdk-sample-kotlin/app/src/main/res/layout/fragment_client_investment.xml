@@ -79,7 +79,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:text="Invest in Portfolio"
+        android:text="@string/invest"
         android:textColor="@android:color/white"
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,12 +91,12 @@
         android:layout_width="280dp"
         android:layout_height="280dp"
         android:layout_margin="20dp"
-        android:layout_marginBottom="15dp"
         android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/invest_button"
-        app:srcCompat="@drawable/growth_portfolio_a_0"/>
+        app:srcCompat="@drawable/growth_portfolio_a_0" />
+
     <ProgressBar
         android:id="@+id/envelopes_progress_bar"
         android:layout_width="wrap_content"
@@ -105,5 +105,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/invest_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

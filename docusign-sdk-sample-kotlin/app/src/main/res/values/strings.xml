@@ -44,4 +44,5 @@
     <string name="syn_pending_error">No pending envelopes to Sync at this time</string>
     <string name="envelope_sync_success_message">Agreement synced successfully</string>
     <string name="envelope_sync_all_success_message">All agreements synced successfully</string>
+    <string name="invest">Invest in Portfolio</string>
 </resources>

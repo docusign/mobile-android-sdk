@@ -55,7 +55,7 @@ class OverviewFragment : Fragment(), AppointmentAdapter.AppointmentListener {
                 "726 Tennessee St",
                 "San Francisco, CA",
                 "USA - 94107",
-                "$300,0000",
+                "$300,000",
                 Constants.CLIENT_A_PREF
             )
             val client2 = Client(
@@ -66,7 +66,7 @@ class OverviewFragment : Fragment(), AppointmentAdapter.AppointmentListener {
                 "231 Dalton Way",
                 "New York, CA",
                 "USA - 10005",
-                "$500,0000",
+                "$500,000",
                 Constants.CLIENT_B_PREF
             )
             val client1Json = Gson().toJson(client1)

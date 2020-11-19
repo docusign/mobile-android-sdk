@@ -72,7 +72,7 @@ class ClientInvestmentFragment : Fragment() {
             initLiveDataObservers(this)
             val clientGraphImageView = findViewById<ImageView>(R.id.client_graph_growth_image_view)
             val investmentAmountSpinner = findViewById<Spinner>(R.id.invest_amount_spinner)
-            val investments = arrayOf("$300,000", "$400,000", "$500,0000")
+            val investments = arrayOf("$300,000", "$400,000", "$500,000")
             val investmentSpinnerAdapter = ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item,
                 investments
