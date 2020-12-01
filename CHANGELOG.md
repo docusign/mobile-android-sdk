@@ -1,5 +1,10 @@
 # DocuSign Android SDK Changelog
 
+## [v1.1.3] - DocuSign Android SDK 12-01-2020
+
+### Added
+* Added support for app release builds using R8  
+
 ## [v1.1.2] - DocuSign Android SDK 11-18-2020
 
 ### Fixed

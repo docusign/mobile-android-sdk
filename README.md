@@ -40,7 +40,7 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     }
     
     dependencies {
-        implementation 'com.docusign:androidsdk:1.1.2'
+        implementation 'com.docusign:androidsdk:1.1.3'
     }
     
     ```
@@ -89,8 +89,11 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     ```
 4. Make Application class extend MultiDexApplication (if it doesn't already)
 5. Sync Gradle and/or build your application
-6. Proguard might be required when you create release builds with Proguard enabled.
-   Make sure the Proguard version is >= 6.1.1. 
+6. If app release builds has minifyEnabled true, then go through the following:
+
+   In the app, if Gradle Plugin version is >= 3.4.0, then the build system uses R8 for app size shrinking. Otherwise it uses ProGuard for app size shrinking.   
+   
+   If using ProGuard, make sure the Proguard version is >= 6.1.1. 
    If Proguard version is < 6.1.1, then you can include the Proguard as follows in your gradle build script:
    ```gradle
     build-script {
@@ -100,6 +103,8 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
         }
     }
    ```
+
+   For ProGuard and R8, add the following ProGuard rules:
 
     ```
     -keepattributes Signature, InnerClasses, EnclosingMethod
