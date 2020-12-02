@@ -104,6 +104,16 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     }
    ```
 
+   For ProGuard and R8, make sure the gradle build script as follows:
+
+   ```gradle
+    android {
+        buildTypes {
+	        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }   
+    ```
+
    For ProGuard and R8, add the following ProGuard rules:
 
     ```
