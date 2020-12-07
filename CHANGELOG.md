@@ -1,5 +1,10 @@
 # DocuSign Android SDK Changelog
 
+## [v1.1.4] - DocuSign Android SDK 12-07-2020
+
+### Fixed
+* Fixed bug related to downloading the combined document of a completed envelope
+
 ## [v1.1.3] - DocuSign Android SDK 12-01-2020
 
 ### Added
