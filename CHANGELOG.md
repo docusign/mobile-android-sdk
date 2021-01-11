@@ -1,5 +1,11 @@
 # DocuSign Android SDK Changelog
 
+## [v1.1.5] - DocuSign Android SDK 01-11-2021
+
+### Fixed
+* Memory leak and performance issues
+* Other bug fixes and enhancements
+
 ## [v1.1.4] - DocuSign Android SDK 12-07-2020
 
 ### Fixed
