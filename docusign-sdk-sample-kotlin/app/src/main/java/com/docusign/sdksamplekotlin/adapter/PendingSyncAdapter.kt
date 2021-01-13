@@ -56,7 +56,10 @@ class PendingSyncAdapter(private val pendingSyncListener: PendingSyncListener) :
         private var envelopeSyncButton = itemView.findViewById<Button>(R.id.envelope_sync_button)
 
         fun bind(envelope: DSEnvelope, position: Int) {
-            envelopeNameTextView.text = envelope.emailSubject
+            val names = envelope.emailSubject?.split("Please DocuSign: ")
+            if (!names.isNullOrEmpty()) {
+                envelopeNameTextView.text = names[names.size - 1]
+            }
 
             envelopeSyncButton.setOnClickListener {
                 pendingSyncListener.syncEnvelope(position, envelope.envelopeId)

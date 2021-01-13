@@ -103,18 +103,18 @@ class AgreementTemplatesFragment : TemplatesFragment() {
         }
     }
 
-    override fun templateSelected(templateId: String) {
+    override fun templateSelected(templateId: String, templateName: String?) {
         activity?.let { activity ->
-            launchSigning(activity, templateId)
+            launchSigning(activity, templateId, templateName)
         }
     }
 
-    private fun launchSigning(context: Context, templateId: String) {
+    private fun launchSigning(context: Context, templateId: String, templateName: String?) {
         val version = DocuSign.getInstance().getSDKVersion()
         Log.d(TAG, "DocuSign SDK version: $version")
 
         // If you want to prefill template with recipient details, tab details etc, you can set EnvelopeDefaults
-        val envelopeDefaults = EnvelopeUtils.buildEnvelopeDefaults(context, templateId, client?.storePref)
+        val envelopeDefaults = EnvelopeUtils.buildEnvelopeDefaults(context, templateId, templateName, client?.storePref)
         if (Utils.isNetworkAvailable()) {
             toggleProgressBar(true)
             templatesViewModel.useTemplateOnline(context, templateId, envelopeDefaults)

@@ -59,7 +59,7 @@ object EnvelopeUtils {
             val document = DSDocument.Builder()
                 .documentId(1)
                 .uri(fileURI.toString())
-                .name("Investment Agreement Document")
+                .name("TGK Capital Portfolio B Agreement")
                 .build()
             documents.add(document)
             val tabs = createInvestmentAgreementTabs(client)
@@ -86,7 +86,7 @@ object EnvelopeUtils {
                 val accreditedInvestorVerificationDocument = DSDocument.Builder()
                     .documentId(2)
                     .uri(accreditedInvestorVerificationFileURI.toString())
-                    .name("Investment Agreement Document")
+                    .name("TGK Capital Portfolio B Agreement")
                     .build()
                 documents.add(accreditedInvestorVerificationDocument)
                 val accreditedInvestorVerificationTabs = createAccreditedInvestorVerificationTabs(accreditedInvestorVerification)
@@ -113,7 +113,7 @@ object EnvelopeUtils {
                     .build()
             )
             return DSEnvelope.Builder()
-                .envelopeName("Investment Agreement")
+                .envelopeName("TGK Capital Portfolio B Agreement")
                 .documents(documents)
                 .recipients(recipients)
                 .textCustomFields( // this is for free-form metadata
@@ -394,7 +394,7 @@ object EnvelopeUtils {
         return textCustomFields
     }
 
-    fun buildEnvelopeDefaults(context: Context, templateId: String, clientPref: String?): DSEnvelopeDefaults? {
+    fun buildEnvelopeDefaults(context: Context, templateId: String, templateName: String?, clientPref: String?): DSEnvelopeDefaults? {
 
         val sharedPreferences = context.getSharedPreferences(Constants.APP_SHARED_PREFERENCES, Context.MODE_PRIVATE)
 
@@ -415,7 +415,6 @@ object EnvelopeUtils {
         val user = authenticationDelegate.getLoggedInUser(context)
 
 
-        val emailSubject = "Please sign TGK investment agreement"
         val emailBlurb = ""
         val envelopeTitle = "Investment Agreement"
 
@@ -485,7 +484,7 @@ object EnvelopeUtils {
 
         return DSEnvelopeDefaults(
             recipientDefaults,
-            emailSubject,
+            templateName,
             emailBlurb,
             envelopeTitle,
             tabValueDefaults,

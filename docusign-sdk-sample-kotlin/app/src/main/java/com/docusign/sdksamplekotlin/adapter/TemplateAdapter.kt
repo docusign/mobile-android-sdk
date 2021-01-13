@@ -14,7 +14,7 @@ class TemplateAdapter(private val templateClickListener: TemplateClickListener) 
         fun downloadTemplate(templateId: String, position: Int)
         fun retrieveDownloadedTemplate(templateId: String, position: Int)
         fun removeDownloadedTemplate(templateId: String, position: Int)
-        fun templateSelected(templateId: String)
+        fun templateSelected(templateId: String, templateName: String?)
     }
 
     private val templates = mutableListOf<DSTemplate>()
@@ -57,7 +57,7 @@ class TemplateAdapter(private val templateClickListener: TemplateClickListener) 
                 } else {
                     templateDownloadButton.setBackgroundResource(R.drawable.download)
                 }
-                templateClickListener.templateSelected(template.templateId)
+                templateClickListener.templateSelected(template.templateId, template.templateName)
             }
             if (cacheTemplateMap[template.templateId] == true) {
                 templateDownloadButton.setBackgroundResource(R.drawable.download_done)

@@ -12,7 +12,7 @@
     <string name="logout">Log out</string>
     <string name="create_new_improvement">Create New Agreement</string>
     <string name="tgk_portfolios">TGK Portfolios</string>
-    <string name="upcoming_appointments">Upcoming Appointments</string>
+    <string name="upcoming_appointments">Your upcoming investment presentations:</string>
     <string name="signed">Signed</string>
     <string name="unsigned">Unsigned</string>
     <string name="new_agreement_title">Developer\'s Notes</string>

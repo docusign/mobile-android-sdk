@@ -9,7 +9,6 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:background="@android:color/white"
-        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

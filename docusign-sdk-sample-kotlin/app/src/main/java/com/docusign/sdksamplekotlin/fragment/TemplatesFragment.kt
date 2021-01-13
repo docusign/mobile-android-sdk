@@ -88,7 +88,7 @@ open class TemplatesFragment : Fragment(), TemplateAdapter.TemplateClickListener
         templatesViewModel.retrieveCachedTemplate(templateId, position)
     }
 
-    override fun templateSelected(templateId: String) {
+    override fun templateSelected(templateId: String, templateName: String?) {
         /* NO-OP */
     }
 

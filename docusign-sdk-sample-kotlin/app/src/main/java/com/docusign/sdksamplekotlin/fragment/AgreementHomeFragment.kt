@@ -41,7 +41,7 @@ class AgreementHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         activity?.let {
             val version = DocuSign.getInstance().getSDKVersion()
-            Log.d(AgreementTemplatesFragment.TAG, "DocuSign SDK version: $version")
+            Log.d(TAG, "DocuSign SDK version: $version")
 
             val agreementHomePagerAdapter =
                 AgreementHomePagerAdapter(

@@ -9,7 +9,7 @@
         android:id="@+id/upcoming_appointments_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:text="@string/upcoming_appointments"
         android:textColor="@android:color/holo_blue_dark"
         app:layout_constraintEnd_toEndOf="parent"
