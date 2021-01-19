@@ -40,7 +40,7 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     }
     
     dependencies {
-        implementation 'com.docusign:androidsdk:1.1.0'
+        implementation 'com.docusign:androidsdk:1.1.5'
     }
     
     ```
@@ -89,83 +89,127 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     ```
 4. Make Application class extend MultiDexApplication (if it doesn't already)
 5. Sync Gradle and/or build your application
-6. Proguard might be required when you create release builds with Proguard enabled
+6. If app release builds has minifyEnabled true, then go through the following:
+
+   In the app, if Gradle Plugin version is >= 3.4.0, then the build system uses R8 for app size shrinking. Otherwise it uses ProGuard for app size shrinking.   
+   
+   If using ProGuard, make sure the Proguard version is >= 6.1.1. 
+   If Proguard version is < 6.1.1, then you can include the Proguard as follows in your gradle build script:
+   ```gradle
+    build-script {
+        dependencies {
+          classpath 'com.android.tools.build:gradle:3.3.1'
+          classpath 'net.sf.proguard:proguard-gradle:6.1.1'
+        }
+    }
+   ```
+
+   For ProGuard and R8, make sure the gradle build script as follows:
+
+   ```gradle
+    android {
+        buildTypes {
+	        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }   
+    ```
+
+   For ProGuard and R8, add the following ProGuard rules:
+
     ```
     -keepattributes Signature, InnerClasses, EnclosingMethod
- 
-    # Retrofit does reflection on method and parameter annotations.
+
+    #Retrofit does reflection on method and parameter annotations.
     -keepattributes RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations
-    
-    # Retain service method parameters when optimizing.
+
+    #Retain service method parameters when optimizing.
     -keepclassmembers,allowshrinking,allowobfuscation interface * {
-        @retrofit2.http.* <methods>;
+     @retrofit2.http.* <methods>;
     }
-    
-    # Ignore annotation used for build tooling.
-    -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
-    
-    # Ignore JSR 305 annotations for embedding nullability information.
-    -dontwarn javax.annotation.**
-    
-    # Guarded by a NoClassDefFoundError try/catch and only used when on the classpath.
-    -dontwarn kotlin.Unit
-    
-    # Top-level functions that can only be used by Kotlin.
-    -dontwarn retrofit2.KotlinExtensions
-    -dontwarn retrofit2.KotlinExtensions$*
-    
-    # With R8 full mode, it sees no subtypes of Retrofit interfaces since they are created with a Proxy
-    # and replaces all potential values with null. Explicitly keeping the interfaces prevents this.
-    -if interface * { @retrofit2.http.* <methods>; }
-    -keep,allowobfuscation interface <1>
-    
-    # Optional third party libraries. You can safely ignore those warnings.
-    -dontwarn com.squareup.okhttp.**
-    -dontwarn com.squareup.picasso.**
-    -dontwarn com.edmodo.cropper.**
-    -dontwarn org.slf4j.impl.**
-    
-    # RxJava needs these two lines for proper operation.
-    -keep class rx.internal.util.unsafe.** { *; }
-    -dontwarn sun.misc.**
-    -keepnames class rx.android.schedulers.AndroidSchedulers
-    -keepnames class rx.Observable
-    -keep class rx.schedulers.Schedulers {
-        public static <methods>;
-        public static ** test();
+
+   #Ignore annotation used for build tooling.
+   -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
+   #Ignore JSR 305 annotations for embedding nullability information.
+   -dontwarn javax.annotation.**
+
+   #Guarded by a NoClassDefFoundError try/catch and only used when on the classpath.
+   -dontwarn kotlin.Unit
+
+   #Top-level functions that can only be used by Kotlin.
+   -dontwarn retrofit2.KotlinExtensions
+   -dontwarn retrofit2.KotlinExtensions$*
+
+   #With R8 full mode, it sees no subtypes of Retrofit interfaces since they are created with a Proxy
+   #and replaces all potential values with null. Explicitly keeping the interfaces prevents this.
+   -if interface * { @retrofit2.http.* <methods>; }
+   -keep,allowobfuscation interface <1>
+
+   #Optional third party libraries. You can safely ignore those warnings.
+   -dontwarn com.squareup.okhttp.**
+   -dontwarn com.squareup.picasso.**
+   -dontwarn com.edmodo.cropper.**
+   -dontwarn org.slf4j.impl.**
+
+   #RxJava needs these two lines for proper operation.
+   -keep class rx.internal.util.unsafe.** { *; }
+   -keep class com.google.**
+   -dontwarn com.google.**
+   -dontnote com.google.**
+
+   -keep class okhttp3.**
+   -dontwarn okhttp3.**
+   -dontnote okhttp3.**
+
+   -keep class retrofit2.**
+   -dontwarn retrofit2.**
+   -dontnote retrofit2.**
+
+   -keepnames class rx.android.schedulers.AndroidSchedulers
+   -keepnames class rx.Observable
+   -keep class rx.schedulers.Schedulers {
+     public static <methods>;
+     public static ** test();
     }
     -keep class rx.schedulers.ImmediateScheduler {
-        public <methods>;
-    }
-    -keep class rx.schedulers.TestScheduler {
-        public <methods>;
-    }
-    
-    -keep class rx.subscriptions.Subscriptions {
-        *;
-    }
-    -keep class rx.exceptions.** {
-        public <methods>;
-    }
-    -keep class rx.subjects.** {
-        public <methods>;
-    }
-    
-    -keepclassmembers class android.webkit.** { *; }
-    -keep class android.webkit.** { *; }
-    
-    #JavaScript rules and classes required to be kept
-    -keepclasseswithmembers class * {
-        @android.webkit.JavascriptInterface <methods>;
-    }
-    
-    -keepclasseswithmembernames class * {
-        native <methods>;
-    }
-    
-    -keepclassmembers class com.docusign.androidsdk.** { *; }
-    -keep class com.docusign.androidsdk.** { *; }
+      public <methods>;
+   }
+   -keep class rx.schedulers.TestScheduler {
+    public <methods>;
+   }
+
+   -keep class rx.subscriptions.Subscriptions {
+     *;
+   }
+   -keep class rx.exceptions.** {
+     public <methods>;
+   }
+   -keep class rx.subjects.** {
+     public <methods>;
+   }
+
+   -keepclassmembers class android.webkit.** { *; }
+   -keep class android.webkit.** { *; }
+
+   #JavaScript rules and classes required to be kept
+   -keepclasseswithmembers class * {
+      @android.webkit.JavascriptInterface <methods>;
+   }
+
+   -keepclasseswithmembernames class * {
+      native <methods>;
+   }
+
+   -keepclassmembers class com.docusign.androidsdk.** { *; }
+   -keep class com.docusign.androidsdk.** { *; }
+
+   -dontwarn kotlinx.coroutines.**
+   -keep class kotlinx.coroutines.** { *; }
     ```
+
+## API Documentation
+Refer to DocuSign SDK api documentation at https://docusign.github.io/mobile-android-sdk/
+
 
 ## Initialization
 In your application's Application class:

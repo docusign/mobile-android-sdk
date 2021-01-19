@@ -1,5 +1,39 @@
 # DocuSign Android SDK Changelog
 
+## [v1.1.5] - DocuSign Android SDK 01-11-2021
+
+### Fixed
+* Memory leak and performance issues
+* Other bug fixes and enhancements
+
+## [v1.1.4] - DocuSign Android SDK 12-07-2020
+
+### Fixed
+* Fixed bug related to downloading the combined document of a completed envelope
+
+## [v1.1.3] - DocuSign Android SDK 12-01-2020
+
+### Added
+* Added support for app release builds using R8  
+
+## [v1.1.2] - DocuSign Android SDK 11-18-2020
+
+### Fixed
+* Fixed border displayed around read only tabs during signing
+* Bug fixes and Improvements
+
+### Added
+* Added api to control displaying host signing screen while using template for Online and Offline Signing
+* Added api to retrieve envelope info after syncing
+* Added Online Signing for Xamarin
+* Added displaying Private message in Online Signing
+* Added more Online Signing and Offline Signing telemetry events
+
+## [v1.1.1] - DocuSign Android SDK 10-15-2020
+
+### Fixed
+* Tab values set using prefill envelope defaults for a template are not reflected in the document during Online Signing
+
 ## [v1.1.0] - DocuSign Android SDK 10-09-2020
 
 ### Added
