@@ -1,5 +1,10 @@
 # DocuSign Android SDK Changelog
 
+## [v1.1.6] - DocuSign Android SDK 02-02-2021
+
+### Fixed
+* Fixed text tab fixed width and font size issue
+
 ## [v1.1.5] - DocuSign Android SDK 01-11-2021
 
 ### Fixed
