@@ -770,8 +770,8 @@ try {
 
 Support
 ===========
-
-* Reach out via developer community on Stack Overflow, search the [DocuSignAPI](http://stackoverflow.com/questions/tagged/docusignapi) tag.
+* [FAQ for DocuSign Android SDK](https://www.docusign.com/blog/developers/docusign-android-sdk-faq) 
+* Reach out via developer community on Stack Overflow, search the [DocuSignAPI](https://stackoverflow.com/questions/tagged/docusignapi) tag.
 * Open an [issue](https://github.com/docusign/mobile-android-sdk/issues).
 
 License
