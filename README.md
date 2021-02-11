@@ -768,6 +768,17 @@ try {
 }
 ```
 
+## Transition from demo environment to production environment
+If you’re using the demo environment, check that you set the environment after creating the DocuSign instance as follows:
+```java
+    DocuSign.getInstance().setEnvironment(DSEnvironment.DEMO_ENVIRONMENT);
+```
+
+If you’re using the production environment, check that you set the environment after creating the DocuSign instance as follows:
+```java
+    DocuSign.getInstance().setEnvironment(DSEnvironment.PRODUCTION_ENVIRONMENT);
+```
+
 Support
 ===========
 * [FAQ for DocuSign Android SDK](https://www.docusign.com/blog/developers/docusign-android-sdk-faq) 
