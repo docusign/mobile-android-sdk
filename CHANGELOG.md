@@ -1,5 +1,11 @@
 # DocuSign Android SDK Changelog
 
+## [v1.1.7] - DocuSign Android SDK 02-24-2021
+
+### Fixed
+* Fixed duplicate recipients entries in the Database
+* Included recipients validation on the envelope defaults object
+
 ## [v1.1.6] - DocuSign Android SDK 02-02-2021
 
 ### Fixed
