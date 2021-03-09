@@ -1,5 +1,12 @@
 # DocuSign Android SDK Changelog
 
+## [v1.1.7] - DocuSign Android SDK 03-08-2021
+
+### Added
+* Provided API's via CustomSettings to enable or disable the download of AccountSettings and Consumer Disclosure while Login
+* By default, sequential syncing is enabled, Provided an API to enable envelope syncing in parallel
+* Disabled syncing when device is on 2G Network
+
 ## [v1.1.7] - DocuSign Android SDK 02-24-2021
 
 ### Fixed
