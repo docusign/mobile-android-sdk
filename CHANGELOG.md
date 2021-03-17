@@ -1,5 +1,10 @@
 # DocuSign Android SDK Changelog
 
+## [v1.1.9] - DocuSign Android SDK 03-17-2021
+
+### Fixed
+* Optimized login with access token api
+
 ## [v1.1.7] - DocuSign Android SDK 03-08-2021
 
 ### Added
