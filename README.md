@@ -26,7 +26,7 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
         jcenter()
  
         maven {
-            url  "https://dl.bintray.com/dsdevcenter/maven"
+            url  "https://dscdn-a.akamaihd.net/prod/DocuSignAndroidSDK"
         }
       }
     }
@@ -40,7 +40,7 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     }
     
     dependencies {
-        implementation 'com.docusign:androidsdk:1.1.9'
+        implementation 'com.docusign:androidsdk:1.1.10'
     }
     
     ```

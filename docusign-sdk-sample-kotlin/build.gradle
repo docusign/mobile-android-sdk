@@ -19,7 +19,7 @@ allprojects {
         google()
         jcenter()
         maven {
-            url  "https://dl.bintray.com/dsdevcenter/maven"
+            url  "https://dscdn-a.akamaihd.net/prod/DocuSignAndroidSDK"
         }
     }
 }

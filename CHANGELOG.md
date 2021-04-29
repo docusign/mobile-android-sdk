@@ -1,5 +1,10 @@
 # DocuSign Android SDK Changelog
 
+## [v1.1.10] - DocuSign Android SDK 04-28-2021
+
+### Fixed
+* Support email content in template
+
 ## [v1.1.9] - DocuSign Android SDK 03-17-2021
 
 ### Fixed
