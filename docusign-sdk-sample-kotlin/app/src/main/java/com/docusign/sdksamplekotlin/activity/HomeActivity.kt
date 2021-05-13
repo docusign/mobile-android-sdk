@@ -11,6 +11,8 @@ import com.docusign.androidsdk.exceptions.DSAuthenticationException
 import com.docusign.androidsdk.listeners.DSLogoutListener
 import com.docusign.sdksamplekotlin.R
 import com.docusign.sdksamplekotlin.fragment.HomeFragment
+import com.docusign.sdksamplekotlin.utils.ClientUtils
+import com.docusign.sdksamplekotlin.utils.Constants
 
 class HomeActivity : AppCompatActivity() {
 
@@ -38,11 +40,13 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_logout -> logout()
+            R.id.action_reset -> reset()
         }
         return true
     }
 
     private fun logout() {
+        // DS: Logout from DocuSign
         DocuSign.getInstance().getAuthenticationDelegate().logout(this, true, object : DSLogoutListener {
 
             override fun onSuccess() {
@@ -56,5 +60,12 @@ class HomeActivity : AppCompatActivity() {
                Toast.makeText(applicationContext, "Failed to logout: " + exception.message, Toast.LENGTH_LONG).show()
             }
         })
+    }
+
+    private fun reset() {
+        ClientUtils.setSignedStatus(applicationContext, Constants.CLIENT_A_PREF, false)
+        ClientUtils.setSignedStatus(applicationContext, Constants.CLIENT_B_PREF, false)
+        val homeFragment = supportFragmentManager.findFragmentByTag(HomeFragment.TAG)
+        (homeFragment as? HomeFragment)?.viewPager?.adapter?.notifyDataSetChanged()
     }
 }

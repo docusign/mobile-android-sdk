@@ -35,6 +35,7 @@ import com.docusign.sdksamplekotlin.utils.Constants
 import com.docusign.sdksamplekotlin.utils.EnvelopeUtils
 import com.docusign.sdksamplekotlin.utils.SigningType
 import com.docusign.sdksamplekotlin.utils.Utils
+import com.docusign.sdksamplekotlin.utils.ClientUtils
 import com.docusign.sdksamplekotlin.viewmodel.SigningViewModel
 import com.google.gson.Gson
 import java.io.File
@@ -132,6 +133,9 @@ class ClientInvestmentFragment : Fragment() {
                 Status.COMPLETE -> {
                     toggleProgressBar(false)
                     showSuccessfulSigningDialog(context, SigningType.OFFLINE_SIGNING)
+                    client?.apply {
+                        ClientUtils.setSignedStatus(requireContext(), storePref, true)
+                    }
                 }
                 Status.ERROR -> {
                     toggleProgressBar(false)
@@ -150,6 +154,9 @@ class ClientInvestmentFragment : Fragment() {
                 Status.COMPLETE -> {
                     toggleProgressBar(false)
                     showSuccessfulSigningDialog(context, SigningType.ONLINE_SIGNING)
+                    client?.apply {
+                        ClientUtils.setSignedStatus(requireContext(), storePref, true)
+                    }
                 }
                 Status.ERROR -> {
                     toggleProgressBar(false)

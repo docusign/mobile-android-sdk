@@ -55,6 +55,7 @@ class TemplatesViewModel : ViewModel() {
 
     fun getTemplates(filter: DSTemplatesFilter) {
         if (Utils.isNetworkAvailable()) {
+            // DS: Get templates
             templateDelegate.getTemplates(filter, object : DSTemplateListListener {
                 override fun onStart() {
                     val getTemplatesModel = GetTemplatesModel(Status.START, null, null)
@@ -72,6 +73,7 @@ class TemplatesViewModel : ViewModel() {
                 }
             })
         } else {
+            // DS: Retrieve downloaded templates
             templateDelegate.retrieveDownloadedTemplates(object : DSTemplateListListener {
                 override fun onStart() {
                     val getTemplatesModel = GetTemplatesModel(Status.START, null, null)
@@ -92,6 +94,7 @@ class TemplatesViewModel : ViewModel() {
     }
 
     fun cacheTemplate(templateId: String, position: Int) {
+        // DS: Get template
         templateDelegate.getTemplate(templateId, null, object : DSTemplateListener {
 
             override fun onComplete(template: DSTemplateDefinition) {
@@ -128,10 +131,12 @@ class TemplatesViewModel : ViewModel() {
     }
 
     fun removeCachedTemplate(templateId: String, position: Int) {
+        // DS: Retrieve cached template
         templateDelegate.retrieveCachedTemplate(templateId, object : DSGetCachedTemplateListener {
 
             override fun onComplete(template: DSTemplateDefinition?) {
                 template?.let {
+                    // DS: Remove cached template
                     templateDelegate.removeCachedTemplate(template, object : DSRemoveTemplateListener {
                         override fun onTemplateRemoved(isRemoved: Boolean) {
                             if (isRemoved) {
@@ -155,6 +160,7 @@ class TemplatesViewModel : ViewModel() {
     }
 
     fun retrieveCachedTemplate(templateId: String, position: Int) {
+        // DS: Retrieve cached template
         templateDelegate.retrieveCachedTemplate(templateId, object : DSGetCachedTemplateListener {
             override fun onComplete(template: DSTemplateDefinition?) {
                 if (template != null) {
@@ -172,6 +178,7 @@ class TemplatesViewModel : ViewModel() {
     }
 
     fun useTemplateOnline(context: Context, templateId: String, envelopeDefaults: DSEnvelopeDefaults?) {
+        // DS: Online signing using template
         templateDelegate.useTemplateOnline(context, templateId, envelopeDefaults, object : DSOnlineUseTemplateListener {
 
             override fun onStart(envelopeId: String) {
@@ -204,6 +211,7 @@ class TemplatesViewModel : ViewModel() {
     }
 
     fun useTemplateOffline(context: Context, templateId: String, envelopeDefaults: DSEnvelopeDefaults?) {
+        // DS: Offline signing using template
         templateDelegate.useTemplateOffline(context, templateId, envelopeDefaults, object : DSOfflineUseTemplateListener {
             override fun onCancel(templateId: String, envelopeId: String?) {
                 /* NO-OP */

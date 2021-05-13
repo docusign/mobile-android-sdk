@@ -28,6 +28,7 @@ class SigningViewModel : ViewModel() {
     private val signingDelegate = DocuSign.getInstance().getSigningDelegate()
 
     fun signOffline(context: Context, envelopeId: String) {
+        // DS: Offline Signing using local envelopeId
         signingDelegate.signOffline(context, envelopeId, object : DSOfflineSigningListener {
 
             override fun onSuccess(envelopeId: String) {
@@ -47,6 +48,7 @@ class SigningViewModel : ViewModel() {
     }
 
     fun signOnline(context: Context, envelopeId: String) {
+        // DS: Online Signing using local envelopeId
         signingDelegate.createEnvelopeAndLaunchOnlineSigning(context, envelopeId, object : DSOnlineSigningListener {
 
             override fun onStart(envelopeId: String) {

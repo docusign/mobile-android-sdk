@@ -26,6 +26,10 @@ class HomePagerAdapter(private val context: Context, fragmentManager: FragmentMa
         }
     }
 
+    override fun getItemPosition(`object`: Any): Int {
+        return POSITION_NONE
+    }
+
     override fun getPageTitle(position: Int): CharSequence? {
         return context.resources.getString(TAB_TITLES[position])
     }

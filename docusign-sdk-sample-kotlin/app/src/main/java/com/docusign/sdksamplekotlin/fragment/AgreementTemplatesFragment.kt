@@ -3,6 +3,7 @@ package com.docusign.sdksamplekotlin.fragment
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -17,12 +18,15 @@ import com.docusign.sdksamplekotlin.livedata.UseTemplateOnlineModel
 import com.docusign.sdksamplekotlin.model.Client
 import com.docusign.sdksamplekotlin.utils.EnvelopeUtils
 import com.docusign.sdksamplekotlin.utils.SigningType
+import com.docusign.sdksamplekotlin.utils.Constants
 import com.docusign.sdksamplekotlin.utils.Utils
+import com.docusign.sdksamplekotlin.utils.ClientUtils
 import com.docusign.sdksamplekotlin.viewmodel.TemplatesViewModel
 
 class AgreementTemplatesFragment : TemplatesFragment() {
 
     private var client: Client? = null
+    private lateinit var sharedPreferences: SharedPreferences
 
     companion object {
         val TAG = AgreementTemplatesFragment::class.java.simpleName
@@ -42,6 +46,7 @@ class AgreementTemplatesFragment : TemplatesFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         templatesViewModel = TemplatesViewModel()
+        sharedPreferences = requireContext().getSharedPreferences(Constants.APP_SHARED_PREFERENCES, Context.MODE_PRIVATE)
         initLiveDataObservers()
     }
 
@@ -57,6 +62,10 @@ class AgreementTemplatesFragment : TemplatesFragment() {
                     Log.d(TAG, "Envelope with ${model.envelopeId} is signed online successfully")
                     activity?.let { activity ->
                         showSuccessfulSigningDialog(activity, SigningType.ONLINE_SIGNING)
+
+                        client?.apply {
+                            ClientUtils.setSignedStatus(requireContext(), storePref, true)
+                        }
                     }
                 }
 
@@ -81,6 +90,9 @@ class AgreementTemplatesFragment : TemplatesFragment() {
                     Log.d(TAG, "Envelope with ${model.envelopeId} is signed offline successfully")
                     activity?.let { activity ->
                         showSuccessfulSigningDialog(activity, SigningType.OFFLINE_SIGNING)
+                        client?.apply {
+                            ClientUtils.setSignedStatus(requireContext(), storePref, true)
+                        }
                     }
                 }
 

@@ -9,6 +9,8 @@ internal object Constants {
     const val APP_SHARED_PREFERENCES = "AppSharedPreferences"
     const val CLIENT_A_PREF = "client_a_details"
     const val CLIENT_B_PREF = "client_b_details"
+    const val CLIENT_A_SIGNED_STATUS = "client_a_signed_status"
+    const val CLIENT_B_SIGNED_STATUS = "client_b_signed_status"
 
     const val DOCUSIGN_INTEGRATOR_KEY_PREF = "integrator_key"
     const val CLIENT_SECRET_KEY_PREF = "client_secret"

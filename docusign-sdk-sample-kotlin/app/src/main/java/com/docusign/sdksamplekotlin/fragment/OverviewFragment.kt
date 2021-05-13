@@ -14,6 +14,7 @@ import com.docusign.sdksamplekotlin.activity.AgreementActivity
 import com.docusign.sdksamplekotlin.adapter.AppointmentAdapter
 import com.docusign.sdksamplekotlin.model.Appointment
 import com.docusign.sdksamplekotlin.model.Client
+import com.docusign.sdksamplekotlin.utils.ClientUtils
 import com.docusign.sdksamplekotlin.utils.Constants
 import com.google.gson.Gson
 import java.text.SimpleDateFormat
@@ -21,6 +22,8 @@ import java.util.Date
 import java.util.Locale
 
 class OverviewFragment : Fragment(), AppointmentAdapter.AppointmentListener {
+
+    private lateinit var appointmentRecyclerView: RecyclerView
 
     companion object {
         val TAG = OverviewFragment::class.java.simpleName
@@ -41,7 +44,7 @@ class OverviewFragment : Fragment(), AppointmentAdapter.AppointmentListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.let { activity ->
-            val appointmentRecyclerView = activity.findViewById<RecyclerView>(R.id.appointments_recycler_view)
+            appointmentRecyclerView = activity.findViewById<RecyclerView>(R.id.appointments_recycler_view)
             appointmentRecyclerView.layoutManager = LinearLayoutManager(activity)
             val appointments = mutableListOf<Appointment>()
             val date = Date()
@@ -76,19 +79,32 @@ class OverviewFragment : Fragment(), AppointmentAdapter.AppointmentListener {
                 putString(Constants.CLIENT_A_PREF, client1Json)?.apply()
                 putString(Constants.CLIENT_B_PREF, client2Json)?.apply()
             }
-
-            appointments.add(Appointment(dateFormat.format(date), client1, false))
-            appointments.add(Appointment(dateFormat.format(date), client2, false))
+            val client1SignedStatus = ClientUtils.getSignedStatus(requireContext(), client1.storePref)
+            val client2SignedStatus = ClientUtils.getSignedStatus(requireContext(), client2.storePref)
+            appointments.add(Appointment(dateFormat.format(date), client1, client1SignedStatus))
+            appointments.add(Appointment(dateFormat.format(date), client2, client2SignedStatus))
             appointmentRecyclerView.adapter = AppointmentAdapter(appointments, this)
         }
     }
 
-    override fun onAppointmentSelected(appointment: Appointment) {
-        val intent = Intent(activity, AgreementActivity::class.java)
-        val clientJson = Gson().toJson(appointment.client)
-        clientJson?.let {
-            intent.putExtra(AgreementActivity.CLIENT_DETAILS, clientJson)
+    override fun onResume() {
+        super.onResume()
+        val appointments = (appointmentRecyclerView.adapter as? AppointmentAdapter)?.appointments
+        appointments?.forEach { appointment ->
+            appointment.clientSigned = ClientUtils.getSignedStatus(requireContext(), appointment.client.storePref)
         }
-        activity?.startActivity(intent)
+        appointmentRecyclerView.adapter?.notifyDataSetChanged()
+    }
+
+    override fun onAppointmentSelected(appointment: Appointment) {
+        val clientSignedStatus = ClientUtils.getSignedStatus(requireContext(), appointment.client.storePref)
+        if (!clientSignedStatus) {
+            val intent = Intent(activity, AgreementActivity::class.java)
+            val clientJson = Gson().toJson(appointment.client)
+            clientJson?.let {
+                intent.putExtra(AgreementActivity.CLIENT_DETAILS, clientJson)
+            }
+            activity?.startActivity(intent)
+        }
     }
 }

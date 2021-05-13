@@ -112,6 +112,7 @@ object EnvelopeUtils {
                     .type(DSRecipientType.CARBON_COPY)
                     .build()
             )
+            // DS: Envelope creation
             return DSEnvelope.Builder()
                 .envelopeName("TGK Capital Portfolio B Agreement")
                 .documents(documents)
@@ -482,6 +483,7 @@ object EnvelopeUtils {
         val listCustomFields: MutableList<DSListCustomField> = mutableListOf()
         val customFields = DSCustomFields(listCustomFields, textCustomFields as MutableList<DSTextCustomField>)
 
+        // DS: Prefill Envelope Defaults
         return DSEnvelopeDefaults(
             recipientDefaults,
             templateName,

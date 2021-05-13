@@ -70,6 +70,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             val authDelegate = DocuSign.getInstance().getAuthenticationDelegate()
+            // DS: Login authentication using OAuth
             authDelegate.login(Constants.LOGIN_REQUEST_CODE, this,
                 object : DSAuthenticationListener {
                     override fun onSuccess(@NonNull user: DSUser) {

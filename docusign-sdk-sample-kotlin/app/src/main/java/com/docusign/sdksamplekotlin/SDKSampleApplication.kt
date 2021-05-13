@@ -63,6 +63,7 @@ class SDKSampleApplication : Application() {
             return
         }
 
+        // DS: Initialize DocuSign instance
         try {
             DocuSign.init(
                 applicationContext,
@@ -76,6 +77,7 @@ class SDKSampleApplication : Application() {
             Toast.makeText(applicationContext, "Failed to Initialize DocuSign. " + exception.message, Toast.LENGTH_LONG).show()
             return
         }
+        // DS: Set branding for your app
         val appearanceDelegate = DocuSign.getInstance().getAppearanceDelegate()
         val appearance = DSAppearance.Builder()
             .setActionBarColor(ColorDrawable(resources.getColor(R.color.colorPrimary)))

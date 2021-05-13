@@ -43,6 +43,7 @@ class EnvelopeViewModel : ViewModel() {
     private val envelopeDelegate = DocuSign.getInstance().getEnvelopeDelegate()
 
     fun syncEnvelope(envelopeId: String, position: Int) {
+        // DS: Sync envelope
         envelopeDelegate.syncEnvelope(envelopeId, object : DSSyncEnvelopeListener {
             override fun onError(exception: DSSyncException, localEnvelopeId: String, syncRetryCount: Int?) {
                 val syncEnvelopeModel = SyncEnvelopeModel(Status.ERROR, position, exception)
@@ -59,6 +60,7 @@ class EnvelopeViewModel : ViewModel() {
     }
 
     fun syncAllEnvelopes() {
+        // DS: Sync all envelopes
         envelopeDelegate.syncAllEnvelopes(object : DSSyncAllEnvelopesListener {
 
             override fun onStart() {
@@ -88,6 +90,7 @@ class EnvelopeViewModel : ViewModel() {
     }
 
     fun getSyncPendingEnvelopeIds() {
+        // DS: Get sync pending envelope Ids
         envelopeDelegate.getSyncPendingEnvelopeIdsList(object : DSGetEnvelopeIdsListener {
             override fun onComplete(envelopeIdList: List<String>) {
                 val getSyncPendingEnvelopeIdsModel = GetSyncPendingEnvelopeIdsModel(Status.COMPLETE, envelopeIdList, null)
@@ -103,6 +106,7 @@ class EnvelopeViewModel : ViewModel() {
     }
 
     fun getCachedEnvelope(envelopeId: String) {
+        // DS: Get cached envelope
         envelopeDelegate.getCachedEnvelope(envelopeId, object : DSGetCachedEnvelopeListener {
             override fun onComplete(envelope: DSEnvelope) {
                 val getCachedEnvelopeModel = GetCachedEnvelopeModel(Status.COMPLETE, envelope, null)
