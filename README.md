@@ -26,7 +26,7 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
         jcenter()
  
         maven {
-            url  "https://dl.bintray.com/dsdevcenter/maven"
+            url  "https://dscdn-a.akamaihd.net/prod/DocuSignAndroidSDK"
         }
       }
     }
@@ -40,7 +40,8 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     }
     
     dependencies {
-        implementation 'com.docusign:androidsdk:1.1.3'
+        implementation 'com.docusign:androidsdk:1.2.0'
+        implementation 'com.docusign:sdk-common:1.2.0'
     }
     
     ```
@@ -103,6 +104,16 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
         }
     }
    ```
+
+   For ProGuard and R8, make sure the gradle build script as follows:
+
+   ```gradle
+    android {
+        buildTypes {
+	        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }   
+    ```
 
    For ProGuard and R8, add the following ProGuard rules:
 
@@ -758,10 +769,21 @@ try {
 }
 ```
 
+## Transition from demo environment to production environment
+If you’re using the demo environment, check that you set the environment after creating the DocuSign instance as follows:
+```java
+    DocuSign.getInstance().setEnvironment(DSEnvironment.DEMO_ENVIRONMENT);
+```
+
+If you’re using the production environment, check that you set the environment after creating the DocuSign instance as follows:
+```java
+    DocuSign.getInstance().setEnvironment(DSEnvironment.PRODUCTION_ENVIRONMENT);
+```
+
 Support
 ===========
-
-* Reach out via developer community on Stack Overflow, search the [DocuSignAPI](http://stackoverflow.com/questions/tagged/docusignapi) tag.
+* [FAQ for DocuSign Android SDK](https://www.docusign.com/blog/developers/docusign-android-sdk-faq) 
+* Reach out via developer community on Stack Overflow, search the [DocuSignAPI](https://stackoverflow.com/questions/tagged/docusignapi) tag.
 * Open an [issue](https://github.com/docusign/mobile-android-sdk/issues).
 
 License
