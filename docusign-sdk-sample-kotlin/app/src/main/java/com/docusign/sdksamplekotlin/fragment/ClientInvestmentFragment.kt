@@ -225,7 +225,7 @@ class ClientInvestmentFragment : Fragment() {
         envelopeDelegate.composeAndSendEnvelope(envelope, object : DSComposeAndSendEnvelopeListener {
 
             override fun onSuccess(envelopeId: String, isEnvelopeSent: Boolean) {
-                if (Utils.isNetworkAvailable()) {
+                if (Utils.isNetworkAvailable(context)) {
                     toggleProgressBar(true)
                     signingViewModel.signOnline(context, envelopeId)
                 } else {

@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.util.Log
-import com.docusign.androidsdk.DocuSign
 import java.io.InputStream
 import java.io.OutputStream
 import java.io.BufferedInputStream
@@ -20,9 +19,9 @@ object Utils {
     private const val BUFFER_SIZE = 1024 * 2
 
     @Suppress("DEPRECATION")
-    fun isNetworkAvailable(): Boolean {
+    fun isNetworkAvailable(context: Context): Boolean {
         var result = false
-        val connectivityManager = DocuSign.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE)
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE)
                 as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             connectivityManager.run {

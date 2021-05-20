@@ -127,7 +127,7 @@ class AgreementTemplatesFragment : TemplatesFragment() {
 
         // If you want to prefill template with recipient details, tab details etc, you can set EnvelopeDefaults
         val envelopeDefaults = EnvelopeUtils.buildEnvelopeDefaults(context, templateId, templateName, client?.storePref)
-        if (Utils.isNetworkAvailable()) {
+        if (Utils.isNetworkAvailable(context)) {
             toggleProgressBar(true)
             templatesViewModel.useTemplateOnline(context, templateId, envelopeDefaults)
             // templatesViewModel.useTemplateOnline(context, templateId, null)

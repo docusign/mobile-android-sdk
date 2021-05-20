@@ -1,5 +1,14 @@
 # DocuSign Android SDK Changelog
 
+## [v1.2.0] - DocuSign Android SDK 05-19-2021
+
+### Added
+* Support for EMAIL_ADDRESS tag for Offline Signing using templates
+* Dark mode support
+
+### Fixed
+* Bug fixes and Improvements
+
 ## [v1.1.10] - DocuSign Android SDK 04-28-2021
 
 ### Fixed

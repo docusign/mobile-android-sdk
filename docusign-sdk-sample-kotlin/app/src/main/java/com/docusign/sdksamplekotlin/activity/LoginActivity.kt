@@ -11,10 +11,10 @@ import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import com.docusign.androidsdk.DocuSign
+import com.docusign.androidsdk.dsmodels.DSUser
 import com.docusign.androidsdk.exceptions.DSAuthenticationException
 import com.docusign.androidsdk.exceptions.DocuSignNotInitializedException
 import com.docusign.androidsdk.listeners.DSAuthenticationListener
-import com.docusign.androidsdk.models.DSUser
 import com.docusign.sdksamplekotlin.R
 import com.docusign.sdksamplekotlin.utils.Constants
 

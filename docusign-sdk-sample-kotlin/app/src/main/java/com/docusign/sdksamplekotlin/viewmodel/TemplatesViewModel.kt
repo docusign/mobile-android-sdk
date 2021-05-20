@@ -53,8 +53,8 @@ class TemplatesViewModel : ViewModel() {
 
     val templateDelegate = DocuSign.getInstance().getTemplateDelegate()
 
-    fun getTemplates(filter: DSTemplatesFilter) {
-        if (Utils.isNetworkAvailable()) {
+    fun getTemplates(context: Context, filter: DSTemplatesFilter) {
+        if (Utils.isNetworkAvailable(context)) {
             // DS: Get templates
             templateDelegate.getTemplates(filter, object : DSTemplateListListener {
                 override fun onStart() {
@@ -100,6 +100,7 @@ class TemplatesViewModel : ViewModel() {
             override fun onComplete(template: DSTemplateDefinition) {
 
                 if (template.cacheable.isCacheable) {
+                    // DS: Cache template
                     templateDelegate.cacheTemplate(template.templateId, object : DSCacheTemplateListener {
                         override fun onStart() {
                             val cacheTemplateModel = CacheTemplateModel(Status.START, null, position, null)

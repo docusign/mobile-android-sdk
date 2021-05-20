@@ -72,7 +72,7 @@ open class TemplatesFragment : Fragment(), TemplateAdapter.TemplateClickListener
             val filter = DSTemplatesFilter(TEMPLATE_COUNT, null, null, startPosition)
             isLoadingData = true
             initLiveDataObservers()
-            templatesViewModel.getTemplates(filter)
+            templatesViewModel.getTemplates(requireContext(), filter)
         }
     }
 
@@ -103,7 +103,7 @@ open class TemplatesFragment : Fragment(), TemplateAdapter.TemplateClickListener
                         startPosition = availableTemplatesTotalSize
                         val filter = DSTemplatesFilter(TEMPLATE_COUNT, null, null, startPosition)
                         isLoadingData = true
-                        templatesViewModel.getTemplates(filter)
+                        templatesViewModel.getTemplates(requireContext(), filter)
                     }
                 }
             }
