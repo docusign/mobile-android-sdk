@@ -827,7 +827,7 @@ private void getUserSignatureInfo() {
 ```
 
 ### Kotlin
-```kotlin
+``` kotlin
 private fun getUserSignatureInfo() {
   val eSignApiDelegate = DocuSign.getInstance().getESignApiDelegate()
   val usersApi = eSignApiDelegate.createApiService(UsersApi::class.java)
@@ -836,19 +836,19 @@ private fun getUserSignatureInfo() {
   val user = authDelegate.getLoggedInUser(context)
   eSignApiDelegate.invoke(object : DSESignApiListener {
 
-                                        override fun <T> onSuccess(response: T?) {
-                                        	if (response is UserSignaturesInformation) {
-                           			            val userSignature = (response as UserSignaturesInformation).getUserSignatures().get(0)
-                            			        Log.d(TAG, "Signature Id: " + userSignature.getSignatureId());
-                        			        }
-					                    }
+                            override fun <T> onSuccess(response: T?) {
+                                if (response is UserSignaturesInformation) {
+                                    val userSignature = (response as UserSignaturesInformation).getUserSignatures().get(0)
+                                    Log.d(TAG, "Signature Id: " + userSignature.getSignatureId());
+                                }
+                            }
 
-                                        override fun onError(exception: DSRestException) {
-                                           // TODO: Handle error
-                                        }
-                                    }) {
-                                        usersApi.userSignaturesGetUserSignatures(user.getAccountId(), user.getUserId(), "signature")
-                                    }
+                            override fun onError(exception: DSRestException) {
+                                // TODO: Handle error
+                            }
+                            }) {
+                                usersApi.userSignaturesGetUserSignatures(user.getAccountId(), user.getUserId(), "signature")
+                            }
 }
 ```
 
