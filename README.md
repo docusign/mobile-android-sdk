@@ -26,7 +26,7 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
         jcenter()
  
         maven {
-            url  "https://dscdn-a.akamaihd.net/prod/DocuSignAndroidSDK"
+            url  "https://docucdn-a.akamaihd.net/prod/docusignandroidsdk"
         }
       }
     }
@@ -40,11 +40,21 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     }
     
     dependencies {
-        implementation 'com.docusign:androidsdk:1.2.0'
-        implementation 'com.docusign:sdk-common:1.2.0'
+        implementation 'com.docusign:androidsdk:1.3.0'
+        implementation 'com.docusign:sdk-common:1.3.0'
     }
     
     ```
+
+    If you would like to access eSign REST API from SDK, add the following dependencies in your app's build.gradle file:
+    ```gradle
+    dependencies {
+        implementation 'com.docusign:androidsdk:1.3.0'
+        implementation 'com.docusign:sdk-common:1.3.0'
+        implementation 'com.docusign:sdk-esign-api:1.3.0'
+    }
+    ```
+
 3. If using BinTray (as mentioned in the above steps) is not an option for downloading DocuSign Android SDK, then you can download SDK manually as separate library. The SDK is available at [release](https://github.com/docusign/mobile-android-sdk/tree/master/release).  
 
     In the app's build.gradle, add the following dependencies:
@@ -779,6 +789,72 @@ If you’re using the production environment, check that you set the environment
 ```java
     DocuSign.getInstance().setEnvironment(DSEnvironment.PRODUCTION_ENVIRONMENT);
 ```
+
+## ESign REST API invocation from SDK
+The following example shows how to retrieve user signature using eSign REST API from DocuSign Android SDK:
+### Java
+```java
+private void getUserSignatureInfo() {
+            DSESignApiDelegate eSignApiDelegate = DocuSign.getInstance().getESignApiDelegate();
+            final UsersApi usersApi = eSignApiDelegate.createApiService(UsersApi.class);
+            if (usersApi != null) {
+                DSAuthenticationDelegate authDelegate = DocuSign.getInstance().getAuthenticationDelegate();
+                final DSUser user = authDelegate.getLoggedInUser(getApplicationContext());
+
+                eSignApiDelegate.invoke(new DSESignApiListener() {
+
+                    @Override
+                    public <T> void onSuccess(T response) {
+                        if (response instanceof UserSignaturesInformation) {
+                            UserSignature userSignature = ((UserSignaturesInformation) response).getUserSignatures().get(0);
+                            Log.d(TAG, "Signature Id: " + userSignature.getSignatureId());
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NotNull DSRestException exception) {
+                        // TODO: Handle error
+                    }
+                }, new Function0<Call<UserSignaturesInformation>>(){
+
+                    @Override
+                    public Call<UserSignaturesInformation> invoke() {
+                        return usersApi.userSignaturesGetUserSignatures(user.getAccountId(), user.getUserId(), "signature");
+                    }
+                });
+            }
+}
+```
+
+### Kotlin
+``` kotlin
+private fun getUserSignatureInfo() {
+  val eSignApiDelegate = DocuSign.getInstance().getESignApiDelegate()
+  val usersApi = eSignApiDelegate.createApiService(UsersApi::class.java)
+
+  val authDelegate = DocuSign.getInstance().getAuthenticationDelegate()
+  val user = authDelegate.getLoggedInUser(context)
+  eSignApiDelegate.invoke(object : DSESignApiListener {
+
+                            override fun <T> onSuccess(response: T?) {
+                                if (response is UserSignaturesInformation) {
+                                    val userSignature = (response as UserSignaturesInformation).getUserSignatures().get(0)
+                                    Log.d(TAG, "Signature Id: " + userSignature.getSignatureId());
+                                }
+                            }
+
+                            override fun onError(exception: DSRestException) {
+                                // TODO: Handle error
+                            }
+                            }) {
+                                usersApi.userSignaturesGetUserSignatures(user.getAccountId(), user.getUserId(), "signature")
+                            }
+}
+```
+
+## SDK Documentation
+* [SDK API Docs](./docs)
+* [SDK eSign API Docs](./docs)
 
 Support
 ===========
