@@ -852,6 +852,10 @@ private fun getUserSignatureInfo() {
 }
 ```
 
+## SDK Documentation
+* [SDK API Docs](./docs)
+* [SDK eSign API Docs](./docs)
+
 Support
 ===========
 * [FAQ for DocuSign Android SDK](https://www.docusign.com/blog/developers/docusign-android-sdk-faq) 
