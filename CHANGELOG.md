@@ -1,5 +1,14 @@
 # DocuSign Android SDK Changelog
 
+## [v1.3.0] - DocuSign Android SDK 07-08-2021
+
+### Added
+* eSign REST API access in SDK
+* Captive Signing
+
+### Fixed
+* Bug fixes and Improvements
+
 ## [v1.2.0] - DocuSign Android SDK 05-19-2021
 
 ### Added

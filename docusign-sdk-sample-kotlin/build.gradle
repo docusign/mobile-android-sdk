@@ -19,7 +19,7 @@ allprojects {
         google()
         jcenter()
         maven {
-            url  "https://dscdn-a.akamaihd.net/prod/DocuSignAndroidSDK"
+            url  "https://docucdn-a.akamaihd.net/prod/docusignandroidsdk"
         }
     }
 }
