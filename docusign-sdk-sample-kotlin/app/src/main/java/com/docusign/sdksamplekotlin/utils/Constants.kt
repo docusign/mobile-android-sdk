@@ -9,8 +9,10 @@ internal object Constants {
     const val APP_SHARED_PREFERENCES = "AppSharedPreferences"
     const val CLIENT_A_PREF = "client_a_details"
     const val CLIENT_B_PREF = "client_b_details"
+    const val CLIENT_C_PREF = "client_c_details"
     const val CLIENT_A_SIGNED_STATUS = "client_a_signed_status"
     const val CLIENT_B_SIGNED_STATUS = "client_b_signed_status"
+    const val CLIENT_C_SIGNED_STATUS = "client_c_signed_status"
 
     const val DOCUSIGN_INTEGRATOR_KEY_PREF = "integrator_key"
     const val CLIENT_SECRET_KEY_PREF = "client_secret"
@@ -20,7 +22,6 @@ internal object Constants {
     const val PORTFOLIO_A_DOCUMENT_FILE_NAME = "TGK-Capital-PortfolioA-Agreement.pdf"
     const val PORTFOLIO_B_DOCUMENT_FILE_NAME = "TGK-Capital-PortfolioB-Agreement.pdf"
     const val ACCREDITED_INVESTOR_VERIFICATION_FILE_NAME = "Accredited-Investor-Verification.pdf"
-
     object TemplateConstants {
         object PortfolioA {
             const val TEMPLATE_ID = "97d25070-57d4-45ae-bc96-e37712f53711"

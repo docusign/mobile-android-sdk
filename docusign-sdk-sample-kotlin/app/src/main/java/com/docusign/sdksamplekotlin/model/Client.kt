@@ -9,5 +9,6 @@ data class Client(
     var addressLine2: String,
     var addressLine3: String,
     var investmentAmount: String,
-    var storePref: String
+    var storePref: String,
+    var cacheEnvelope: Boolean = false
 )

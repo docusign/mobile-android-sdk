@@ -107,7 +107,7 @@ class EnvelopeViewModel : ViewModel() {
 
     fun getCachedEnvelope(envelopeId: String) {
         // DS: Get cached envelope
-        envelopeDelegate.getCachedEnvelope(envelopeId, object : DSGetCachedEnvelopeListener {
+        envelopeDelegate.getCachedEnvelope(envelopeId, false, object : DSGetCachedEnvelopeListener {
             override fun onComplete(envelope: DSEnvelope) {
                 val getCachedEnvelopeModel = GetCachedEnvelopeModel(Status.COMPLETE, envelope, null)
                 getCachedEnvelopeLiveData.value = getCachedEnvelopeModel

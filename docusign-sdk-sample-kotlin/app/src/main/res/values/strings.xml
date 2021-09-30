@@ -46,4 +46,10 @@
     <string name="envelope_sync_all_success_message">All agreements synced successfully</string>
     <string name="invest">Invest in Portfolio</string>
     <string name="reset">Reset</string>
+    <string name="new_presentation_text">New presentation</string>
+    <string name="investor_name_hint">Investor name</string>
+    <string name="investor_email_hint">Investor email address</string>
+    <string name="view_portfolio_text">View Portfolio</string>
+    <string name="investor_name_empty">Investor name is empty.</string>
+    <string name="investor_email_empty">Investor email is empty.</string>
 </resources>

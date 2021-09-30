@@ -1,15 +1,17 @@
 package com.docusign.sdksamplekotlin.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.docusign.androidsdk.DocuSign
+import com.docusign.androidsdk.dsmodels.DSEnvelope
 import com.docusign.androidsdk.exceptions.DSSigningException
+import com.docusign.androidsdk.listeners.DSCaptiveSigningListener
 import com.docusign.androidsdk.listeners.DSOfflineSigningListener
 import com.docusign.androidsdk.listeners.DSOnlineSigningListener
-import com.docusign.sdksamplekotlin.livedata.SignOfflineModel
-import com.docusign.sdksamplekotlin.livedata.SignOnlineModel
-import com.docusign.sdksamplekotlin.livedata.Status
+import com.docusign.sdksamplekotlin.fragment.ClientInvestmentFragment
+import com.docusign.sdksamplekotlin.livedata.*
 
 class SigningViewModel : ViewModel() {
 
@@ -23,6 +25,14 @@ class SigningViewModel : ViewModel() {
 
     val signOnlineLiveData: MutableLiveData<SignOnlineModel> by lazy {
         MutableLiveData<SignOnlineModel>()
+    }
+
+    val captiveSigningLiveData: MutableLiveData<CaptiveSigningModel> by lazy {
+        MutableLiveData<CaptiveSigningModel>()
+    }
+
+    val cachedEnvelopeSigningLiveData: MutableLiveData<CachedEnvelopeSigningModel> by lazy {
+        MutableLiveData<CachedEnvelopeSigningModel>()
     }
 
     private val signingDelegate = DocuSign.getInstance().getSigningDelegate()
@@ -76,6 +86,73 @@ class SigningViewModel : ViewModel() {
 
             override fun onRecipientSigningSuccess(envelopeId: String, recipientId: String) {
                 /* NO-OP */
+            }
+        })
+    }
+
+    fun captiveSigning(context: Context, envelope: DSEnvelope) {
+        signingDelegate.launchCaptiveSigning(context,
+            envelope.envelopeId,
+            envelope.recipients?.getOrNull(0)?.clientUserId ?: "",
+            object : DSCaptiveSigningListener {
+                override fun onCancel(
+                    envelopeId: String,
+                    recipientId: String
+                ) {
+                    /* NO-OP */
+                }
+
+                override fun onError(
+                    envelopeId: String?,
+                    exception: DSSigningException
+                ) {
+                    val captiveSigningModel = CaptiveSigningModel(Status.ERROR, exception)
+                    captiveSigningLiveData.value = captiveSigningModel
+                }
+
+                override fun onRecipientSigningError(
+                    envelopeId: String,
+                    recipientId: String,
+                    exception: DSSigningException
+                ) {
+                    /* NO-OP */
+                }
+
+                override fun onRecipientSigningSuccess(
+                    envelopeId: String,
+                    recipientId: String
+                ) {
+                    /* NO-OP */
+                }
+
+                override fun onStart(envelopeId: String) {
+                    val captiveSigningModel = CaptiveSigningModel(Status.START, null)
+                    captiveSigningLiveData.value = captiveSigningModel
+                }
+
+                override fun onSuccess(envelopeId: String) {
+                    val captiveSigningModel = CaptiveSigningModel(Status.COMPLETE, null)
+                    captiveSigningLiveData.value = captiveSigningModel
+                }
+            })
+    }
+
+    fun signCachedEnvelope(context: Context, envelopeId: String) {
+        // DS: Offline Signing using local envelopeId
+        signingDelegate.signOffline(context, envelopeId, object : DSOfflineSigningListener {
+
+            override fun onSuccess(envelopeId: String) {
+                val cachedEnvelopeSigningModel = CachedEnvelopeSigningModel(Status.COMPLETE, null)
+                cachedEnvelopeSigningLiveData.value = cachedEnvelopeSigningModel
+            }
+
+            override fun onCancel(envelopeId: String) {
+                /* NO- OP */
+            }
+
+            override fun onError(exception: DSSigningException) {
+                val cachedEnvelopeSigningModel = CachedEnvelopeSigningModel(Status.ERROR, exception)
+                cachedEnvelopeSigningLiveData.value = cachedEnvelopeSigningModel
             }
         })
     }

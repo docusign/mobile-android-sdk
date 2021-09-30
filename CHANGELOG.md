@@ -1,5 +1,17 @@
 # DocuSign Android SDK Changelog
 
+## [v1.4.0] - DocuSign Android SDK 09-29-2021
+
+### Added
+* Offline Signing as separate SDK
+* Offline Signing with Photo API
+* Login based on Account Id
+* Use existing signature during Online Signing
+* Settings API to control displaying 'Signing complete' screen
+
+### Fixed
+* Bug fixes and Improvements
+
 ## [v1.3.0] - DocuSign Android SDK 07-08-2021
 
 ### Added

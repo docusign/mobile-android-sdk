@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.docusign.sdksamplekotlin.R
 import com.docusign.sdksamplekotlin.activity.AgreementActivity
+import com.docusign.sdksamplekotlin.activity.NewPresentationActivity
 import com.docusign.sdksamplekotlin.adapter.AppointmentAdapter
 import com.docusign.sdksamplekotlin.model.Appointment
 import com.docusign.sdksamplekotlin.model.Client
@@ -18,8 +19,7 @@ import com.docusign.sdksamplekotlin.utils.ClientUtils
 import com.docusign.sdksamplekotlin.utils.Constants
 import com.google.gson.Gson
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 class OverviewFragment : Fragment(), AppointmentAdapter.AppointmentListener {
 
@@ -84,6 +84,17 @@ class OverviewFragment : Fragment(), AppointmentAdapter.AppointmentListener {
             appointments.add(Appointment(dateFormat.format(date), client1, client1SignedStatus))
             appointments.add(Appointment(dateFormat.format(date), client2, client2SignedStatus))
             appointmentRecyclerView.adapter = AppointmentAdapter(appointments, this)
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.findViewById<View>(R.id.new_presentation_button).setOnClickListener { v: View? ->
+            val intent = Intent(
+                requireContext(),
+                NewPresentationActivity::class.java
+            )
+            startActivity(intent)
         }
     }
 
