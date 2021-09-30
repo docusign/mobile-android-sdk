@@ -11,51 +11,72 @@ Before getting started, an Integration Key and valid Service User credentials ar
 To use any DocuSign SDK or the REST API, an Integration Key is needed. Visit https://developers.docusign.com/ to obtain an Integration Key if one does not already exist. Note that an Integration Key is first provisioned on the DEMO environment, and then must be promoted to PROD when ready. 
 ### Email & Password
 To use the DocuSign Android SDK, credentials are necessary. That user's credentials are what should be used in the Authentication section below.
-
 ## Supported versions
 Android Studio version should be 3.4 and above. Apps which integrate with DocuSign SDK requires AndroidX.
 compileSdkVersion and targetSdkVersion should be 29 and above.
 DocuSign SDK supports android versions 5.0 and above (API level 21).
-
 ## Setup 
-1. In your application's root build.gradle file:
-   ```gradle
-   allprojects {
-      repositories {
-        google()
-        jcenter()
- 
-        maven {
-            url  "https://docucdn-a.akamaihd.net/prod/docusignandroidsdk"
-        }
-      }
-    }
-    ```
-2. In your application's app-level build.gradle file:
+1.  In your application's root build.gradle file:
+
     ```gradle
-    android {
-        defaultConfig {
-            multiDexEnabled = true
+    allprojects {
+        repositories {
+            google()
+            jcenter()
+    
+            maven {
+                url  "https://docucdn-a.akamaihd.net/prod/docusignandroidsdk"
+            }
         }
-    }
-    
-    dependencies {
-        implementation 'com.docusign:androidsdk:1.3.0'
-        implementation 'com.docusign:sdk-common:1.3.0'
-    }
-    
+        }
+
+        android {
+            defaultConfig {
+                multiDexEnabled = true
+            }
+        }
     ```
+
+    ### DocuSign SDK Components 
+    #### Online Signing   
+
+    If you would like to use Online Signing, add the following dependencies in your app's build.gradle file:
+
+    ```gradle
+        
+        dependencies {
+            implementation 'com.docusign:androidsdk:1.4.0'
+            implementation 'com.docusign:sdk-common:1.4.0'
+        }
+        
+    ```
+
+    #### Offline Signing  
+
+    If you would like to use Offline Signing, add the following dependencies in your app's build.gradle file:
+
+    ```gradle
+        
+        dependencies {
+            implementation 'com.docusign:androidsdk:1.4.0'
+            implementation 'com.docusign:sdk-common:1.4.0'
+            implementation 'com.docusign:sdk-offline-signing:1.4.0'
+        }
+    ```
+
+    #### eSign REST API
 
     If you would like to access eSign REST API from SDK, add the following dependencies in your app's build.gradle file:
+
     ```gradle
     dependencies {
-        implementation 'com.docusign:androidsdk:1.3.0'
-        implementation 'com.docusign:sdk-common:1.3.0'
-        implementation 'com.docusign:sdk-esign-api:1.3.0'
+        implementation 'com.docusign:androidsdk:1.4.0'
+        implementation 'com.docusign:sdk-common:1.4.0'
+        implementation 'com.docusign:sdk-esign-api:1.4.0'
     }
     ```
 
-3. If using BinTray (as mentioned in the above steps) is not an option for downloading DocuSign Android SDK, then you can download SDK manually as separate library. The SDK is available at [release](https://github.com/docusign/mobile-android-sdk/tree/master/release).  
+2. If using CDN (as mentioned in the above steps) is not an option for downloading DocuSign Android SDK, then you can download SDK manually as separate library. The SDK is available at [release](https://github.com/docusign/mobile-android-sdk/tree/master/release).  
 
     In the app's build.gradle, add the following dependencies:
     ```gradle
@@ -98,9 +119,9 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
         implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     }
     ```
-4. Make Application class extend MultiDexApplication (if it doesn't already)
-5. Sync Gradle and/or build your application
-6. If app release builds has minifyEnabled true, then go through the following:
+3. Make Application class extend MultiDexApplication (if it doesn't already)
+4. Sync Gradle and/or build your application
+5. If app release builds has minifyEnabled true, then go through the following:
 
    In the app, if Gradle Plugin version is >= 3.4.0, then the build system uses R8 for app size shrinking. Otherwise it uses ProGuard for app size shrinking.   
    
