@@ -235,6 +235,9 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
    -keepclassmembers class com.docusign.androidsdk.** { *; }
    -keep class com.docusign.androidsdk.** { *; }
 
+   -keepclassmembers class com.docusign.esign.** { *; }
+   -keep class com.docusign.esign.** { *; }
+
    -dontwarn kotlinx.coroutines.**
    -keep class kotlinx.coroutines.** { *; }
     ```
