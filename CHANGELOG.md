@@ -1,5 +1,20 @@
 # DocuSign Android SDK Changelog
 
+
+## [v1.5.0] - DocuSign Android SDK 12-09-2021
+
+### Added
+* Captive Signing URL support
+* Android SDK 12 support
+* SDK CustomSettings API to suppress 'Decline to Sign' option in Online Signing
+* SDK API to get IDs of downloaded envelopes and templates
+* SDK Performance monitoring metrics
+* Exiting Signing does not delete cached envelope
+
+### Fixed
+* Disabling checkbox tab programatically during Online signing
+* Bug fixes and Improvements
+
 ## [v1.4.0] - DocuSign Android SDK 09-29-2021
 
 ### Added
