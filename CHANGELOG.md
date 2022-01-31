@@ -1,5 +1,13 @@
 # DocuSign Android SDK Changelog
 
+## [v1.5.3] - DocuSign Android SDK 01-31-2022
+
+### Added
+* Brand Id support in embedded signing for the envelopes created using DSEnvelope Builder and templates
+
+### Fixed
+* Bug fixes and Improvements
+
 ## [v1.5.1] - DocuSign Android SDK 01-18-2022
 
 ### Fixed
