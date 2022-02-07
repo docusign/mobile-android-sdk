@@ -28,7 +28,7 @@ import com.docusign.sdksamplekotlin.model.Client
 import com.google.gson.Gson
 import java.io.File
 import java.net.URI
-import java.util.ArrayList
+import java.util.*
 
 object EnvelopeUtils {
 
@@ -182,7 +182,7 @@ object EnvelopeUtils {
             val fileURI: URI = file.toURI()
             val documents = mutableListOf<DSDocument>()
             val document = DSDocument.Builder()
-                .documentId(1)
+                .documentId("1")
                 .uri(fileURI.toString())
                 .name("TGK Capital Portfolio B Agreement")
                 .build()
@@ -192,7 +192,7 @@ object EnvelopeUtils {
             val recipients = mutableListOf<DSEnvelopeRecipient>()
             recipients.add(
                 DSEnvelopeRecipient.Builder()
-                    .recipientId(1)
+                    .recipientId("1")
                     .routingOrder(1)
                     .hostName(user.name)
                     .hostEmail(user.email)
@@ -209,7 +209,7 @@ object EnvelopeUtils {
                 value = 1
                 val accreditedInvestorVerificationFileURI: URI = accreditedInvestorVerification.file.toURI()
                 val accreditedInvestorVerificationDocument = DSDocument.Builder()
-                    .documentId(2)
+                    .documentId("2")
                     .uri(accreditedInvestorVerificationFileURI.toString())
                     .name("TGK Capital Portfolio B Agreement")
                     .build()
@@ -217,7 +217,7 @@ object EnvelopeUtils {
                 val accreditedInvestorVerificationTabs = createAccreditedInvestorVerificationTabs(accreditedInvestorVerification)
                 recipients.add(
                     DSEnvelopeRecipient.Builder()
-                        .recipientId(2)
+                        .recipientId("2")
                         .routingOrder(2)
                         .hostName(user.name)
                         .hostEmail(user.email)
@@ -230,7 +230,7 @@ object EnvelopeUtils {
             }
             recipients.add(
                 DSEnvelopeRecipient.Builder()
-                    .recipientId(2 + value.toLong())
+                    .recipientId(UUID.randomUUID().toString())
                     .routingOrder(2 + value)
                     .signerName("Jack Doe") // if someone needs a signed copy, their name here
                     .signerEmail("j.d@gmail.com") // if someone needs a signed copy, their email here
@@ -260,8 +260,8 @@ object EnvelopeUtils {
         val tabs = mutableListOf<DSTab>()
         tabs.add(
             DSTab.Builder()
-                .documentId(2)
-                .recipientId(2)
+                .documentId("2")
+                .recipientId("2")
                 .pageNumber(1)
                 .xPosition(470)
                 .yPosition(25)
@@ -271,8 +271,8 @@ object EnvelopeUtils {
         )                      // Date
         tabs.add(
             DSTab.Builder()
-                .documentId(2)
-                .recipientId(2)
+                .documentId("2")
+                .recipientId("2")
                 .pageNumber(1)
                 .xPosition(130)
                 .yPosition(50)
@@ -283,8 +283,8 @@ object EnvelopeUtils {
         )                      // Client name
         tabs.add(
             DSTab.Builder()
-                .documentId(2)
-                .recipientId(2)
+                .documentId("2")
+                .recipientId("2")
                 .pageNumber(1)
                 .xPosition(130)
                 .yPosition(80)
@@ -295,8 +295,8 @@ object EnvelopeUtils {
         )                      // Client address
         tabs.add(
             DSTab.Builder()
-                .documentId(2)
-                .recipientId(2)
+                .documentId("2")
+                .recipientId("2")
                 .pageNumber(1)
                 .xPosition(220)
                 .yPosition(140)
@@ -307,8 +307,8 @@ object EnvelopeUtils {
         )                      // Verifier name
         tabs.add(
             DSTab.Builder()
-                .documentId(2)
-                .recipientId(2)
+                .documentId("2")
+                .recipientId("2")
                 .pageNumber(1)
                 .xPosition(150)
                 .yPosition(250)
@@ -319,8 +319,8 @@ object EnvelopeUtils {
         )                      // Verifier License Number
         tabs.add(
             DSTab.Builder()
-                .documentId(2)
-                .recipientId(2)
+                .documentId("2")
+                .recipientId("2")
                 .pageNumber(1)
                 .xPosition(480)
                 .yPosition(250)
@@ -331,8 +331,8 @@ object EnvelopeUtils {
         )                      // Verifier State Registered
         tabs.add(
             DSTab.Builder()
-                .documentId(2)
-                .recipientId(2)
+                .documentId("2")
+                .recipientId("2")
                 .pageNumber(1)
                 .xPosition(50)
                 .yPosition(560)
@@ -342,8 +342,8 @@ object EnvelopeUtils {
         )                      // Verifier Signature
         tabs.add(
             DSTab.Builder()
-                .documentId(2)
-                .recipientId(2)
+                .documentId("2")
+                .recipientId("2")
                 .pageNumber(1)
                 .xPosition(50)
                 .yPosition(620)
@@ -354,8 +354,8 @@ object EnvelopeUtils {
         )                      // Verifier Name
         tabs.add(
             DSTab.Builder()
-                .documentId(2)
-                .recipientId(2)
+                .documentId("2")
+                .recipientId("2")
                 .pageNumber(1)
                 .xPosition(50)
                 .yPosition(660)
@@ -366,8 +366,8 @@ object EnvelopeUtils {
         )                      // Verifier Company
         tabs.add(
             DSTab.Builder()
-                .documentId(2)
-                .recipientId(2)
+                .documentId("2")
+                .recipientId("2")
                 .pageNumber(1)
                 .xPosition(320)
                 .yPosition(570)
@@ -379,8 +379,8 @@ object EnvelopeUtils {
         accreditedInvestorVerification.verifier.addressLine2?.let {
             tabs.add(
                 DSTab.Builder()
-                    .documentId(2)
-                    .recipientId(2)
+                    .documentId("2")
+                    .recipientId("2")
                     .pageNumber(1)
                     .xPosition(320)
                     .yPosition(620)
@@ -392,8 +392,8 @@ object EnvelopeUtils {
         }
         tabs.add(
             DSTab.Builder()
-                .documentId(2)
-                .recipientId(2)
+                .documentId("2")
+                .recipientId("2")
                 .pageNumber(1)
                 .xPosition(320)
                 .yPosition(660)
@@ -409,8 +409,8 @@ object EnvelopeUtils {
         val tabs = mutableListOf<DSTab>()
         tabs.add(
             DSTab.Builder()
-                .documentId(1)
-                .recipientId(1)
+                .documentId("1")
+                .recipientId("1")
                 .pageNumber(1)
                 .xPosition(370)
                 .yPosition(110)
@@ -421,8 +421,8 @@ object EnvelopeUtils {
         )                      // Address line 1
         tabs.add(
             DSTab.Builder()
-                .documentId(1)
-                .recipientId(1)
+                .documentId("1")
+                .recipientId("1")
                 .pageNumber(1)
                 .xPosition(370)
                 .yPosition(140)
@@ -433,8 +433,8 @@ object EnvelopeUtils {
         )                        // Address line 2
         tabs.add(
             DSTab.Builder()
-                .documentId(1)
-                .recipientId(1)
+                .documentId("1")
+                .recipientId("1")
                 .pageNumber(1)
                 .xPosition(370)
                 .yPosition(165)
@@ -445,8 +445,8 @@ object EnvelopeUtils {
         )                      // Address line 3
         tabs.add(
             DSTab.Builder()
-                .documentId(1)
-                .recipientId(1)
+                .documentId("1")
+                .recipientId("1")
                 .pageNumber(1)
                 .xPosition(50)
                 .yPosition(165)
@@ -457,8 +457,8 @@ object EnvelopeUtils {
         )                       // Full name
         tabs.add(
             DSTab.Builder()
-                .documentId(1)
-                .recipientId(1)
+                .documentId("1")
+                .recipientId("1")
                 .pageNumber(1)
                 .xPosition(370)
                 .yPosition(550)
@@ -469,8 +469,8 @@ object EnvelopeUtils {
         )                        // Client number
         tabs.add(
             DSTab.Builder()
-                .documentId(1)
-                .recipientId(1)
+                .documentId("1")
+                .recipientId("1")
                 .pageNumber(1)
                 .xPosition(370)
                 .yPosition(630)
@@ -481,8 +481,8 @@ object EnvelopeUtils {
         )                        // Investment amount
         tabs.add(
             DSTab.Builder()
-                .documentId(1)
-                .recipientId(1)
+                .documentId("1")
+                .recipientId("1")
                 .pageNumber(1)
                 .xPosition(370)
                 .yPosition(720)
@@ -491,8 +491,8 @@ object EnvelopeUtils {
         )                        // Signature
         tabs.add(
             DSTab.Builder()
-                .documentId(1)
-                .recipientId(1)
+                .documentId("1")
+                .recipientId("1")
                 .pageNumber(1)
                 .xPosition(50)
                 .yPosition(730)
