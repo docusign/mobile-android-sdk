@@ -1,5 +1,12 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+module:sdk
 com.docusign.androidsdk
 com.docusign.androidsdk.delegates
+module:sdk-common
+com.docusign.androidsdk
 com.docusign.androidsdk.dsmodels
 com.docusign.androidsdk.exceptions
 com.docusign.androidsdk.listeners
+com.docusign.androidsdk.util
