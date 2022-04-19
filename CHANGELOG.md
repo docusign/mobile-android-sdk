@@ -1,5 +1,14 @@
 # DocuSign Android SDK Changelog
 
+## [v1.5.5] - DocuSign Android SDK 04-18-2022
+
+### Added
+* Added envelopeIdStamping in DSEnvelope to control the display of envelope Id stamp in the completed document
+* Made Integrator key optional during initialization of SDK
+
+### Fixed
+* Bug fixes and Improvements
+
 ## [v1.5.4] - DocuSign Android SDK 03-23-2022
 
 ### Fixed
