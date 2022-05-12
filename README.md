@@ -45,8 +45,8 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     ```gradle
         
         dependencies {
-            implementation 'com.docusign:androidsdk:1.5.5'
-            implementation 'com.docusign:sdk-common:1.5.5'
+            implementation 'com.docusign:androidsdk:1.6.0'
+            implementation 'com.docusign:sdk-common:1.6.0'
         }
         
     ```
@@ -58,9 +58,9 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     ```gradle
         
         dependencies {
-            implementation 'com.docusign:androidsdk:1.5.5'
-            implementation 'com.docusign:sdk-common:1.5.5'
-            implementation 'com.docusign:sdk-offline-signing:1.5.5'
+            implementation 'com.docusign:androidsdk:1.6.0'
+            implementation 'com.docusign:sdk-common:1.6.0'
+            implementation 'com.docusign:sdk-offline-signing:1.6.0'
         }
     ```
 
@@ -70,9 +70,9 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
 
     ```gradle
     dependencies {
-        implementation 'com.docusign:androidsdk:1.5.5'
-        implementation 'com.docusign:sdk-common:1.5.5'
-        implementation 'com.docusign:sdk-esign-api:1.5.5'
+        implementation 'com.docusign:androidsdk:1.6.0'
+        implementation 'com.docusign:sdk-common:1.6.0'
+        implementation 'com.docusign:sdk-esign-api:1.6.0'
     }
     ```
 
@@ -562,64 +562,66 @@ templateDelegate.updatedCachedTemplate(templateId, new DSUpdateCachedTemplateLis
 The following example shows how to build an Envelope with one document, two signer recipients and one CC recipient. Each signer recipient has one signature tab. It also includes some metadata. 
 ```java
 try {
-    DSEnvelope envelope = new DSEnvelope.Builder()
-            .envelopeName("[ENVELOPE NAME HERE]")
-            .document(new DSDocument.Builder()
-                    .documentId(1)
-                    .uri("file://path_to_your_pdf_file_here")
-                    .name("[DOCUMENT NAME HERE]")
-                    .build())
-            .recipient(new DSEnvelopeRecipient.Builder()
-                    .recipientId(1)
-                    .routingOrder(1)
-                    .hostName(user.getName()) // this should be the user name returned in AuthenticationListener.onSuccess
-                    .hostEmail(user.getEmail()) // this should be the user email returned in AuthenticationListener.onSuccess
-                    .signerName("John Doe")
-                    .signerEmail("john.doe@abc.com")
-                    .type(DSRecipientType.IN_PERSON_SIGNER)
-                    .tab(new DSTab.Builder()
-                            .documentId(1)
-                            .recipientId(1)
-                            .pageNumber(1) // the page on which this tab should appear
-                            .xPosition(123) // the x-coordinate on page 1 where you want the signer's signature
-                            .yPosition(123) // the y-coordinate on page 1 where you want the signer's signature
-                            .type(DSTabType.SIGNATURE)
+            DSUser user = DocuSign.getInstance().getAuthenticationDelegate().getLoggedInUser(context);
+            DSEnvelope  envelope = new DSEnvelope.Builder()
+                    .envelopeName("[ENVELOPE NAME HERE]")
+                    .document(new DSDocument.Builder()
+                            .documentId("1")
+                            .uri("file://path_to_your_pdf_file_here")
+                            .name("[DOCUMENT NAME HERE]")
                             .build())
-                    .build())
-            .recipient(new DSEnvelopeRecipient.Builder()
-                    .recipientId(2)
-                    .routingOrder(2)
-                    .hostName(user.getName()) // this should be the user name returned in AuthenticationListener.onSuccess
-                    .hostEmail(user.getEmail()) // this should be the user email returned in AuthenticationListener.onSuccess
-                    .signerName("John Doe")
-                    .signerEmail("john.doe@abc.com")
-                    .type(DSRecipientType.IN_PERSON_SIGNER)
-                    .tab(new DSTab.Builder()
-                            .documentId(1)
-                            .recipientId(2)
-                            .pageNumber(1) // the page on which this tab should appear
-                            .xPosition(456) // the x-coordinate on page 1 where you want the signer's signature
-                            .yPosition(456) // the y-coordinate on page 1 where you want the signer's signature
-                            .type(DSTabType.SIGNATURE)
+                    .recipient(new DSEnvelopeRecipient.Builder()
+                            .recipientId("1")
+                            .routingOrder(1)
+                            .hostName(user.getName()) // this should be the user name returned in AuthenticationListener.onSuccess
+                            .hostEmail(user.getEmail()) // this should be the user email returned in AuthenticationListener.onSuccess
+                            .signerName("John Doe")
+                            .signerEmail("john.doe@abc.com")
+                            .type(DSRecipientType.IN_PERSON_SIGNER)
+                            .tab(new DSTab.Builder()
+                                    .documentId("1")
+                                    .recipientId("1")
+                                    .pageNumber(1) // the page on which this tab should appear
+                                    .xPosition(123) // the x-coordinate on page 1 where you want the signer's signature
+                                    .yPosition(123) // the y-coordinate on page 1 where you want the signer's signature
+                                    .type(DSTabType.SIGNATURE)
+                                    .build())
                             .build())
-                    .build())
-            .recipient(new DSEnvelopeRecipient.Builder() // this recipient receives a copy
-                    .recipientId(3)
-                    .routingOrder(3)
-                    .signerName("Jack Doe") // if someone needs a signed copy, their name here
-                    .signerEmail("jack.doe@abc.com") // if someone needs a signed copy, their valid email here
-                    .type(DSRecipientType.CARBON_COPY)
-                    .build())
-            .textCustomField(
-                    new DSTextCustomField.Builder() // this is for free-form metadata
-                            .fieldId(123)
-                            .name("metadata1")
-                            .value("some value")
-                            .build()
-            )
-            .build();
-} catch (DSEnvelopeException exception) {
-    // TODO: handle errors with envelope creation. exception.getMessage() will indicate what went wrong
+                    .recipient(new DSEnvelopeRecipient.Builder()
+                            .recipientId("2")
+                            .routingOrder(1)
+                            .hostName(user.getName()) // this should be the user name returned in AuthenticationListener.onSuccess
+                            .hostEmail(user.getEmail()) // this should be the user email returned in AuthenticationListener.onSuccess
+                            .signerName("John Doe")
+                            .signerEmail("john.doe@abc.com")
+                            .type(DSRecipientType.IN_PERSON_SIGNER)
+                            .tab(new DSTab.Builder()
+                                    .documentId("1")
+                                    .recipientId("2")
+                                    .pageNumber(1) // the page on which this tab should appear
+                                    .xPosition(456) // the x-coordinate on page 1 where you want the signer's signature
+                                    .yPosition(456) // the y-coordinate on page 1 where you want the signer's signature
+                                    .type(DSTabType.SIGNATURE)
+                                    .build())
+                            .build())
+                    .recipient(new DSEnvelopeRecipient.Builder() // this recipient receives a copy
+                            .recipientId("3")
+                            .routingOrder(2)
+                            .signerName("Jack Doe") // if someone needs a signed copy, their name here
+                            .signerEmail("jack.doe@abc.com") // if someone needs a signed copy, their valid email here
+                            .type(DSRecipientType.CARBON_COPY)
+                            .build())
+                    .textCustomField(
+                            new DSTextCustomField.Builder() // this is for free-form metadata
+                                    .fieldId(123)
+                                    .name("metadata1")
+                                    .value("some value")
+                                    .build()
+                    )
+                    .build();
+        } catch (DSEnvelopeException | DSAuthenticationException exception) {
+            // TODO: handle errors with envelope creation. exception.getMessage() will indicate what went wrong
+        }
 }
 ```
 
@@ -874,6 +876,113 @@ private fun getUserSignatureInfo() {
                                 usersApi.userSignaturesGetUserSignatures(user.getAccountId(), user.getUserId(), "signature")
                             }
 }
+```
+
+## Captive Signing
+To perform captive signing using signing URL, you can invoke the following API:
+```java
+    DSSigningDelegate signingDelegate = DocuSign.getInstance().getSigningDelegate();
+        signingDelegate.launchCaptiveSigning(context,
+                signingURL,
+                envelopeId,
+                recipientId,
+                new DSCaptiveSigningListener() {
+
+                    @Override
+                    public void onSuccess(@NonNull String envelopeId) {
+                        // TODO: Handle when captive signing ceremony is succefully completed.
+                    }
+
+                    @Override
+                    public void onStart(@NonNull String envelopeId) {
+                        // TODO: Handle when captive signing ceremony is about to start
+                    }
+
+                    @Override
+                    public void onRecipientSigningSuccess(@NonNull String envelopeId, @NonNull String recipientId) {
+                        // TODO: Handle when recipient finished signing
+                    }
+
+                    @Override
+                    public void onRecipientSigningError(@NonNull String envelopeId, @NonNull String recipientId, @NonNull DSSigningException exception) {
+                        // TODO: Handle when error occured during recipient signing
+                    }
+
+                    @Override
+                    public void onError(String envelopeId, DSSigningException exception) {
+                        // TODO: Handle when error occured during captive signing ceremony
+                    }
+
+                    @Override
+                    public void onCancel(@NonNull String envelopeId, @NonNull String recipientId) {
+                        // TODO: Handle when captive signing ceremony is cancelld.
+                    }
+                });
+```
+
+## Auto place tags
+You can create local envelope using Auto place tags based on the anchor string instead of x, y positions using the following API:
+
+```java
+    try {
+            DSUser user = DocuSign.getInstance().getAuthenticationDelegate().getLoggedInUser(context);
+            DSEnvelope  envelope = new DSEnvelope.Builder()
+                    .envelopeName("[ENVELOPE NAME HERE]")
+                    .document(new DSDocument.Builder()
+                            .documentId("1")
+                            .uri("file://path_to_your_pdf_file_here")
+                            .name("[DOCUMENT NAME HERE]")
+                            .build())
+                    .recipient(new DSEnvelopeRecipient.Builder()
+                            .recipientId("1")
+                            .routingOrder(1)
+                            .hostName(user.getName()) // this should be the user name returned in AuthenticationListener.onSuccess
+                            .hostEmail(user.getEmail()) // this should be the user email returned in AuthenticationListener.onSuccess
+                            .signerName("John Doe")
+                            .signerEmail("john.doe@abc.com")
+                            .type(DSRecipientType.IN_PERSON_SIGNER)
+                            .tab(new DSTab.Builder()
+                                    .documentId("1")
+                                    .recipientId("1")
+                                    .pageNumber(1) // the page on which this tab should appear
+                                    .anchorString("Signature") // Auto places signature tags in the document based on the specified anchor string.
+                                    .type(DSTabType.SIGNATURE)
+                                    .build())
+                            .build())
+                    .recipient(new DSEnvelopeRecipient.Builder()
+                            .recipientId("2")
+                            .routingOrder(1)
+                            .hostName(user.getName()) // this should be the user name returned in AuthenticationListener.onSuccess
+                            .hostEmail(user.getEmail()) // this should be the user email returned in AuthenticationListener.onSuccess
+                            .signerName("John Doe")
+                            .signerEmail("john.doe@abc.com")
+                            .type(DSRecipientType.IN_PERSON_SIGNER)
+                            .tab(new DSTab.Builder()
+                                    .documentId("1")
+                                    .recipientId("2")
+                                    .pageNumber(1) // the page on which this tab should appear
+                                    .anchorString("Signature") // Auto places signature tags in the document based on the specified anchor string.
+                                    .type(DSTabType.SIGNATURE)
+                                    .build())
+                            .build())
+                    .recipient(new DSEnvelopeRecipient.Builder() // this recipient receives a copy
+                            .recipientId("3")
+                            .routingOrder(2)
+                            .signerName("Jack Doe") // if someone needs a signed copy, their name here
+                            .signerEmail("jack.doe@abc.com") // if someone needs a signed copy, their valid email here
+                            .type(DSRecipientType.CARBON_COPY)
+                            .build())
+                    .textCustomField(
+                            new DSTextCustomField.Builder() // this is for free-form metadata
+                                    .fieldId(123)
+                                    .name("metadata1")
+                                    .value("some value")
+                                    .build()
+                    )
+                    .build();
+        } catch (DSEnvelopeException | DSAuthenticationException exception) {
+            // TODO: handle errors with envelope creation. exception.getMessage() will indicate what went wrong
+        }
 ```
 
 ## SDK Documentation

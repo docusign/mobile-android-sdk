@@ -1,5 +1,15 @@
 # DocuSign Android SDK Changelog
 
+
+## [v1.6.0] - DocuSign Android SDK 05-12-2022
+
+### Added
+* Added Anchor tags support
+
+### Fixed
+* Bug fixes and Improvements
+
+
 ## [v1.5.5] - DocuSign Android SDK 04-18-2022
 
 ### Added

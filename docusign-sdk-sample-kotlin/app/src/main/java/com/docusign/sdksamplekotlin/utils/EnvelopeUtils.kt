@@ -202,11 +202,7 @@ object EnvelopeUtils {
                     .tabs(tabs)
                     .build()
             )
-
-            var value = 0
-
             accreditedInvestorVerification?.let {
-                value = 1
                 val accreditedInvestorVerificationFileURI: URI = accreditedInvestorVerification.file.toURI()
                 val accreditedInvestorVerificationDocument = DSDocument.Builder()
                     .documentId("2")
@@ -218,7 +214,7 @@ object EnvelopeUtils {
                 recipients.add(
                     DSEnvelopeRecipient.Builder()
                         .recipientId("2")
-                        .routingOrder(2)
+                        .routingOrder(1)
                         .hostName(user.name)
                         .hostEmail(user.email)
                         .signerName(user.name)
@@ -231,7 +227,7 @@ object EnvelopeUtils {
             recipients.add(
                 DSEnvelopeRecipient.Builder()
                     .recipientId(UUID.randomUUID().toString())
-                    .routingOrder(2 + value)
+                    .routingOrder(1)
                     .signerName("Jack Doe") // if someone needs a signed copy, their name here
                     .signerEmail("j.d@gmail.com") // if someone needs a signed copy, their email here
                     .type(DSRecipientType.CARBON_COPY)
