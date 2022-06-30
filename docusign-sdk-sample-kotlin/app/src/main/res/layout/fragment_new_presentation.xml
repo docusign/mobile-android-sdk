@@ -43,10 +43,24 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="Cache Envelope"
-        app:layout_constraintBottom_toTopOf="@+id/view_portfolio_button"
+        app:layout_constraintBottom_toTopOf="@+id/generate_signing_url_checkbox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/investor_email_edit_text" />
+
+    <CheckBox
+        android:id="@+id/generate_signing_url_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Generate Signing URL"
+        app:layout_constraintBottom_toTopOf="@+id/view_portfolio_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cache_envelope_checkbox" />
 
     <Button
         android:id="@+id/view_portfolio_button"

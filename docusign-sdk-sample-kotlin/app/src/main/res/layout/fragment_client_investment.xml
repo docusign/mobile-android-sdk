@@ -82,6 +82,29 @@
                 app:layout_constraintStart_toEndOf="@id/accredited_investor_text_view"
                 app:layout_constraintTop_toBottomOf="@id/invest_amount_spinner" />
 
+            <TextView
+                android:id="@+id/auto_place_tags_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="23dp"
+                android:text="Auto Place tags"
+                android:textColor="@color/colorPrimary"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/accredited_investor_text_view" />
+
+            <CheckBox
+                android:id="@+id/auto_place_tags_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@id/auto_place_tags_text_view"
+                app:layout_constraintTop_toBottomOf="@id/accredited_investor_checkbox" />
+
             <ImageView
                 android:id="@+id/client_graph_growth_image_view"
                 android:layout_width="280dp"
@@ -92,7 +115,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/invest_button"
-                app:layout_constraintTop_toBottomOf="@id/accredited_investor_text_view"
+                app:layout_constraintTop_toBottomOf="@id/auto_place_tags_text_view"
                 app:srcCompat="@drawable/growth_portfolio_a_0" />
 
             <Button

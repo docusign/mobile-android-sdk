@@ -19,6 +19,8 @@ import com.docusign.androidsdk.listeners.DSComposeAndSendEnvelopeListener
 import com.docusign.androidsdk.listeners.DSGetEnvelopeListener
 import com.docusign.esign.api.EnvelopesApi
 import com.docusign.esign.model.EnvelopeSummary
+import com.docusign.esign.model.RecipientViewRequest
+import com.docusign.esign.model.ViewUrl
 import com.docusign.sdksamplekotlin.R
 import com.docusign.sdksamplekotlin.SDKSampleApplication
 import com.docusign.sdksamplekotlin.activity.AgreementActivity
@@ -46,6 +48,10 @@ class ClientInvestmentFragment : Fragment() {
 
     companion object {
         val TAG = ClientInvestmentFragment::class.java.simpleName
+
+        const val AUTHENTICATION_METHOD_PASSWORD = "Password"
+        const val AUTHENTICATION_METHOD_EMAIL = "Email"
+        const val SIGNING_RETURN_URL = "https://docusign/"
 
         fun newInstance(client: Client?): ClientInvestmentFragment {
             val bundle = Bundle().apply {
@@ -79,6 +85,8 @@ class ClientInvestmentFragment : Fragment() {
             )
             val accreditedInvestorCheckbox =
                 findViewById<CheckBox>(R.id.accredited_investor_checkbox)
+            val autoPlaceTagsCheckbox = findViewById<CheckBox>(R.id.auto_place_tags_checkbox)
+
             investmentSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             investmentAmountSpinner.adapter = investmentSpinnerAdapter
             if (client?.storePref == Constants.CLIENT_B_PREF) {
@@ -89,6 +97,10 @@ class ClientInvestmentFragment : Fragment() {
                     accreditedInvestorTextView.visibility = View.VISIBLE
                     accreditedInvestorCheckbox.visibility = View.VISIBLE
                     accreditedInvestorCheckbox.isChecked = true
+                    val autoplaceTagsTextView = findViewById<TextView>(R.id.auto_place_tags_text_view)
+                    autoplaceTagsTextView.visibility = View.VISIBLE
+                    autoPlaceTagsCheckbox.visibility = View.VISIBLE
+                    autoPlaceTagsCheckbox.isChecked = false
                 }
             }
             investmentAmountSpinner.onItemSelectedListener =
@@ -139,6 +151,7 @@ class ClientInvestmentFragment : Fragment() {
                         createEnvelope(
                             this,
                             accreditedInvestorCheckbox.isChecked,
+                            autoPlaceTagsCheckbox.isChecked,
                             client?.storePref
                         )
                     }
@@ -146,7 +159,13 @@ class ClientInvestmentFragment : Fragment() {
                         if (client?.cacheEnvelope == true) {
                             cachedEnvelope(requireContext(), client?.storePref)
                         } else {
-                            captiveSigning(this, client?.storePref)
+                            val sharedPreferences = requireContext().getSharedPreferences(Constants.APP_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+                            val generateSigningURL = sharedPreferences.getBoolean(Constants.GENERATE_SIGNING_URL, false)
+                            if (generateSigningURL) {
+                                captiveSigningWithURL(this, client?.storePref)
+                            } else {
+                                captiveSigning(this, client?.storePref)
+                            }
                         }
                     }
                 }
@@ -316,6 +335,79 @@ class ClientInvestmentFragment : Fragment() {
         }
     }
 
+    private fun captiveSigningWithURL(context: Context, clientPref: String?) {
+        val envelopeDefinition =
+            EnvelopeUtils.buildEnvelopeDefinition(clientPref!!, requireActivity())
+        val envelopesApi =
+            DocuSign.getInstance().getESignApiDelegate().createApiService(EnvelopesApi::class.java)
+        val authenticationDelegate = DocuSign.getInstance().getAuthenticationDelegate()
+        val user = authenticationDelegate.getLoggedInUser(context)
+        val envelopesCall = envelopesApi?.envelopesPostEnvelopes(
+            user.accountId,
+            null,
+            null,
+            null,
+            null,
+            null,
+            envelopeDefinition
+        )
+        envelopesCall?.enqueue(object : Callback <EnvelopeSummary> {
+            override fun onResponse(
+                call: Call<EnvelopeSummary>,
+                response: Response <EnvelopeSummary>
+            ) {
+                if (response.isSuccessful) {
+                    val envelopeSummary = response.body()
+                    envelopeSummary?.let {
+                        val recipientViewRequest = RecipientViewRequest()
+                        val recipient = envelopeDefinition?.recipients?.inPersonSigners?.get(0)
+                        recipient?.apply {
+                            recipientViewRequest.recipientId = recipientId.toString()
+                            recipientViewRequest.authenticationMethod =
+                                AUTHENTICATION_METHOD_EMAIL
+
+                            recipientViewRequest.userName = signerName
+                            recipientViewRequest.email = email
+                            recipientViewRequest.clientUserId = clientUserId
+                            recipientViewRequest.returnUrl = Companion.SIGNING_RETURN_URL
+                        }
+
+                        val recipientViewURLCall = envelopesApi.viewsPostEnvelopeRecipientView(user.accountId,
+                            it.envelopeId,
+                            recipientViewRequest)
+                        recipientViewURLCall?.enqueue(object : Callback<ViewUrl> {
+                            override fun onResponse(
+                                call: Call<ViewUrl>,
+                                response: Response<ViewUrl>
+                            ) {
+                                if (response.isSuccessful) {
+                                    val signingUrl = response.body()
+                                    signingUrl?.let {
+                                        signingViewModel.captiveSigningWithURL(
+                                            requireContext(), signingUrl.url)
+                                    }
+                                } else {
+                                    Toast.makeText(context, "Error fetching signing URL", Toast.LENGTH_LONG).show()
+                                }
+                            }
+
+                            override fun onFailure(call: Call<ViewUrl>, t: Throwable) {
+                                Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
+                            }
+
+                        })
+                    }
+
+                }
+            }
+
+            override fun onFailure(call: Call<EnvelopeSummary>, t: Throwable) {
+                Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
+            }
+        })
+
+    }
+
     private fun captiveSigning(context: Context, clientPref: String?) {
         val envelopeDefinition =
             EnvelopeUtils.buildEnvelopeDefinition(clientPref!!, requireActivity())
@@ -368,6 +460,7 @@ class ClientInvestmentFragment : Fragment() {
     private fun createEnvelope(
         context: Context,
         isAccreditedInvestor: Boolean,
+        autoPlaceTags: Boolean,
         clientPref: String?
     ) {
         val document =
@@ -426,7 +519,8 @@ class ClientInvestmentFragment : Fragment() {
             context,
             document,
             accreditedInvestorVerification,
-            clientPref
+            clientPref,
+            autoPlaceTags
         )
         if (envelope == null) {
             Log.e(OverviewFragment.TAG, "Unable to create envelope")

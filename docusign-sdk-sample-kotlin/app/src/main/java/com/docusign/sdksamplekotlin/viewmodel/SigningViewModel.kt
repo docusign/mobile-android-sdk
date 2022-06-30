@@ -38,6 +38,8 @@ class SigningViewModel : ViewModel() {
     private val signingDelegate = DocuSign.getInstance().getSigningDelegate()
 
     fun signOffline(context: Context, envelopeId: String) {
+        val customSettingsDelegate = DocuSign.getInstance().getCustomSettingsDelegate()
+        customSettingsDelegate.disableNativeComponentsInOnlineSigning(context, false)
         // DS: Offline Signing using local envelopeId
         signingDelegate.signOffline(context, envelopeId, object : DSOfflineSigningListener {
 
@@ -58,6 +60,8 @@ class SigningViewModel : ViewModel() {
     }
 
     fun signOnline(context: Context, envelopeId: String) {
+        val customSettingsDelegate = DocuSign.getInstance().getCustomSettingsDelegate()
+        customSettingsDelegate.disableNativeComponentsInOnlineSigning(context, false)
         // DS: Online Signing using local envelopeId
         signingDelegate.createEnvelopeAndLaunchOnlineSigning(context, envelopeId, object : DSOnlineSigningListener {
 
@@ -91,9 +95,61 @@ class SigningViewModel : ViewModel() {
     }
 
     fun captiveSigning(context: Context, envelope: DSEnvelope) {
+        val customSettingsDelegate = DocuSign.getInstance().getCustomSettingsDelegate()
+        customSettingsDelegate.disableNativeComponentsInOnlineSigning(context, true)
         signingDelegate.launchCaptiveSigning(context,
             envelope.envelopeId,
             envelope.recipients?.getOrNull(0)?.clientUserId ?: "",
+            object : DSCaptiveSigningListener {
+                override fun onCancel(
+                    envelopeId: String,
+                    recipientId: String
+                ) {
+                    /* NO-OP */
+                }
+
+                override fun onError(
+                    envelopeId: String?,
+                    exception: DSSigningException
+                ) {
+                    val captiveSigningModel = CaptiveSigningModel(Status.ERROR, exception)
+                    captiveSigningLiveData.value = captiveSigningModel
+                }
+
+                override fun onRecipientSigningError(
+                    envelopeId: String,
+                    recipientId: String,
+                    exception: DSSigningException
+                ) {
+                    /* NO-OP */
+                }
+
+                override fun onRecipientSigningSuccess(
+                    envelopeId: String,
+                    recipientId: String
+                ) {
+                    /* NO-OP */
+                }
+
+                override fun onStart(envelopeId: String) {
+                    val captiveSigningModel = CaptiveSigningModel(Status.START, null)
+                    captiveSigningLiveData.value = captiveSigningModel
+                }
+
+                override fun onSuccess(envelopeId: String) {
+                    val captiveSigningModel = CaptiveSigningModel(Status.COMPLETE, null)
+                    captiveSigningLiveData.value = captiveSigningModel
+                }
+            })
+    }
+
+    fun captiveSigningWithURL(context: Context, signingUrl: String) {
+        val customSettingsDelegate = DocuSign.getInstance().getCustomSettingsDelegate()
+        customSettingsDelegate.disableNativeComponentsInOnlineSigning(context, true)
+        signingDelegate.launchCaptiveSigning(context,
+            signingUrl,
+            "",
+            null,
             object : DSCaptiveSigningListener {
                 override fun onCancel(
                     envelopeId: String,

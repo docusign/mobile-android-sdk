@@ -159,7 +159,8 @@ object EnvelopeUtils {
         context: Context,
         file: File,
         accreditedInvestorVerification: AccreditedInvestorVerification?,
-        clientPref: String?
+        clientPref: String?,
+        autoPlaceTags: Boolean
     ): DSEnvelope? {
 
         val sharedPreferences = context.getSharedPreferences(Constants.APP_SHARED_PREFERENCES, Context.MODE_PRIVATE)
@@ -187,7 +188,11 @@ object EnvelopeUtils {
                 .name("TGK Capital Portfolio B Agreement")
                 .build()
             documents.add(document)
-            val tabs = createInvestmentAgreementTabs(client)
+            val tabs = if (autoPlaceTags) {
+                createInvestmentAgreementAutoPlaceTabs(client)
+            } else {
+                createInvestmentAgreementTabs(client)
+            }
 
             val recipients = mutableListOf<DSEnvelopeRecipient>()
             recipients.add(
@@ -210,18 +215,22 @@ object EnvelopeUtils {
                     .name("TGK Capital Portfolio B Agreement")
                     .build()
                 documents.add(accreditedInvestorVerificationDocument)
-                val accreditedInvestorVerificationTabs = createAccreditedInvestorVerificationTabs(accreditedInvestorVerification)
+                val accreditedInvestorVerificationTabs = if (autoPlaceTags) {
+                    createAccreditedInvestorVerificationAutoPlaceTabs(accreditedInvestorVerification)
+                } else {
+                    createAccreditedInvestorVerificationTabs(accreditedInvestorVerification)
+                }
                 recipients.add(
-                    DSEnvelopeRecipient.Builder()
-                        .recipientId("2")
-                        .routingOrder(1)
-                        .hostName(user.name)
-                        .hostEmail(user.email)
-                        .signerName(user.name)
-                        .signerEmail(user.email)
-                        .type(DSRecipientType.IN_PERSON_SIGNER)
-                        .tabs(accreditedInvestorVerificationTabs)
-                        .build()
+                DSEnvelopeRecipient.Builder()
+                    .recipientId("2")
+                    .routingOrder(1)
+                    .hostName(user.name)
+                    .hostEmail(user.email)
+                    .signerName(user.name)
+                    .signerEmail(user.email)
+                    .type(DSRecipientType.IN_PERSON_SIGNER)
+                    .tabs(accreditedInvestorVerificationTabs)
+                    .build()
                 )
             }
             recipients.add(
@@ -250,6 +259,144 @@ object EnvelopeUtils {
             Log.e(TAG, exception.message!!)
         }
         return null
+    }
+
+    private fun createAccreditedInvestorVerificationAutoPlaceTabs(
+        accreditedInvestorVerification: AccreditedInvestorVerification): List<DSTab> {
+        val tabs = mutableListOf<DSTab>()
+        tabs.add(
+            DSTab.Builder()
+                .documentId("2")
+                .recipientId("2")
+                .pageNumber(1)
+                .anchorString("Date:")
+                .type(DSTabType.DATE_SIGNED)
+                .optional(true)
+                .build()
+        )                      // Date
+        tabs.add(
+            DSTab.Builder()
+                .documentId("2")
+                .recipientId("2")
+                .pageNumber(1)
+                .anchorString("Investor Name:")
+                .type(DSTabType.TEXT)
+                .value(accreditedInvestorVerification.clientName)
+                .optional(true)
+                .build()
+        )                      // Client name
+        tabs.add(
+            DSTab.Builder()
+                .documentId("2")
+                .recipientId("2")
+                .pageNumber(1)
+                .anchorString("Investor Address:")
+                .type(DSTabType.TEXT)
+                .value(accreditedInvestorVerification.clientAddress)
+                .optional(true)
+                .build()
+        )                      // Client address
+        tabs.add(
+            DSTab.Builder()
+                .documentId("2")
+                .recipientId("2")
+                .pageNumber(1)
+                .anchorString("Name of Verifying Individual or Entity")
+                .type(DSTabType.TEXT)
+                .value(accreditedInvestorVerification.verifier.name)
+                .optional(true)
+                .build()
+        )                      // Verifier name
+        tabs.add(
+            DSTab.Builder()
+                .documentId("2")
+                .recipientId("2")
+                .pageNumber(1)
+                .anchorString("License Number:")
+                .type(DSTabType.TEXT)
+                .value(accreditedInvestorVerification.verifier.licenseNumber)
+                .optional(true)
+                .build()
+        )                      // Verifier License Number
+        tabs.add(
+            DSTab.Builder()
+                .documentId("2")
+                .recipientId("2")
+                .pageNumber(1)
+                .anchorString("State(s) Admitted or Registered:")
+                .type(DSTabType.TEXT)
+                .value(accreditedInvestorVerification.verifier.stateRegistered)
+                .optional(true)
+                .build()
+        )                      // Verifier State Registered
+        tabs.add(
+            DSTab.Builder()
+                .documentId("2")
+                .recipientId("2")
+                .pageNumber(1)
+                .anchorString("Verifier Signature")
+                .type(DSTabType.SIGNATURE)
+                .optional(false)
+                .build()
+        )                      // Verifier Signature
+        tabs.add(
+            DSTab.Builder()
+                .documentId("2")
+                .recipientId("2")
+                .pageNumber(1)
+                .anchorString("Verifier Name")
+                .type(DSTabType.TEXT)
+                .value(accreditedInvestorVerification.verifier.name)
+                .optional(true)
+                .build()
+        )                      // Verifier Name
+        tabs.add(
+            DSTab.Builder()
+                .documentId("2")
+                .recipientId("2")
+                .pageNumber(1)
+                .anchorString("Verifier Company Name, Title")
+                .type(DSTabType.TEXT)
+                .value(accreditedInvestorVerification.verifier.company)
+                .optional(true)
+                .build()
+        )                      // Verifier Company
+        tabs.add(
+            DSTab.Builder()
+                .documentId("2")
+                .recipientId("2")
+                .pageNumber(1)
+                .anchorString("Verifier Address Line 1")
+                .type(DSTabType.TEXT)
+                .value(accreditedInvestorVerification.verifier.addressLine1)
+                .optional(true)
+                .build()
+        )                      // Verifier AddressLine1
+        accreditedInvestorVerification.verifier.addressLine2?.let {
+            tabs.add(
+                DSTab.Builder()
+                    .documentId("2")
+                    .recipientId("2")
+                    .pageNumber(1)
+                    .anchorString("Verifier Address Line 2")
+                    .type(DSTabType.TEXT)
+                    .value(accreditedInvestorVerification.verifier.addressLine2)
+                    .optional(true)
+                    .build()
+            )                      // Verifier AddressLine2
+        }
+        tabs.add(
+            DSTab.Builder()
+                .documentId("2")
+                .recipientId("2")
+                .pageNumber(1)
+                .anchorString("Verifier City, State, Zip Code")
+                .type(DSTabType.TEXT)
+                .value(accreditedInvestorVerification.verifier.addressLine3)
+                .optional(true)
+                .build()
+        )                      // Verifier AddressLine3
+        return tabs
     }
 
     private fun createAccreditedInvestorVerificationTabs(accreditedInvestorVerification: AccreditedInvestorVerification): List<DSTab> {
@@ -398,6 +545,105 @@ object EnvelopeUtils {
                 .optional(true)
                 .build()
         )                      // Verifier AddressLine3
+        return tabs
+    }
+
+    private fun createInvestmentAgreementAutoPlaceTabs(client: Client): List<DSTab> {
+        val tabs = mutableListOf<DSTab>()
+        tabs.add(
+            DSTab.Builder()
+                .documentId("1")
+                .recipientId("1")
+                .pageNumber(1)
+                .anchorString("AddressLine1")
+                .anchorYOffset(0)
+                .type(DSTabType.TEXT)
+                .value(client.addressLine1)
+                .optional(true)
+                .build()
+        )                      // Address line 1
+        tabs.add(
+            DSTab.Builder()
+                .documentId("1")
+                .recipientId("1")
+                .pageNumber(1)
+                .anchorString("AddressLine2")
+                .anchorYOffset(0)
+                .type(DSTabType.TEXT)
+                .value(client.addressLine2)
+                .optional(true)
+                .build()
+        )                        // Address line 2
+        tabs.add(
+            DSTab.Builder()
+                .documentId("1")
+                .recipientId("1")
+                .pageNumber(1)
+                .anchorString("AddressLine3")
+                .anchorYOffset(0)
+                .type(DSTabType.TEXT)
+                .value(client.addressLine3)
+                .optional(true)
+                .build()
+        )                      // Address line 3
+        tabs.add(
+            DSTab.Builder()
+                .documentId("1")
+                .recipientId("1")
+                .pageNumber(1)
+                .anchorString("Full Name")
+                .anchorYOffset(-40)
+                .type(DSTabType.TEXT)
+                .value(client.name)
+                .optional(true)
+                .build()
+        )                       // Full name
+        tabs.add(
+            DSTab.Builder()
+                .documentId("1")
+                .recipientId("1")
+                .pageNumber(1)
+                .anchorString("Client Number")
+                .anchorYOffset(-40)
+                .type(DSTabType.TEXT)
+                .value(client.id)
+                .optional(true)
+                .build()
+        )                        // Client number
+        tabs.add(
+            DSTab.Builder()
+                .documentId("1")
+                .recipientId("1")
+                .pageNumber(1)
+                .anchorString("Investment Amount")
+                .anchorYOffset(-40)
+                .type(DSTabType.TEXT)
+                .value(client.investmentAmount)
+                .optional(true)
+                .build()
+        )                        // Investment amount
+        tabs.add(
+            DSTab.Builder()
+                .documentId("1")
+                .recipientId("1")
+                .pageNumber(1)
+                .anchorString("Client Signature")
+                .anchorYOffset(10)
+                .type(DSTabType.SIGNATURE)
+                .build()
+        )                        // Signature
+        tabs.add(
+            DSTab.Builder()
+                .documentId("1")
+                .recipientId("1")
+                .pageNumber(1)
+                .anchorString("Name of applicant")
+                .anchorYOffset(-40)
+                .type(DSTabType.TEXT)
+                .value(client.name)
+                .optional(true)
+                .build()
+        )                        // Name of the applicant
         return tabs
     }
 

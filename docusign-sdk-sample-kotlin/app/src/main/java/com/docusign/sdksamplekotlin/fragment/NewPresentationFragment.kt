@@ -1,5 +1,6 @@
 package com.docusign.sdksamplekotlin.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,6 +24,8 @@ class NewPresentationFragment : Fragment() {
 
     private lateinit var cacheEnvelopeCheckBox: CheckBox
 
+    private lateinit var generateSigningURLCheckBox: CheckBox
+
     private lateinit var viewPortfolioButton: Button
 
     override fun onCreateView(
@@ -39,6 +42,7 @@ class NewPresentationFragment : Fragment() {
         investorNameEditText = view.findViewById(R.id.investor_name_edit_text)
         investorEmailEditText = view.findViewById(R.id.investor_email_edit_text)
         cacheEnvelopeCheckBox = view.findViewById(R.id.cache_envelope_checkbox)
+        generateSigningURLCheckBox = view.findViewById(R.id.generate_signing_url_checkbox)
 
         viewPortfolioButton = view.findViewById(R.id.view_portfolio_button)
         viewPortfolioButton.setOnClickListener {
@@ -75,6 +79,10 @@ class NewPresentationFragment : Fragment() {
                 intent.putExtra(AgreementActivity.CLIENT_DETAILS, clientJson)
                 intent.putExtra(AgreementActivity.OPEN_CLIENT_INVESTMENT, true)
             }
+            val sharedPreferences = requireContext().getSharedPreferences(Constants.APP_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+            sharedPreferences.edit()
+                .putBoolean(Constants.GENERATE_SIGNING_URL, generateSigningURLCheckBox.isChecked)
+                .apply()
             startActivity(intent)
         }
     }
