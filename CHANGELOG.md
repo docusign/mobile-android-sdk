@@ -1,6 +1,16 @@
 # DocuSign Android SDK Changelog
 
 
+## [v1.7.2] - DocuSign Android SDK 08-23-2022
+
+### Added
+* Added encryption support for files
+* Added support for Print, Downloading combined document in Captive Signing
+
+### Fixed
+* Bug fixes and Improvements
+
+
 ## [v1.7.1] - DocuSign Android SDK 07-22-2022
 
 ### Fixed
