@@ -45,8 +45,8 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     ```gradle
         
         dependencies {
-            implementation 'com.docusign:androidsdk:1.7.3'
-            implementation 'com.docusign:sdk-common:1.7.3'
+            implementation 'com.docusign:androidsdk:1.7.4'
+            implementation 'com.docusign:sdk-common:1.7.4'
         }
         
     ```
@@ -58,9 +58,9 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     ```gradle
         
         dependencies {
-            implementation 'com.docusign:androidsdk:1.7.3'
-            implementation 'com.docusign:sdk-common:1.7.3'
-            implementation 'com.docusign:sdk-offline-signing:1.7.3'
+            implementation 'com.docusign:androidsdk:1.7.4'
+            implementation 'com.docusign:sdk-common:1.7.4'
+            implementation 'com.docusign:sdk-offline-signing:1.7.4'
         }
     ```
 
@@ -70,9 +70,9 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
 
     ```gradle
     dependencies {
-        implementation 'com.docusign:androidsdk:1.7.3'
-        implementation 'com.docusign:sdk-common:1.7.3'
-        implementation 'com.docusign:sdk-esign-api:1.7.3'
+        implementation 'com.docusign:androidsdk:1.7.4'
+        implementation 'com.docusign:sdk-common:1.7.4'
+        implementation 'com.docusign:sdk-esign-api:1.7.4'
     }
     ```
 
@@ -592,8 +592,8 @@ try {
                             .routingOrder(1)
                             .hostName(user.getName()) // this should be the user name returned in AuthenticationListener.onSuccess
                             .hostEmail(user.getEmail()) // this should be the user email returned in AuthenticationListener.onSuccess
-                            .signerName("John Doe")
-                            .signerEmail("john.doe@abc.com")
+                            .signerName("Jane Doe")
+                            .signerEmail("jane.doe@abc.com")
                             .type(DSRecipientType.IN_PERSON_SIGNER)
                             .tab(new DSTab.Builder()
                                     .documentId("1")
