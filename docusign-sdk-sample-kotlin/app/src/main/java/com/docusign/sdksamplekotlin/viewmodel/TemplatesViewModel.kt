@@ -179,6 +179,8 @@ class TemplatesViewModel : ViewModel() {
     }
 
     fun useTemplateOnline(context: Context, templateId: String, envelopeDefaults: DSEnvelopeDefaults?) {
+        val customSettingsDelegate = DocuSign.getInstance().getCustomSettingsDelegate()
+        customSettingsDelegate.disableNativeComponentsInOnlineSigning(context, false)
         // DS: Online signing using template
         templateDelegate.useTemplateOnline(context, templateId, envelopeDefaults, object : DSOnlineUseTemplateListener {
 

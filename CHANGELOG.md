@@ -1,5 +1,16 @@
 # DocuSign Android SDK Changelog
 
+
+## [v1.7.5] - DocuSign Android SDK 11-29-2022
+
+### Added
+- Added tab groups support for checkbox tags
+- Added tooltip support for templates
+
+### Fixed
+* Bug fixes and Improvements
+
+
 ## [v1.7.4] - DocuSign Android SDK 10-21-2022
 
 ### Fixed
