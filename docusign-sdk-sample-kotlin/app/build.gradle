@@ -42,8 +42,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    implementation 'com.docusign:androidsdk:1.7.9'
-    implementation 'com.docusign:sdk-common:1.7.9'
-    implementation 'com.docusign:sdk-esign-api:1.7.9'
-    implementation 'com.docusign:sdk-offline-signing:1.7.9'
+    implementation 'com.docusign:androidsdk:1.8.1'
+    implementation 'com.docusign:sdk-common:1.8.1'
+    implementation 'com.docusign:sdk-esign-api:1.8.1'
+    implementation 'com.docusign:sdk-offline-signing:1.8.1'
 }

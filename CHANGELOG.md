@@ -1,5 +1,14 @@
 # DocuSign Android SDK Changelog
 
+## [v1.8.1] - DocuSign Android SDK 04-13-2023
+
+### Added
+* Sign in each location support for Templates
+
+### Fixed
+* Bug fixes and Improvements
+
+
 ## [v1.7.9] - DocuSign Android SDK 02-17-2023
 
 ### Fixed
