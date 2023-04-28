@@ -1,5 +1,12 @@
 # DocuSign Android SDK Changelog
 
+
+## [v1.8.2] - DocuSign Android SDK 04-28-2023
+
+### Fixed
+* Bug fixes and Improvements
+
+
 ## [v1.8.1] - DocuSign Android SDK 04-13-2023
 
 ### Added
