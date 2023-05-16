@@ -1,6 +1,15 @@
 # DocuSign Android SDK Changelog
 
 
+## [v1.8.3] - DocuSign Android SDK 05-16-2023
+
+### Added
+* Conditional fields support for templates
+* Cropping support during signing with photo
+
+### Fixed
+* Bug fixes and Improvements
+
 ## [v1.8.2] - DocuSign Android SDK 04-28-2023
 
 ### Fixed
