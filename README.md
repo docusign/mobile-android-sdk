@@ -45,8 +45,8 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     ```gradle
         
         dependencies {
-            implementation 'com.docusign:androidsdk:1.8.3'
-            implementation 'com.docusign:sdk-common:1.8.3'
+            implementation 'com.docusign:androidsdk:1.8.4'
+            implementation 'com.docusign:sdk-common:1.8.4'
         }
         
     ```
@@ -58,9 +58,9 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     ```gradle
         
         dependencies {
-            implementation 'com.docusign:androidsdk:1.8.3'
-            implementation 'com.docusign:sdk-common:1.8.3'
-            implementation 'com.docusign:sdk-offline-signing:1.8.3'
+            implementation 'com.docusign:androidsdk:1.8.4'
+            implementation 'com.docusign:sdk-common:1.8.4'
+            implementation 'com.docusign:sdk-offline-signing:1.8.4'
         }
     ```
 
@@ -70,9 +70,9 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
 
     ```gradle
     dependencies {
-        implementation 'com.docusign:androidsdk:1.8.3'
-        implementation 'com.docusign:sdk-common:1.8.3'
-        implementation 'com.docusign:sdk-esign-api:1.8.3'
+        implementation 'com.docusign:androidsdk:1.8.4'
+        implementation 'com.docusign:sdk-common:1.8.4'
+        implementation 'com.docusign:sdk-esign-api:1.8.4'
     }
     ```
 
