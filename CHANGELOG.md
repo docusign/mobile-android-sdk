@@ -1,35 +1,44 @@
-# DocuSign Android SDK Changelog
+# Docusign Android SDK Changelog
 
-## [v1.9.2] - DocuSign Android SDK 01-17-2024
+## [v1.9.3] - Docusign Android SDK 04-19-2024
+
+### Added
+* Supplemental docs support for online signing
+* Docusign rebranding updates
+
+### Fixed
+* Bug fixes and Improvements
+
+## [v1.9.2] - Docusign Android SDK 01-17-2024
 
 ### Fixed
 * Android 14 support
 * Bug fixes and Improvements
 
-## [v1.9.1] - DocuSign Android SDK 08-18-2023
+## [v1.9.1] - Docusign Android SDK 08-18-2023
 
 ### Fixed
 * Bug fixes and Improvements
 
-## [v1.9.0] - DocuSign Android SDK 07-21-2023
-
-### Fixed
-* Bug fixes and Improvements
-
-
-## [v1.8.5] - DocuSign Android SDK 06-27-2023
+## [v1.9.0] - Docusign Android SDK 07-21-2023
 
 ### Fixed
 * Bug fixes and Improvements
 
 
-## [v1.8.4] - DocuSign Android SDK 06-02-2023
+## [v1.8.5] - Docusign Android SDK 06-27-2023
 
 ### Fixed
 * Bug fixes and Improvements
 
 
-## [v1.8.3] - DocuSign Android SDK 05-16-2023
+## [v1.8.4] - Docusign Android SDK 06-02-2023
+
+### Fixed
+* Bug fixes and Improvements
+
+
+## [v1.8.3] - Docusign Android SDK 05-16-2023
 
 ### Added
 * Conditional fields support for templates
@@ -38,13 +47,13 @@
 ### Fixed
 * Bug fixes and Improvements
 
-## [v1.8.2] - DocuSign Android SDK 04-28-2023
+## [v1.8.2] - Docusign Android SDK 04-28-2023
 
 ### Fixed
 * Bug fixes and Improvements
 
 
-## [v1.8.1] - DocuSign Android SDK 04-13-2023
+## [v1.8.1] - Docusign Android SDK 04-13-2023
 
 ### Added
 * Sign in each location support for Templates
@@ -53,31 +62,31 @@
 * Bug fixes and Improvements
 
 
-## [v1.7.9] - DocuSign Android SDK 02-17-2023
+## [v1.7.9] - Docusign Android SDK 02-17-2023
 
 ### Fixed
 * Bug fixes and Improvements
 
 
-## [v1.7.8] - DocuSign Android SDK 01-23-2023
+## [v1.7.8] - Docusign Android SDK 01-23-2023
 
 ### Fixed
 * Bug fixes and Improvements
 
 
-## [v1.7.7] - DocuSign Android SDK 12-15-2022
+## [v1.7.7] - Docusign Android SDK 12-15-2022
 
 ### Fixed
 * Bug fixes and Improvements
 
 
-## [v1.7.6] - DocuSign Android SDK 12-02-2022
+## [v1.7.6] - Docusign Android SDK 12-02-2022
 
 ### Fixed
 * Bug fixes and Improvements
 
 
-## [v1.7.5] - DocuSign Android SDK 11-29-2022
+## [v1.7.5] - Docusign Android SDK 11-29-2022
 
 ### Added
 - Added tab groups support for checkbox tags
@@ -87,18 +96,18 @@
 * Bug fixes and Improvements
 
 
-## [v1.7.4] - DocuSign Android SDK 10-21-2022
+## [v1.7.4] - Docusign Android SDK 10-21-2022
 
 ### Fixed
 * Bug fixes and Improvements
 
 
-## [v1.7.3] - DocuSign Android SDK 09-12-2022
+## [v1.7.3] - Docusign Android SDK 09-12-2022
 
 ### Fixed
 * Bug fixes and Improvements
 
-## [v1.7.2] - DocuSign Android SDK 08-23-2022
+## [v1.7.2] - Docusign Android SDK 08-23-2022
 
 ### Added
 * Added encryption support for files
@@ -108,19 +117,19 @@
 * Bug fixes and Improvements
 
 
-## [v1.7.1] - DocuSign Android SDK 07-22-2022
+## [v1.7.1] - Docusign Android SDK 07-22-2022
 
 ### Fixed
 * Bug fixes and Improvements
 
 
-## [v1.7.0] - DocuSign Android SDK 06-30-2022
+## [v1.7.0] - Docusign Android SDK 06-30-2022
 
 ### Fixed
 * Bug fixes and Improvements
 
 
-## [v1.6.0] - DocuSign Android SDK 05-12-2022
+## [v1.6.0] - Docusign Android SDK 05-12-2022
 
 ### Added
 * Added Anchor tags support
@@ -129,7 +138,7 @@
 * Bug fixes and Improvements
 
 
-## [v1.5.5] - DocuSign Android SDK 04-18-2022
+## [v1.5.5] - Docusign Android SDK 04-18-2022
 
 ### Added
 * Added envelopeIdStamping in DSEnvelope to control the display of envelope Id stamp in the completed document
@@ -138,13 +147,13 @@
 ### Fixed
 * Bug fixes and Improvements
 
-## [v1.5.4] - DocuSign Android SDK 03-23-2022
+## [v1.5.4] - Docusign Android SDK 03-23-2022
 
 ### Fixed
 * Bug fixes and Improvements
 
 
-## [v1.5.3] - DocuSign Android SDK 01-31-2022
+## [v1.5.3] - Docusign Android SDK 01-31-2022
 
 ### Added
 * Brand Id support in embedded signing for the envelopes created using DSEnvelope Builder and templates
@@ -152,12 +161,12 @@
 ### Fixed
 * Bug fixes and Improvements
 
-## [v1.5.1] - DocuSign Android SDK 01-18-2022
+## [v1.5.1] - Docusign Android SDK 01-18-2022
 
 ### Fixed
 * Bug fixes and Improvements
 
-## [v1.5.0] - DocuSign Android SDK 12-09-2021
+## [v1.5.0] - Docusign Android SDK 12-09-2021
 
 ### Added
 * Captive Signing URL support
@@ -171,7 +180,7 @@
 * Disabling checkbox tab programatically during Online signing
 * Bug fixes and Improvements
 
-## [v1.4.0] - DocuSign Android SDK 09-29-2021
+## [v1.4.0] - Docusign Android SDK 09-29-2021
 
 ### Added
 * Offline Signing as separate SDK
@@ -183,7 +192,7 @@
 ### Fixed
 * Bug fixes and Improvements
 
-## [v1.3.0] - DocuSign Android SDK 07-08-2021
+## [v1.3.0] - Docusign Android SDK 07-08-2021
 
 ### Added
 * eSign REST API access in SDK
@@ -192,7 +201,7 @@
 ### Fixed
 * Bug fixes and Improvements
 
-## [v1.2.0] - DocuSign Android SDK 05-19-2021
+## [v1.2.0] - Docusign Android SDK 05-19-2021
 
 ### Added
 * Support for EMAIL_ADDRESS tag for Offline Signing using templates
@@ -201,51 +210,51 @@
 ### Fixed
 * Bug fixes and Improvements
 
-## [v1.1.10] - DocuSign Android SDK 04-28-2021
+## [v1.1.10] - Docusign Android SDK 04-28-2021
 
 ### Fixed
 * Support email content in template
 
-## [v1.1.9] - DocuSign Android SDK 03-17-2021
+## [v1.1.9] - Docusign Android SDK 03-17-2021
 
 ### Fixed
 * Optimized login with access token api
 
-## [v1.1.7] - DocuSign Android SDK 03-08-2021
+## [v1.1.7] - Docusign Android SDK 03-08-2021
 
 ### Added
 * Provided API's via CustomSettings to enable or disable the download of AccountSettings and Consumer Disclosure while Login
 * By default, sequential syncing is enabled, Provided an API to enable envelope syncing in parallel
 * Disabled syncing when device is on 2G Network
 
-## [v1.1.7] - DocuSign Android SDK 02-24-2021
+## [v1.1.7] - Docusign Android SDK 02-24-2021
 
 ### Fixed
 * Fixed duplicate recipients entries in the Database
 * Included recipients validation on the envelope defaults object
 
-## [v1.1.6] - DocuSign Android SDK 02-02-2021
+## [v1.1.6] - Docusign Android SDK 02-02-2021
 
 ### Fixed
 * Fixed text tab fixed width and font size issue
 
-## [v1.1.5] - DocuSign Android SDK 01-11-2021
+## [v1.1.5] - Docusign Android SDK 01-11-2021
 
 ### Fixed
 * Memory leak and performance issues
 * Other bug fixes and enhancements
 
-## [v1.1.4] - DocuSign Android SDK 12-07-2020
+## [v1.1.4] - Docusign Android SDK 12-07-2020
 
 ### Fixed
 * Fixed bug related to downloading the combined document of a completed envelope
 
-## [v1.1.3] - DocuSign Android SDK 12-01-2020
+## [v1.1.3] - Docusign Android SDK 12-01-2020
 
 ### Added
 * Added support for app release builds using R8  
 
-## [v1.1.2] - DocuSign Android SDK 11-18-2020
+## [v1.1.2] - Docusign Android SDK 11-18-2020
 
 ### Fixed
 * Fixed border displayed around read only tabs during signing
@@ -258,12 +267,12 @@
 * Added displaying Private message in Online Signing
 * Added more Online Signing and Offline Signing telemetry events
 
-## [v1.1.1] - DocuSign Android SDK 10-15-2020
+## [v1.1.1] - Docusign Android SDK 10-15-2020
 
 ### Fixed
 * Tab values set using prefill envelope defaults for a template are not reflected in the document during Online Signing
 
-## [v1.1.0] - DocuSign Android SDK 10-09-2020
+## [v1.1.0] - Docusign Android SDK 10-09-2020
 
 ### Added
 * Added Online Signing feature
@@ -282,14 +291,14 @@
 * Removed RAM requirements
 
 
-## [v1.0.4] - DocuSign Android SDK 09-17-2020
+## [v1.0.4] - Docusign Android SDK 09-17-2020
 
 ### Added
 * Partial support for branding feature
 * Attaching a pdf file to the template documents before offline signing via templates
 * Many bug fixes and enhancements
 
-## [v1.0.3] - DocuSign Android SDK 08-30-2020
+## [v1.0.3] - Docusign Android SDK 08-30-2020
 
 ### Fixed
 * Syncing envelope crash with different Locale
@@ -297,15 +306,15 @@
 * Consumer Disclosure issue for JWT Token login
 * Crash when using online signing
 
-## [v1.0.2] - DocuSign Android SDK 07-20-2020
+## [v1.0.2] - Docusign Android SDK 07-20-2020
 
 ### Fixed
 * Removed external library dependencies from sdk artifact.
 * Syncing envelope issue for large files during different network conditions
 
-## [v1.0.0] - DocuSign Android SDK 07-01-2020
+## [v1.0.0] - Docusign Android SDK 07-01-2020
 
 ### Added
-* Initial release of DocuSign Android SDK.
+* Initial release of Docusign Android SDK.
 
 

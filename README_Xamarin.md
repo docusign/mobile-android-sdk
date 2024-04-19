@@ -1,27 +1,27 @@
-# DocuSign Android SDK Integration for Xamarin apps
-DocuSign Android SDK provides the following features:
+# Docusign Android SDK Integration for Xamarin apps
+Docusign Android SDK provides the following features:
 * Templates 
 * Envelope creation
 * Offline Signing of documents
-* Syncing signed documents with DocuSign
+* Syncing signed documents with Docusign
 
 ## Credentials Needed
 Before getting started, an Integration Key and valid Service User credentials are needed. The SDK cannot be used without these.
 ### Integration Key
-To use any DocuSign SDK or the REST API, an Integration Key is needed. Visit https://developers.docusign.com/ to obtain an Integration Key if one does not already exist. Note that an Integration Key is first provisioned on the DEMO environment, and then must be promoted to PROD when ready. 
+To use any Docusign SDK or the REST API, an Integration Key is needed. Visit https://developers.docusign.com/ to obtain an Integration Key if one does not already exist. Note that an Integration Key is first provisioned on the DEMO environment, and then must be promoted to PROD when ready. 
 ### Email & Password
-To use the DocuSign Android SDK, credentials are necessary. That user's credentials are what should be used in the Authentication section below.
+To use the Docusign Android SDK, credentials are necessary. That user's credentials are what should be used in the Authentication section below.
 ### Nuget
-Android SDK is published to nuget.org and is available at https://www.nuget.org/packages/Xamarin.Android.DocuSign
+Android SDK is published to nuget.org and is available at https://www.nuget.org/packages/Xamarin.Android.Docusign
 
 ## Supported versions
-Android Studio version should be 3.4 and above. Apps which integrate with DocuSign SDK requires AndroidX.
+Android Studio version should be 3.4 and above. Apps which integrate with Docusign SDK requires AndroidX.
 compileSdkVersion and targetSdkVersion should be 29 and above.
-DocuSign SDK supports android versions 5.0 and above (API level 21).
+Docusign SDK supports android versions 5.0 and above (API level 21).
 
 ## Setup 
-### DocuSign SDK Package
-Select the nuget.org source and add ‘Xamarin.Android.DocuSign’ package with latest version to the Xamarin application packages.
+### Docusign SDK Package
+Select the nuget.org source and add ‘Xamarin.Android.Docusign’ package with latest version to the Xamarin application packages.
 ### Packages
 Add the following Packages to the Xamarin application:
 - Xamarin.Android.ReactiveX.RxAndroid
@@ -152,27 +152,27 @@ native <methods>;
 
 ## API
 ### Initialization
-Initializes the DocuSign SDK.
+Initializes the Docusign SDK.
 ```csharp
-DocuSign.Init(
+Docusign.Init(
      this, // the Application Context
      "[YOUR INTEGRATOR KEY HERE]", // Same as Client Id
      "[YOUR SECRET KEY]",
      "[YOUR REDIRECT_URI]",
      DSMode.Debug  
 );
-DocuSign.Instance.Environment = DSEnvironment.DemoEnvironment; // For Demo environment. For production environment, use DSEnvironment.ProductionEnvironment
+Docusign.Instance.Environment = DSEnvironment.DemoEnvironment; // For Demo environment. For production environment, use DSEnvironment.ProductionEnvironment
 
 ```
 
 ## Authentication
 ### Login
 #### OAuth
-Authenticates the DocuSign user using OAuth.
+Authenticates the Docusign user using OAuth.
 ```csharp
 // requestCode - This code will be returned in onActivityResult() of the calling activity
  
-DSAuthenticationDelegate authenticationDelegate = DocuSign.Instance.AuthenticationDelegate;
+DSAuthenticationDelegate authenticationDelegate = Docusign.Instance.AuthenticationDelegate;
 authenticationDelegate.Login(requestCode, this, new LoginListener());
  
 public class LoginListener : Java.Lang.Object,IDSAuthenticationListener
@@ -190,13 +190,13 @@ public class LoginListener : Java.Lang.Object,IDSAuthenticationListener
 ```
 
 #### AuthToken
-Authenticates the DocuSign user with the provided authToken and optional refreshToken.
+Authenticates the Docusign user with the provided authToken and optional refreshToken.
 ```csharp
 /// accessToken - Access Token which authenticates the user
 // refreshToken - If the access token can be refreshed, the refresh token. Optional
 // expiresIn - The number of seconds from the time the access token was provisioned to when it will expire
  
-DSAuthenticationDelegate authenticationDelegate = DocuSign.Instance.AuthenticationDelegate;
+DSAuthenticationDelegate authenticationDelegate = Docusign.Instance.AuthenticationDelegate;
 authenticationDelegate.Login(accessToken,
                 refreshToken,
                 expiresIn,
@@ -218,12 +218,12 @@ public class AccessTokenLoginListener : Java.Lang.Object, IDSAuthenticationListe
 ```
 
 ### Logout
-Logout the authenticated DocuSign user.
+Logout the authenticated Docusign user.
 ```csharp
-// Clears the DocuSign cached data
+// Clears the Docusign cached data
 Boolean clearCachedData = true
  
-DSAuthenticationDelegate authenticationDelegate = DocuSign.Instance.AuthenticationDelegate;
+DSAuthenticationDelegate authenticationDelegate = Docusign.Instance.AuthenticationDelegate;
 authenticationDelegate.Logout(this, clearCachedData, new LogoutListener());
 public class LogoutListener : Java.Lang.Object, IDSLogoutListener
 {
@@ -244,7 +244,7 @@ The following example shows how to build an Envelope with one document, two sign
 ```csharp
 try
 {
-    DSAuthenticationDelegate authenticationDelegate = DocuSign.Instance.AuthenticationDelegate;
+    DSAuthenticationDelegate authenticationDelegate = Docusign.Instance.AuthenticationDelegate;
     DSUser user = authenticationDelegate.GetLoggedInUser(ApplicationContext);
     URI fileURI = URI.Create(sampleDoc.Name); // PDF Document
  
@@ -333,7 +333,7 @@ catch (DSAuthenticationException exception)
     }
     return null;
 }
-catch (DocuSignNotInitializedException exception)
+catch (DocusignNotInitializedException exception)
 {
     if (exception.Message != null)
     {
@@ -387,10 +387,10 @@ The following example assumes the envelope object from the above Envelope Creati
 ```csharp
 try
 {
-    DocuSign.Instance.EnvelopeDelegate.ComposeAndSendEnvelope(envelope,
+    Docusign.Instance.EnvelopeDelegate.ComposeAndSendEnvelope(envelope,
             new ComposeAndSendEnvelopeListener());
 }
-catch (DocuSignNotInitializedException exception)
+catch (DocusignNotInitializedException exception)
 {
     // TODO: handle error. This means the SDK object was not properly initialized
 }
@@ -416,10 +416,10 @@ The following example assumes you know the envelopeId you want to delete.
 ```csharp
 try
 {
-    DocuSign.Instance.EnvelopeDelegate.DeleteCachedEnvelope(envelopeId,
+    Docusign.Instance.EnvelopeDelegate.DeleteCachedEnvelope(envelopeId,
             new DeleteCachedEnvelopeListener());
 }
-catch (DocuSignNotInitializedException exception)
+catch (DocusignNotInitializedException exception)
 {
     // TODO: handle error. This means the SDK object was not properly initialized
 }
@@ -446,10 +446,10 @@ The following example assumes that you know the envelopeId you want to sign in o
 ```csharp
 try
 {
-    DocuSign.Instance.SigningDelegate.SignOffline(context,
+    Docusign.Instance.SigningDelegate.SignOffline(context,
         envelopeId, new OfflineSigningListener());
 }
-catch (DocuSignNotInitializedException exception)
+catch (DocusignNotInitializedException exception)
 {
     // TODO: handle error. This means the SDK object was not properly initialized
 }
@@ -480,10 +480,10 @@ The following example assumes you know the envelopeId of cached envelope that yo
 ```csharp
 try
 {
-    DocuSign.Instance.SigningDelegate.CreateEnvelopeAndLaunchOnlineSigning(context,
+    Docusign.Instance.SigningDelegate.CreateEnvelopeAndLaunchOnlineSigning(context,
             localEnvelopeId, new OnlineSigningListener());
 }
-catch (DocuSignNotInitializedException exception)
+catch (DocusignNotInitializedException exception)
 {
     // TODO: handle error. This means the SDK object was not properly initialized
 }
@@ -523,15 +523,15 @@ public class OnlineSigningListener : Java.Lang.Object, IDSOnlineSigningListener
 }
 ```
 
-#### Online Signing with envelope created in DocuSign portal
-The following example assumes you know the envelopeId of envelope created in DocuSign portal that you want to sign online
+#### Online Signing with envelope created in Docusign portal
+The following example assumes you know the envelopeId of envelope created in Docusign portal that you want to sign online
 ```csharp
 try
 {
-    DocuSign.Instance.SigningDelegate.signOnline(context,
+    Docusign.Instance.SigningDelegate.signOnline(context,
             serverEnvelopeId, new OnlineSigningListener());
 }
-catch (DocuSignNotInitializedException exception)
+catch (DocusignNotInitializedException exception)
 {
     // TODO: handle error. This means the SDK object was not properly initialized
 }
@@ -578,11 +578,11 @@ The following example assumes you know the envelopeId you want to sync.
 ```csharp
 try
 {
-    DocuSign.Instance.EnvelopeDelegate.SyncEnvelope(envelopeId,
+    Docusign.Instance.EnvelopeDelegate.SyncEnvelope(envelopeId,
             new SyncEnvelopeListener(), true);  // passing true, deletes the envelope in Database after syncing it to the cloud.
                                                 // Setting it to false, will retain the envelope in db with all the necessary information. An explicit clean up is required on your end to keep the db clean.
 }
-catch (DocuSignNotInitializedException exception)
+catch (DocusignNotInitializedException exception)
 {
     // TODO: handle error. This means the SDK object was not properly initialized
 }
@@ -611,9 +611,9 @@ The following example will sync all Sync Pending envelopes.
 ```csharp
 try
 {
-    DocuSign.Instance.EnvelopeDelegate.SyncAllEnvelope(new SyncAllEnvelopeListener(), true);
+    Docusign.Instance.EnvelopeDelegate.SyncAllEnvelope(new SyncAllEnvelopeListener(), true);
 }
-catch (DocuSignNotInitializedException exception)
+catch (DocusignNotInitializedException exception)
 {
     // TODO: handle error. This means the SDK object was not properly initialized
 }
@@ -656,10 +656,10 @@ public class SyncAllEnvelopeListener : Java.Lang.Object, IDSSyncAllEnvelopesList
 Support
 ===========
 
-* Reach out via developer community on Stack Overflow, search the [DocuSignAPI](http://stackoverflow.com/questions/tagged/docusignapi) tag.
+* Reach out via developer community on Stack Overflow, search the [DocusignAPI](http://stackoverflow.com/questions/tagged/docusignapi) tag.
 * Open an [issue](https://github.com/docusign/mobile-android-sdk/issues).
 
 License
 =======
 
-The DocuSign Mobile Android SDK is licensed under the following [License](LICENSE.md).
+The Docusign Mobile Android SDK is licensed under the following [License](LICENSE.md).

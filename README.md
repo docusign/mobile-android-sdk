@@ -1,20 +1,20 @@
-# DocuSign Android SDK Integration
-DocuSign Android SDK provides the following features:
+# Docusign Android SDK Integration
+Docusign Android SDK provides the following features:
 * Templates 
 * Envelope creation
 * Offline Signing and Online Signing of documents
-* Syncing signed documents with DocuSign
+* Syncing signed documents with Docusign
 
 ## Credentials Needed
 Before getting started, an Integration Key and valid Service User credentials are needed. The SDK cannot be used without these.
 ### Integration Key
-To use any DocuSign SDK or the REST API, an Integration Key is needed. Visit https://developers.docusign.com/ to obtain an Integration Key if one does not already exist. Note that an Integration Key is first provisioned on the DEMO environment, and then must be promoted to PROD when ready. 
+To use any Docusign SDK or the REST API, an Integration Key is needed. Visit https://developers.docusign.com/ to obtain an Integration Key if one does not already exist. Note that an Integration Key is first provisioned on the DEMO environment, and then must be promoted to PROD when ready. 
 ### Email & Password
-To use the DocuSign Android SDK, credentials are necessary. That user's credentials are what should be used in the Authentication section below.
+To use the Docusign Android SDK, credentials are necessary. That user's credentials are what should be used in the Authentication section below.
 ## Supported versions
-Android Studio version should be 3.4 and above. Apps which integrate with DocuSign SDK requires AndroidX.
+Android Studio version should be 3.4 and above. Apps which integrate with Docusign SDK requires AndroidX.
 compileSdkVersion and targetSdkVersion should be 29 and above.
-DocuSign SDK supports android versions 5.0 and above (API level 21).
+Docusign SDK supports android versions 5.0 and above (API level 21).
 ## Setup 
 1.  In your application's root build.gradle file:
 
@@ -37,7 +37,7 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
         }
     ```
 
-    ### DocuSign SDK Components 
+    ### Docusign SDK Components 
     #### Online Signing   
 
     If you would like to use Online Signing, add the following dependencies in your app's build.gradle file:
@@ -45,8 +45,8 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     ```gradle
         
         dependencies {
-            implementation 'com.docusign:androidsdk:1.9.2'
-            implementation 'com.docusign:sdk-common:1.9.2'
+            implementation 'com.docusign:androidsdk:1.9.3'
+            implementation 'com.docusign:sdk-common:1.9.3'
         }
         
     ```
@@ -58,9 +58,9 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     ```gradle
         
         dependencies {
-            implementation 'com.docusign:androidsdk:1.9.2'
-            implementation 'com.docusign:sdk-common:1.9.2'
-            implementation 'com.docusign:sdk-offline-signing:1.9.2'
+            implementation 'com.docusign:androidsdk:1.9.3'
+            implementation 'com.docusign:sdk-common:1.9.3'
+            implementation 'com.docusign:sdk-offline-signing:1.9.3'
         }
     ```
 
@@ -70,13 +70,13 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
 
     ```gradle
     dependencies {
-        implementation 'com.docusign:androidsdk:1.9.2'
-        implementation 'com.docusign:sdk-common:1.9.2'
-        implementation 'com.docusign:sdk-esign-api:1.9.2'
+        implementation 'com.docusign:androidsdk:1.9.3'
+        implementation 'com.docusign:sdk-common:1.9.3'
+        implementation 'com.docusign:sdk-esign-api:1.9.3'
     }
     ```
 
-2. If using CDN (as mentioned in the above steps) is not an option for downloading DocuSign Android SDK, then you can download SDK manually as separate library. The SDK is available at [release](https://github.com/docusign/mobile-android-sdk/tree/master/release).  
+2. If using CDN (as mentioned in the above steps) is not an option for downloading Docusign Android SDK, then you can download SDK manually as separate library. The SDK is available at [release](https://github.com/docusign/mobile-android-sdk/tree/master/release).  
 
     In the app's build.gradle, add the following dependencies:
     ```gradle
@@ -243,13 +243,13 @@ DocuSign SDK supports android versions 5.0 and above (API level 21).
     ```
 
 ## API Documentation
-Refer to DocuSign SDK api documentation at https://docusign.github.io/mobile-android-sdk/
+Refer to Docusign SDK api documentation at https://docusign.github.io/mobile-android-sdk/
 
 
 ## Initialization
 In your application's Application class:
 ```java
-DocuSign.init(
+Docusign.init(
     this, // the Application Context
     "[YOUR INTEGRATION KEY HERE]", // recommend not hard-coding this
     DSMode.DEBUG // this controls the logging (logcat) behavior
@@ -259,24 +259,24 @@ DocuSign.init(
 ### Initialization for OAuth Login
 In your application's Application class:
 ```java
-DocuSign.init(
+Docusign.init(
      this, // the Application Context
      "[YOUR INTEGRATION KEY HERE]", // Same as Client Id
      "[YOUR CLIENT SECRET KEY]",
      "[YOUR REDIRECT_URI]",
      DSMode.Debug  
 );
-DocuSign.getInstance().setEnvironment(DSEnvironment.DEMO_ENVIRONMENT); // For Demo environment. For production environment, use DSEnvironment.PRODUCTION_ENVIRONMENT
+Docusign.getInstance().setEnvironment(DSEnvironment.DEMO_ENVIRONMENT); // For Demo environment. For production environment, use DSEnvironment.PRODUCTION_ENVIRONMENT
 ```
 
 ## Authentication
 ### Login
 #### OAuth
-Authenticates the DocuSign user using OAuth.
+Authenticates the Docusign user using OAuth.
 ```java
 // requestCode - This code will be returned in onActivityResult() of the calling activity
 try {
-    DSAuthenticationDelegate docusignAuthDelegate = DocuSign.getInstance().getAuthenticationDelegate();
+    DSAuthenticationDelegate docusignAuthDelegate = Docusign.getInstance().getAuthenticationDelegate();
     docusignAuthDelegate.login(requestCode, context,
         new DSAuthenticationListener() {
             @Override
@@ -290,19 +290,19 @@ try {
             }
         }
     );
-} catch (DocuSignNotInitializedException exception) {
+} catch (DocusignNotInitializedException exception) {
     // TODO: handle error. This means the SDK object was not properly initialized
 }
 ```
 
 #### AuthToken
-Authenticates the DocuSign user with the provided authToken and optional refreshToken.
+Authenticates the Docusign user with the provided authToken and optional refreshToken.
 ```java
 // accessToken - Access Token which authenticates the user
 // refreshToken - If the access token can be refreshed, the refresh token. Optional
 // expiresIn - The number of seconds from the time the access token was provisioned to when it will expire
 try {
-    DSAuthenticationDelegate docusignAuthDelegate = DocuSign.getInstance().getAuthenticationDelegate();
+    DSAuthenticationDelegate docusignAuthDelegate = Docusign.getInstance().getAuthenticationDelegate();
     docusignAuthDelegate.login(accessToken, refreshToken, expiresIn, context,
         new DSAuthenticationListener() {
             @Override
@@ -316,19 +316,19 @@ try {
             }
         }
     );
-} catch (DocuSignNotInitializedException exception) {
+} catch (DocusignNotInitializedException exception) {
     // TODO: handle error. This means the SDK object was not properly initialized
 }
 ```
 
 ### Logout
-Logout the authenticated DocuSign user.
+Logout the authenticated Docusign user.
 ```java
-// Clears the DocuSign cached data
+// Clears the Docusign cached data
 Boolean clearCachedData = true
  
 try {
-    DSAuthenticationDelegate docusignAuthDelegate = DocuSign.getInstance().getAuthenticationDelegate();
+    DSAuthenticationDelegate docusignAuthDelegate = Docusign.getInstance().getAuthenticationDelegate();
     authenticationDelegate.logout(this, clearCachedData, new DSLogoutListener() {
      @Override
       public void onSuccess() {
@@ -340,7 +340,7 @@ try {
         // TODO: handle logout failure here
      }
 });
-} catch (DocuSignNotInitializedException exception) {
+} catch (DocusignNotInitializedException exception) {
     // TODO: handle error. This means the SDK object was not properly initialized
 }
 ```
@@ -349,7 +349,7 @@ try {
 ### Get Templates
 Retrieves the list of templates.
 ```java
-DSTemplateDelegate templateDelegate = DocuSign.getInstance().getTemplateDelegate();
+DSTemplateDelegate templateDelegate = Docusign.getInstance().getTemplateDelegate();
 DSTemplatesFilter filter = DSTemplatesFilter(count, null, null, startPosition);
 // count is no. of templates to be retrieved
 // startPosition is the startPosition/index of the templates retrieval.
@@ -374,7 +374,7 @@ templateDelegate.getTemplates(filter, new DSTemplateListListener() {
 ### Retrieve Downloaded Templates
 Retrieves the list of downloaded templates.
 ```java
-DSTemplateDelegate templateDelegate = DocuSign.getInstance().getTemplateDelegate();
+DSTemplateDelegate templateDelegate = Docusign.getInstance().getTemplateDelegate();
 templateDelegate.retrieveDownloadedTemplates(new DSTemplateListListener() {
     @Override
         public void onStart() {
@@ -396,7 +396,7 @@ templateDelegate.retrieveDownloadedTemplates(new DSTemplateListListener() {
 ### GetTemplate
 Fetches the template.
 ```java
-DSTemplateDelegate templateDelegate = DocuSign.getInstance().getTemplateDelegate();
+DSTemplateDelegate templateDelegate = Docusign.getInstance().getTemplateDelegate();
 templateDelegate.getTemplate(templateId, null, new DSTemplateListener(){
     @Override
     public void onComplete(DSTemplateDefinition template) {
@@ -413,7 +413,7 @@ templateDelegate.getTemplate(templateId, null, new DSTemplateListener(){
 ### CacheTemplate
 Caches the template.
 ```java
-DSTemplateDelegate templateDelegate = DocuSign.getInstance().getTemplateDelegate();
+DSTemplateDelegate templateDelegate = Docusign.getInstance().getTemplateDelegate();
 templateDelegate.cacheTemplate(templateId, new DSCacheTemplateListener(){
     @Override
     public void onStart() {
@@ -435,7 +435,7 @@ templateDelegate.cacheTemplate(templateId, new DSCacheTemplateListener(){
 ### RetrieveCachedTemplate
 Retrieves the cached template.
 ```java
-DSTemplateDelegate templateDelegate = DocuSign.getInstance().getTemplateDelegate();
+DSTemplateDelegate templateDelegate = Docusign.getInstance().getTemplateDelegate();
 templateDelegate.retrieveCachedTemplate(templateId, new DSGetCachedTemplateListener(){
     @Override
     public void onComplete(DSTemplateDefinition template) {
@@ -452,7 +452,7 @@ templateDelegate.retrieveCachedTemplate(templateId, new DSGetCachedTemplateListe
 ### RemoveCachedTemplate
 Removes the cached template.
 ```java
-DSTemplateDelegate templateDelegate = DocuSign.getInstance().getTemplateDelegate();
+DSTemplateDelegate templateDelegate = Docusign.getInstance().getTemplateDelegate();
 // DSTemplateDefinition template. Refer to javadoc for more info about DSTemplateDefintion.
 templateDelegate.removeCachedTemplate(template, new DSRemoveTemplateListener(){
     @Override
@@ -466,7 +466,7 @@ templateDelegate.removeCachedTemplate(template, new DSRemoveTemplateListener(){
 #### UseTemplate Offline
 Use the template and completes offline signing.
 ```java
-DSTemplateDelegate templateDelegate = DocuSign.getInstance().getTemplateDelegate();
+DSTemplateDelegate templateDelegate = Docusign.getInstance().getTemplateDelegate();
 templateDelegate.useTemplateOffline(
                 context,
                 templateId,
@@ -494,7 +494,7 @@ templateDelegate.useTemplateOffline(
 #### UseTemplate Online
 Use the template and completes online signing.
 ```java
-DSTemplateDelegate templateDelegate = DocuSign.getInstance().getTemplateDelegate();
+DSTemplateDelegate templateDelegate = Docusign.getInstance().getTemplateDelegate();
 templateDelegate.useTemplateOnline(
         context,
         templateId,
@@ -535,7 +535,7 @@ templateDelegate.useTemplateOnline(
 ### UpdateTemplate
 Updates the cached template.
 ```java
-DSTemplateDelegate templateDelegate = DocuSign.getInstance().getTemplateDelegate();
+DSTemplateDelegate templateDelegate = Docusign.getInstance().getTemplateDelegate();
 templateDelegate.updatedCachedTemplate(templateId, new DSUpdateCachedTemplateListener(){
     @Override
     public void onComplete(DSTemplate template, Boolean updateAvailable) {
@@ -562,7 +562,7 @@ templateDelegate.updatedCachedTemplate(templateId, new DSUpdateCachedTemplateLis
 The following example shows how to build an Envelope with one document, two signer recipients and one CC recipient. Each signer recipient has one signature tab. It also includes some metadata. 
 ```java
 try {
-            DSUser user = DocuSign.getInstance().getAuthenticationDelegate().getLoggedInUser(context);
+            DSUser user = Docusign.getInstance().getAuthenticationDelegate().getLoggedInUser(context);
             DSEnvelope  envelope = new DSEnvelope.Builder()
                     .envelopeName("[ENVELOPE NAME HERE]")
                     .document(new DSDocument.Builder()
@@ -629,7 +629,7 @@ try {
 The following example assumes the envelope object from the above Envelope Creation section.
 ```java
 try {
-    DSEnvelopeDelegate docusignEnvelopeDelegate = DocuSign.getInstance().getEnvelopeDelegate();
+    DSEnvelopeDelegate docusignEnvelopeDelegate = Docusign.getInstance().getEnvelopeDelegate();
     docusignEnvelopeDelegate.composeAndSendEnvelope(envelope, new ComposeAndSendEnvelopeListener() {
         @Override
         public void onSuccess(@NonNull String envelopeId) {
@@ -642,7 +642,7 @@ try {
             // TODO: handle failed envelope creation. exception.getMessage() will indicate what went wrong
         }
     });
-} catch (DocuSignNotInitializedException exception) {
+} catch (DocusignNotInitializedException exception) {
     // TODO: handle error. This means the SDK object was not properly initialized
 }
 ```
@@ -651,7 +651,7 @@ try {
 The following example assumes you know the envelopeId you want to delete.
 ```java
 try {
-    DSEnvelopeDelegate docusignEnvelopeDelegate = DocuSign.getInstance().getEnvelopeDelegate();
+    DSEnvelopeDelegate docusignEnvelopeDelegate = Docusign.getInstance().getEnvelopeDelegate();
     docusignEnvelopeDelegate.deleteCachedEnvelope(envelopeId, new DSDeleteCachedEnvelopeListener() {
         @Override
         public void onSuccess(@NonNull String envelopeId) {
@@ -663,7 +663,7 @@ try {
             // TODO: handle error with envelope deletion. exception.getMessage() will indicate what went wrong
         }
     });
-} catch (DocuSignNotInitializedException exception) {
+} catch (DocusignNotInitializedException exception) {
     // TODO: handle error. This means the SDK object was not properly initialized
 }
 ```
@@ -673,7 +673,7 @@ try {
 Signing an envelope offline
 
 ```java
-DSSigningDelegate signingDelegate = DocuSign.getInstance().getSigningDelegate();
+DSSigningDelegate signingDelegate = Docusign.getInstance().getSigningDelegate();
 signingDelegate.signOffline(
                 context,
                 envelopeId,  // envelopeId of the envelope which is created locally
@@ -699,10 +699,10 @@ signingDelegate.signOffline(
 Signing an envelope online
 
 ```java
-DSSigningDelegate signingDelegate = DocuSign.getInstance().getSigningDelegate();
+DSSigningDelegate signingDelegate = Docusign.getInstance().getSigningDelegate();
 signingDelegate.signOnline(
                 context,
-                serverEnvelopeId,      // Envelope Id of the envelope created in DocuSign portal
+                serverEnvelopeId,      // Envelope Id of the envelope created in Docusign portal
                 new DSOnlineSigningListener() {
                     @Override
                     public void onStart(@NotNull String envelopeId) {
@@ -742,7 +742,7 @@ signingDelegate.signOnline(
 The following example assumes you know the envelopeId you want to sync.
 ```java
 try {
-    DSEnvelopeDelegate envelopeDelegate = DocuSign.getInstance().getEnvelopeDelegate();
+    DSEnvelopeDelegate envelopeDelegate = Docusign.getInstance().getEnvelopeDelegate();
     envelopeDelegate.syncEnvelope(envelopeId, new DSSyncEnvelopeListener() {
         @Override
         public void onSuccess(@NonNull String localEnvelopeId, String serverEnvelopeId) {
@@ -759,7 +759,7 @@ try {
         }
     }, true); // passing true, deletes the envelope in Database after syncing it to the cloud.
               // Setting it to false, will retain the envelope in db with all the necessary information. An explicit clean up is required on your end to keep the db clean.
-} catch (DocuSignNotInitializedException exception) {
+} catch (DocusignNotInitializedException exception) {
     // TODO: handle error. This means the SDK object was not properly initialized
 }
 ```
@@ -768,7 +768,7 @@ try {
 The following example will sync all Sync Pending envelopes.
 ```java
 try {
-    DSEnvelopeDelegate envelopeDelegate = DocuSign.getInstance().getEnvelopeDelegate();
+    DSEnvelopeDelegate envelopeDelegate = Docusign.getInstance().getEnvelopeDelegate();
     envelopeDelegate.syncAllEnvelopes(new DSSyncAllEnvelopesListener() {
         @Override
         public void onStart() {
@@ -800,31 +800,31 @@ try {
         }
     }, true); // passing true, deletes the envelopes in Database after synching it to the cloud.
              // Setting it to false, will retain the envelopes in db with all the necessary information. An explicit clean up is required on your end to keep the db clean.
-} catch (DocuSignNotInitializedException exception) {
+} catch (DocusignNotInitializedException exception) {
     // TODO: handle error. This means the SDK object was not properly initialized
 }
 ```
 
 ## Transition from demo environment to production environment
-If you’re using the demo environment, check that you set the environment after creating the DocuSign instance as follows:
+If you’re using the demo environment, check that you set the environment after creating the Docusign instance as follows:
 ```java
-    DocuSign.getInstance().setEnvironment(DSEnvironment.DEMO_ENVIRONMENT);
+    Docusign.getInstance().setEnvironment(DSEnvironment.DEMO_ENVIRONMENT);
 ```
 
-If you’re using the production environment, check that you set the environment after creating the DocuSign instance as follows:
+If you’re using the production environment, check that you set the environment after creating the Docusign instance as follows:
 ```java
-    DocuSign.getInstance().setEnvironment(DSEnvironment.PRODUCTION_ENVIRONMENT);
+    Docusign.getInstance().setEnvironment(DSEnvironment.PRODUCTION_ENVIRONMENT);
 ```
 
 ## ESign REST API invocation from SDK
-The following example shows how to retrieve user signature using eSign REST API from DocuSign Android SDK:
+The following example shows how to retrieve user signature using eSign REST API from Docusign Android SDK:
 ### Java
 ```java
 private void getUserSignatureInfo() {
-            DSESignApiDelegate eSignApiDelegate = DocuSign.getInstance().getESignApiDelegate();
+            DSESignApiDelegate eSignApiDelegate = Docusign.getInstance().getESignApiDelegate();
             final UsersApi usersApi = eSignApiDelegate.createApiService(UsersApi.class);
             if (usersApi != null) {
-                DSAuthenticationDelegate authDelegate = DocuSign.getInstance().getAuthenticationDelegate();
+                DSAuthenticationDelegate authDelegate = Docusign.getInstance().getAuthenticationDelegate();
                 final DSUser user = authDelegate.getLoggedInUser(getApplicationContext());
 
                 eSignApiDelegate.invoke(new DSESignApiListener() {
@@ -855,10 +855,10 @@ private void getUserSignatureInfo() {
 ### Kotlin
 ``` kotlin
 private fun getUserSignatureInfo() {
-  val eSignApiDelegate = DocuSign.getInstance().getESignApiDelegate()
+  val eSignApiDelegate = Docusign.getInstance().getESignApiDelegate()
   val usersApi = eSignApiDelegate.createApiService(UsersApi::class.java)
 
-  val authDelegate = DocuSign.getInstance().getAuthenticationDelegate()
+  val authDelegate = Docusign.getInstance().getAuthenticationDelegate()
   val user = authDelegate.getLoggedInUser(context)
   eSignApiDelegate.invoke(object : DSESignApiListener {
 
@@ -881,7 +881,7 @@ private fun getUserSignatureInfo() {
 ## Captive Signing
 To perform captive signing using signing URL, you can invoke the following API:
 ```java
-    DSSigningDelegate signingDelegate = DocuSign.getInstance().getSigningDelegate();
+    DSSigningDelegate signingDelegate = Docusign.getInstance().getSigningDelegate();
         signingDelegate.launchCaptiveSigning(context,
                 signingURL,
                 envelopeId,
@@ -925,7 +925,7 @@ You can create local envelope using Auto place tags based on the anchor string i
 
 ```java
     try {
-            DSUser user = DocuSign.getInstance().getAuthenticationDelegate().getLoggedInUser(context);
+            DSUser user = Docusign.getInstance().getAuthenticationDelegate().getLoggedInUser(context);
             DSEnvelope  envelope = new DSEnvelope.Builder()
                     .envelopeName("[ENVELOPE NAME HERE]")
                     .document(new DSDocument.Builder()
@@ -991,11 +991,11 @@ You can create local envelope using Auto place tags based on the anchor string i
 
 Support
 ===========
-* [FAQ for DocuSign Android SDK](https://www.docusign.com/blog/developers/docusign-android-sdk-faq) 
-* Reach out via developer community on Stack Overflow, search the [DocuSignAPI](https://stackoverflow.com/questions/tagged/docusignapi) tag.
+* [FAQ for Docusign Android SDK](https://www.docusign.com/blog/developers/docusign-android-sdk-faq) 
+* Reach out via developer community on Stack Overflow, search the [DocusignAPI](https://stackoverflow.com/questions/tagged/docusignapi) tag.
 * Open an [issue](https://github.com/docusign/mobile-android-sdk/issues).
 
 License
 =======
 
-The DocuSign Mobile Android SDK is licensed under the following [License](LICENSE.md).
+The Docusign Mobile Android SDK is licensed under the following [License](LICENSE.md).
