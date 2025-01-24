@@ -14,7 +14,7 @@ To use the Docusign Android SDK, credentials are necessary. That user's credenti
 ## Supported versions
 Android Studio version should be 3.4 and above. Apps which integrate with Docusign SDK requires AndroidX.
 compileSdkVersion and targetSdkVersion should be 29 and above.
-Docusign SDK supports android versions 5.0 and above (API level 21).
+Docusign SDK supports android versions 6.0 and above (API level 24).
 ## Setup 
 1.  In your application's root build.gradle file:
 
@@ -29,12 +29,6 @@ Docusign SDK supports android versions 5.0 and above (API level 21).
             }
         }
         }
-
-        android {
-            defaultConfig {
-                multiDexEnabled = true
-            }
-        }
     ```
 
     ### Docusign SDK Components 
@@ -45,8 +39,8 @@ Docusign SDK supports android versions 5.0 and above (API level 21).
     ```gradle
         
         dependencies {
-            implementation 'com.docusign:androidsdk:1.9.6'
-            implementation 'com.docusign:sdk-common:1.9.6'
+            implementation 'com.docusign:androidsdk:2.0.0'
+            implementation 'com.docusign:sdk-common:2.0.0'
         }
         
     ```
@@ -58,9 +52,9 @@ Docusign SDK supports android versions 5.0 and above (API level 21).
     ```gradle
         
         dependencies {
-            implementation 'com.docusign:androidsdk:1.9.6'
-            implementation 'com.docusign:sdk-common:1.9.6'
-            implementation 'com.docusign:sdk-offline-signing:1.9.6'
+            implementation 'com.docusign:androidsdk:2.0.0'
+            implementation 'com.docusign:sdk-common:2.0.0'
+            implementation 'com.docusign:sdk-offline-signing:2.0.0'
         }
     ```
 
@@ -70,9 +64,9 @@ Docusign SDK supports android versions 5.0 and above (API level 21).
 
     ```gradle
     dependencies {
-        implementation 'com.docusign:androidsdk:1.9.6'
-        implementation 'com.docusign:sdk-common:1.9.6'
-        implementation 'com.docusign:sdk-esign-api:1.9.6'
+        implementation 'com.docusign:androidsdk:2.0.0'
+        implementation 'com.docusign:sdk-common:2.0.0'
+        implementation 'com.docusign:sdk-esign-api:2.0.0'
     }
     ```
 
@@ -119,7 +113,10 @@ Docusign SDK supports android versions 5.0 and above (API level 21).
         implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     }
     ```
-3. Make Application class extend MultiDexApplication (if it doesn't already)
+3. Add the following in your App manifest:
+    ```xml
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:node="remove"/>
+    ```
 4. Sync Gradle and/or build your application
 5. If app release builds has minifyEnabled true, then go through the following:
 

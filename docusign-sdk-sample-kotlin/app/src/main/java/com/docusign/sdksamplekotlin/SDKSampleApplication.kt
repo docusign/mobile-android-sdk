@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import com.docusign.androidsdk.DSEnvironment
 import com.docusign.androidsdk.DocuSign
-import com.docusign.androidsdk.dsmodels.DSAppearance
+import com.docusign.androidsdk.core.dsmodels.DSAppearance
 import com.docusign.androidsdk.exceptions.DocuSignNotInitializedException
 import com.docusign.androidsdk.util.DSMode
 import com.docusign.sdksamplekotlin.utils.Constants
