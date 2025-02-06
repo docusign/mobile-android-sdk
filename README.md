@@ -39,8 +39,8 @@ Docusign SDK supports android versions 6.0 and above (API level 24).
     ```gradle
         
         dependencies {
-            implementation 'com.docusign:androidsdk:2.0.0'
-            implementation 'com.docusign:sdk-common:2.0.0'
+            implementation 'com.docusign:androidsdk:2.0.1'
+            implementation 'com.docusign:sdk-common:2.0.1'
         }
         
     ```
@@ -52,9 +52,9 @@ Docusign SDK supports android versions 6.0 and above (API level 24).
     ```gradle
         
         dependencies {
-            implementation 'com.docusign:androidsdk:2.0.0'
-            implementation 'com.docusign:sdk-common:2.0.0'
-            implementation 'com.docusign:sdk-offline-signing:2.0.0'
+            implementation 'com.docusign:androidsdk:2.0.1'
+            implementation 'com.docusign:sdk-common:2.0.1'
+            implementation 'com.docusign:sdk-offline-signing:2.0.1'
         }
     ```
 
@@ -64,9 +64,9 @@ Docusign SDK supports android versions 6.0 and above (API level 24).
 
     ```gradle
     dependencies {
-        implementation 'com.docusign:androidsdk:2.0.0'
-        implementation 'com.docusign:sdk-common:2.0.0'
-        implementation 'com.docusign:sdk-esign-api:2.0.0'
+        implementation 'com.docusign:androidsdk:2.0.1'
+        implementation 'com.docusign:sdk-common:2.0.1'
+        implementation 'com.docusign:sdk-esign-api:2.0.1'
     }
     ```
 
@@ -113,12 +113,8 @@ Docusign SDK supports android versions 6.0 and above (API level 24).
         implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     }
     ```
-3. Add the following in your App manifest:
-    ```xml
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:node="remove"/>
-    ```
-4. Sync Gradle and/or build your application
-5. If app release builds has minifyEnabled true, then go through the following:
+3. Sync Gradle and/or build your application
+4. If app release builds has minifyEnabled true, then go through the following:
 
    In the app, if Gradle Plugin version is >= 3.4.0, then the build system uses R8 for app size shrinking. Otherwise it uses ProGuard for app size shrinking.   
    
